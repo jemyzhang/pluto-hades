@@ -1,0 +1,121 @@
+QFrame#frameMenu
+{
+background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(0, 0, 0, 150), stop:1 rgba(0, 0, 0, 200));
+border:5px solid rgb(30, 67, 168);
+border-left: 3px solid rgb(30, 67, 168);
+border-bottom-right-radius: 50px;
+border-top-right-radius: 50px;
+}
+
+QAbstractButton, QLabel, QLineEdit
+{
+color : white;
+font:   12pt "tahoma";
+}
+
+QAbstractButton
+{
+border:0px solid transparent;
+}
+
+QAbstractButton:pressed
+{
+background-color: qlineargradient(spread:pad, x1:0.508, y1:1, x2:0.497, y2:0, stop:0 rgba(0, 0, 0, 120), stop:1 rgba(0, 0, 255, 50));
+}
+
+QAbstractButton:on
+{
+background-color: qlineargradient(spread:pad, x1:0.508, y1:1, x2:0.497, y2:0, stop:0 rgba(0, 0, 0, 200), stop:1 rgba(0, 0, 255, 100));
+}
+
+QAbstractButton:off
+{
+background-color: qlineargradient(spread:pad, x1:0.508, y1:1, x2:0.497, y2:0, stop:0 rgba(0, 0, 0, 200), stop:1 rgba(0, 0, 0, 100));
+}
+
+QCheckBox
+{
+font : bold 11pt;
+spacing : 10px;
+}
+
+QCheckBox::indicator
+{
+width: 32px;
+height: 32px;
+margin-left: 10px;
+}
+
+QCheckBox::indicator:unchecked 
+{
+image: url(:/Resources/uncheck.png);
+}
+
+QCheckBox::indicator:checked 
+{
+image: url(:/Resources/preferences.png);
+}
+
+QLineEdit
+{
+border: 5px solid dimgray;
+background-color:transparent;
+font: bold 28pt;
+}
+
+QLineEdit:focus
+{
+border: 5px solid skyblue;
+background-color:aliceblue;
+color:dimgray;
+}
+
+QLabel#lbAppName
+{
+color: rgb(0, 170, 255);
+font: bold 20pt;
+}
+
+QLabel#lbVersion
+{
+font: bold 14pt;
+}
+
+
+QLabel#lbThumb
+{
+background-color: rgb(0, 0, 0, 0);
+border: 4px solid rgb(0, 0, 0, 100);
+border-radius: 15px;
+}
+
+QLabel#lbThumbMask
+{
+background-color: rgb(0, 0, 255, 50);
+}
+
+QFrame#statusBar
+{
+background-color: rgba(0, 0, 0, 200);
+}
+
+QFrame#statusBar > QLabel
+{
+font: bold 8pt "arial";
+}
+
+QFrame#line, QFrame#line2
+{
+color : rgb(30, 67, 168);
+}
+
+QProgressBar 
+{
+border: 0px solid transparent;
+background-color: transparent;
+}
+
+QProgressBar::chunk 
+{
+background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(72, 133, 165, 0), stop:1 rgba(13, 47, 157, 200));
+}

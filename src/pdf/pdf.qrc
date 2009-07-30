@@ -1,0 +1,23 @@
+<RCC>
+  <qresource>
+    <file>Resources/personalization.png</file>
+    <file>Resources/uncheck.png</file>
+    <file>Resources/Gear.png</file>
+    <file>Resources/Annotation_New.png</file>
+    <file>Resources/AutoList.png</file>
+    <file>Resources/cut.png</file>
+    <file>Resources/error.png</file>
+    <file>Resources/Folder_Open.png</file>
+    <file>Resources/foldergreen.png</file>
+    <file>Resources/Generic_Document.png</file>
+    <file>Resources/help.png</file>
+    <file>Resources/info.png</file>
+    <file>Resources/plutopdf32.png</file>
+    <file>Resources/preferences.png</file>
+    <file>Resources/search.png</file>
+    <file>Resources/Settings.png</file>
+    <file>Resources/Shortcut.png</file>
+    <file>Resources/Stuffed_Folder.png</file>
+    <file>Resources/Warning.png</file>
+  </qresource>
+</RCC>
