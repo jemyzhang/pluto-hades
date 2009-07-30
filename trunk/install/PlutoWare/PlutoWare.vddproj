@@ -1,0 +1,760 @@
+"DeployProject"
+{
+"VSVersion" = "3:701"
+"ProjectType" = "8:{AB322303-2255-48EF-A496-5904EB18DA55}"
+"IsWebType" = "8:FALSE"
+"ProjectName" = "8:PlutoWare"
+"LanguageId" = "3:2052"
+"CodePage" = "3:936"
+"SccProjectName" = "8:"
+"SccLocalPath" = "8:"
+"SccAuxPath" = "8:"
+"SccProvider" = "8:"
+    "Hierarchy"
+    {
+        "Entry"
+        {
+        "MsmKey" = "8:_173BDD98ACC44314B9870D32906A4C72"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1D230A074CD34D89BA5ADCD8A4A5DF18"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_366F1A414E794268A7AE7FC4CA4B8FA5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3B2E22D9A48B45E78CDC6B80818448A4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5A9AC349EDA14FDCBE883379931DC574"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_73C04B74D4044B12B77F8B97FD7DFA76"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_90D3CF6A987440418F766AAA7455303D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_99E14001731D4A55B04CD61A1AA04DDA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A6C7AEBB5EBC4A9B8EC47DAC690DD154"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A81F4D6BC57A40D1AE670A26CCAF71EA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AC4B854ABE0B44F7A7D131FC2E6F1090"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B9287BF96C7A43248F12B10A6922F037"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BDC505C1D3B94682899178438576F9CC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C36F77CE56DE4F3B90373F67A6166FA1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E6D9E8285FF746169107690BB6D08CE5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FF0DA68C3A8C469495444D9B68C49979"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+    }
+    "Configurations"
+    {
+        "Debug"
+        {
+        "DisplayName" = "8:Debug"
+        "IsDebugOnly" = "11:TRUE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:Debug\\PlutoWare.cab"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "SignOutput" = "11:FALSE"
+        "CertificateHash" = "8:"
+        "TimeStampServer" = "8:"
+        }
+        "Release"
+        {
+        "DisplayName" = "8:Release"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:TRUE"
+        "OutputFilename" = "8:..\\PlutoPDF_v0.1.4.0.cab"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "SignOutput" = "11:FALSE"
+        "CertificateHash" = "8:"
+        "TimeStampServer" = "8:"
+        }
+    }
+    "Deployable"
+    {
+        "File"
+        {
+            "{BA458234-9B71-4F46-8107-E91156377184}:_173BDD98ACC44314B9870D32906A4C72"
+            {
+            "SourcePath" = "8:..\\..\\bin\\help\\help_en.pdf"
+            "TargetName" = "8:help_en.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_B34A31D136BA4AFF8964276988A37682"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_1D230A074CD34D89BA5ADCD8A4A5DF18"
+            {
+            "SourcePath" = "8:..\\..\\license\\LGPL.license"
+            "TargetName" = "8:LGPL.license"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_366F1A414E794268A7AE7FC4CA4B8FA5"
+            {
+            "SourcePath" = "8:..\\..\\bin\\locale\\plutopdf_zh_CN.qm"
+            "TargetName" = "8:plutopdf_zh_CN.qm"
+            "Tag" = "8:"
+            "Folder" = "8:_455F2CCEF5A941F0A3EA3860FE48E33B"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_3B2E22D9A48B45E78CDC6B80818448A4"
+            {
+            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtGui4.dll"
+            "TargetName" = "8:QtGui4.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_5A9AC349EDA14FDCBE883379931DC574"
+            {
+            "SourcePath" = "8:..\\..\\bin\\style\\shinynoir.qss"
+            "TargetName" = "8:shinynoir.qss"
+            "Tag" = "8:"
+            "Folder" = "8:_43BA177FE5284974BD7B87872BF57D78"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_73C04B74D4044B12B77F8B97FD7DFA76"
+            {
+            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtCore4.dll"
+            "TargetName" = "8:QtCore4.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_99E14001731D4A55B04CD61A1AA04DDA"
+            {
+            "SourcePath" = "8:..\\..\\bin\\style\\noir.qss"
+            "TargetName" = "8:noir.qss"
+            "Tag" = "8:"
+            "Folder" = "8:_43BA177FE5284974BD7B87872BF57D78"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_A6C7AEBB5EBC4A9B8EC47DAC690DD154"
+            {
+            "SourcePath" = "8:..\\..\\bin\\help\\help_zh_cn.pdf"
+            "TargetName" = "8:help_zh_cn.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_B34A31D136BA4AFF8964276988A37682"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_A81F4D6BC57A40D1AE670A26CCAF71EA"
+            {
+            "SourcePath" = "8:..\\..\\src\\plutopdf.png"
+            "TargetName" = "8:plutopdf.png"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_BDC505C1D3B94682899178438576F9CC"
+            {
+            "SourcePath" = "8:..\\..\\src\\plutopdf64.png"
+            "TargetName" = "8:plutopdf64.png"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_C36F77CE56DE4F3B90373F67A6166FA1"
+            {
+            "SourcePath" = "8:..\\..\\license\\GPL.license"
+            "TargetName" = "8:GPL.license"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_FF0DA68C3A8C469495444D9B68C49979"
+            {
+            "SourcePath" = "8:..\\..\\bin\\locale\\plutopdf_en.qm"
+            "TargetName" = "8:plutopdf_en.qm"
+            "Tag" = "8:"
+            "Folder" = "8:_455F2CCEF5A941F0A3EA3860FE48E33B"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+        }
+        "Folder"
+        {
+            "{27CA7284-31D3-408F-812A-1EF9ACCDB822}:_6B05A4876EE447378BDC80041A93B09D"
+            {
+            "Name" = "8:Disk"
+            "Condition" = "8:"
+            "Property" = "8:CUSTOMFOLDER1"
+                "Folders"
+                {
+                    "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_1848A13C8CEB4D099F50476E7D35E2D0"
+                    {
+                    "Name" = "8:Programs"
+                    "Condition" = "8:"
+                    "Property" = "8:_543D57E33FE64B77A0E44D045F3C2B4A"
+                        "Folders"
+                        {
+                            "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_452D5AFDDE5042DE863AB3F07A668DBD"
+                            {
+                            "Name" = "8:PlutoWare"
+                            "Condition" = "8:"
+                            "Property" = "8:_160D8B771ED94A58B1C0179833C82D3B"
+                                "Folders"
+                                {
+                                    "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_43BA177FE5284974BD7B87872BF57D78"
+                                    {
+                                    "Name" = "8:style"
+                                    "Condition" = "8:"
+                                    "Property" = "8:_0907CF4DFC984ACE9B99833232D8A305"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                    "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_455F2CCEF5A941F0A3EA3860FE48E33B"
+                                    {
+                                    "Name" = "8:locale"
+                                    "Condition" = "8:"
+                                    "Property" = "8:_D2CCFDCD125E4EF7914C041FDD428060"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                    "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_659A767AADE54EDAB3737DAEDF2A887D"
+                                    {
+                                    "Name" = "8:config"
+                                    "Condition" = "8:"
+                                    "Property" = "8:_07EAB18863CE44F5A738FCA5C1731E19"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                    "{5943FCFD-5B64-4EE4-96C9-4618EC95352A}:_B34A31D136BA4AFF8964276988A37682"
+                                    {
+                                    "Name" = "8:help"
+                                    "Condition" = "8:"
+                                    "Property" = "8:_E6D7F12E630D41E48355094E1264785A"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            "{D5B00AC1-E6C3-4CC5-90FF-8E0F53D9E5E0}:_BCE44197520C4973AE8072EA4583E22B"
+            {
+            "DefaultLocation" = "8:%InstallDir%"
+            "Name" = "8:#1920"
+            "Condition" = "8:"
+            "Property" = "8:%InstallDir%"
+                "Folders"
+                {
+                }
+            }
+        }
+        "Product"
+        {
+        "Name" = "8:Microsoft Visual Studio"
+        "ProductName" = "8:PlutoPDF"
+        "Manufacturer" = "8:PlutoWare"
+        "OSVersionMin" = "8:4.0"
+        "OSVersionMax" = "8:6.99"
+        "NoUninstall" = "11:FALSE"
+        "Compress" = "11:TRUE"
+        "CESetupDLL" = "8:"
+        }
+        "ProjectOutput"
+        {
+            "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_90D3CF6A987440418F766AAA7455303D"
+            {
+            "SourcePath" = "8:..\\..\\bin\\platform_m8.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:0"
+            "OutputConfiguration" = "8:Release|M8SDK (ARMV4I)"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_AC4B854ABE0B44F7A7D131FC2E6F1090"
+            {
+            "SourcePath" = "8:..\\..\\bin\\plutopdf_m8.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:0"
+            "OutputConfiguration" = "8:Release|M8SDK (ARMV4I)"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_B9287BF96C7A43248F12B10A6922F037"
+            {
+            "SourcePath" = "8:..\\..\\bin\\foundation_wince.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:0"
+            "OutputConfiguration" = "8:Release|M8SDK (ARMV4I)"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_E6D9E8285FF746169107690BB6D08CE5"
+            {
+            "SourcePath" = "8:..\\..\\bin\\pdf_wince.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:0"
+            "OutputConfiguration" = "8:Release|M8SDK (ARMV4I)"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{1126A84C-20A1-440B-B873-6EFE711C6A3A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+        }
+        "Registry"
+        {
+            "HKLM"
+            {
+                "Keys"
+                {
+                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_B4303FEEED6548C08A993099C0277E1C"
+                    {
+                    "Name" = "8:SOFTWARE"
+                    "Condition" = "8:"
+                        "Keys"
+                        {
+                            "{B1EBC968-6B66-4532-A885-748B79AF4477}:_5802A8554DFA4749A89731CBABDAEBFE"
+                            {
+                            "Name" = "8:Meizu"
+                            "Condition" = "8:"
+                                "Keys"
+                                {
+                                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_309230E61C884CC18FCDEEC95330462C"
+                                    {
+                                    "Name" = "8:MiniOneShell"
+                                    "Condition" = "8:"
+                                        "Keys"
+                                        {
+                                            "{B1EBC968-6B66-4532-A885-748B79AF4477}:_C02DB0EC82E8439A8C21D649516D6FB7"
+                                            {
+                                            "Name" = "8:Main"
+                                            "Condition" = "8:"
+                                                "Keys"
+                                                {
+                                                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_F4B1388369384B08AD055A6AFAE2E44F"
+                                                    {
+                                                    "Name" = "8:PlutoPDF"
+                                                    "Condition" = "8:"
+                                                        "Keys"
+                                                        {
+                                                        }
+                                                        "Values"
+                                                        {
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_035D58117255409DB1380BA21CBAEC92"
+                                                            {
+                                                            "Name" = "8:DisplayName"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:Pluto PDF"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_1BBB1C7D1898451A99E5A36176D39DD0"
+                                                            {
+                                                            "Name" = "8:DefaultIcon"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:\\disk\\programs\\PlutoWare\\PlutoPdf.png"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_50A3DD9958C44CE8937C1F8649030B12"
+                                                            {
+                                                            "Name" = "8:ProgramID"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:{7B28DC3F-66B4-40f1-B814-467043168FD2}"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_A55ECA71A26546DC8E1113EE1227503D"
+                                                            {
+                                                            "Name" = "8:AnimateIcon"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:3"
+                                                            "Value" = "3:0"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_AF03128706F044C2A17B80D94555EF2B"
+                                                            {
+                                                            "Name" = "8:Order"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:3"
+                                                            "Value" = "3:0"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_EF8A9BB8ABB240CDB81C266E147E88FD"
+                                                            {
+                                                            "Name" = "8:ExecFileName"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:\\disk\\programs\\PlutoWare\\plutopdf_m8.exe"
+                                                            }
+                                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_F1472ABB800E44758BE0FC955DDCCA6C"
+                                                            {
+                                                            "Name" = "8:Page"
+                                                            "Condition" = "8:"
+                                                            "ValueTypes" = "3:3"
+                                                            "Value" = "3:1"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                }
+                            }
+                        }
+                        "Values"
+                        {
+                        }
+                    }
+                }
+            }
+            "HKCU"
+            {
+                "Keys"
+                {
+                }
+            }
+            "HKCR"
+            {
+                "Keys"
+                {
+                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_48756CE8E7B9464791F46A46952EB338"
+                    {
+                    "Name" = "8:.pdf"
+                    "Condition" = "8:"
+                        "Keys"
+                        {
+                        }
+                        "Values"
+                        {
+                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_9A48D2B865984228901E02C8A03B7D56"
+                            {
+                            "Name" = "8:"
+                            "Condition" = "8:"
+                            "ValueTypes" = "3:1"
+                            "Value" = "8:pdffile"
+                            }
+                        }
+                    }
+                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_BE4A96E27D3F46F8A3D5B0CE91FB7BE5"
+                    {
+                    "Name" = "8:FileAssociate"
+                    "Condition" = "8:"
+                        "Keys"
+                        {
+                            "{B1EBC968-6B66-4532-A885-748B79AF4477}:_5EE10182F82A4CE8A35AF799A0B24A4E"
+                            {
+                            "Name" = "8:pdffile"
+                            "Condition" = "8:"
+                                "Keys"
+                                {
+                                    "{B1EBC968-6B66-4532-A885-748B79AF4477}:_230167BF27E84A62B5A24771A70CF9E5"
+                                    {
+                                    "Name" = "8:shell"
+                                    "Condition" = "8:"
+                                        "Keys"
+                                        {
+                                        }
+                                        "Values"
+                                        {
+                                            "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_6F5DBB31FF3B4300A5ED3D68BAE55E52"
+                                            {
+                                            "Name" = "8:"
+                                            "Condition" = "8:"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:\\Disk\\programs\\PlutoWare\\plutopdf_m8.exe"
+                                            }
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                    "{C3684F64-58E2-4092-8E3C-D7483080DE5A}:_91C85FF80C9147E0B40DE2964999C799"
+                                    {
+                                    "Name" = "8:DefaultIcon"
+                                    "Condition" = "8:"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:\\disk\\programs\\PlutoWare\\PlutoPdf64.png"
+                                    }
+                                }
+                            }
+                        }
+                        "Values"
+                        {
+                        }
+                    }
+                }
+            }
+            "HKU"
+            {
+                "Keys"
+                {
+                }
+            }
+            "HKPU"
+            {
+                "Keys"
+                {
+                }
+            }
+        }
+        "Shortcut"
+        {
+        }
+    }
+}
