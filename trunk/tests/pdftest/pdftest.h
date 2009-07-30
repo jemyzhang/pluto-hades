@@ -21,6 +21,12 @@ private slots:
 	void testRender3();
 	void testRender4();
 
+	void testCompress();
+	void testCompress2();
+
+	void testUnCompress();
+	void testUnCompress2();
+
 	void testBackground();
 
 	void testImageProcessor();
