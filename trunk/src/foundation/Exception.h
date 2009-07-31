@@ -5,7 +5,7 @@
 **  CREATE DATE: 	06/03/2007
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Exception, provide more debug information than std::exception
@@ -22,10 +22,6 @@
 #define FOUNDATION_EXCEPTION_H
 #include "foundation_global.h"
 #include "Logger.h"
-
-#include <exception>
-#include <QTextStream>
-#include <QString>
 
 namespace foundation
 {
@@ -44,6 +40,12 @@ public:
 		const QString& func, 
 		int ln) throw();
 
+	Exception(const QString& msg, 
+		const QVariant& param,
+		const QString& file, 
+		const QString& func, 
+		int ln) throw();
+
 
 	Exception(const Exception& prev, 
 		const QString& msg,
@@ -58,6 +60,7 @@ public:
 	virtual ~Exception() throw();
 
 	QString message() const;///< error message
+	QVariant parameter() const;///< parameter
 
 	virtual QString toString() const;///< detail information
 	QTextStream& print(QTextStream& out) const;///< print to stream
@@ -69,6 +72,8 @@ protected:
 	QString		file_;///< File
 	QString		function_;///< Function
 	int			line_;///< Line number
+
+	QVariant	param_;///< Additional parameter
 };
 
 /** Stream output. */
@@ -78,8 +83,6 @@ operator<<(QTextStream& out, const Exception& ke)
 	return ke.print(out);
 }
 
-//End namespace foundation
-}
 
 /*******************************************************************************
 ** 	                                                                
@@ -94,6 +97,8 @@ operator<<(QTextStream& out, const Exception& ke)
 public:\
 	EXCEPTION_TYPE(const QString& msg, const QString& file, const QString& func, int ln)\
 	: Exception(msg, file, func, ln) {}\
+	EXCEPTION_TYPE(const QString& msg, const QVariant& param, const QString& file, const QString& func, int ln)\
+	: Exception(msg, param, file, func, ln) {}\
 	EXCEPTION_TYPE(const foundation::Exception& prev, const QString& msg, const QString& file, const QString& func, int ln)\
 	: Exception(prev, msg, file, func, ln) {}\
 	EXCEPTION_TYPE()\
@@ -106,6 +111,8 @@ public:\
 public:\
 	EXCEPTION_TYPE(const QString& msg, const QString& file, const QString& func, int ln)\
 	: PARENT_EXCEPTION_TYPE(msg, file, func, ln) {}\
+	EXCEPTION_TYPE(const QString& msg, const QVariant& param, const QString& file, const QString& func, int ln)\
+	: PARENT_EXCEPTION_TYPE(msg, param, file, func, ln) {}\
 	EXCEPTION_TYPE(const foundation::Exception& prev, const QString& msg, const QString& file, const QString& func, int ln)\
 	: PARENT_EXCEPTION_TYPE(prev, msg, file, func, ln) {}\
 	EXCEPTION_TYPE()\
@@ -130,6 +137,15 @@ public:\
 		throw EXCEPTION_TYPE(msg, __FILE__, __FUNCTION__, __LINE__);\
 	}
 
+#define __THROW_P(EXCEPTION_TYPE, msg, param) \
+	throw EXCEPTION_TYPE(msg, param, __FILE__, __FUNCTION__, __LINE__)
+
+#define __THROW_PL(EXCEPTION_TYPE, msg, param) \
+	{\
+	__LOG_E(msg);\
+	throw EXCEPTION_TYPE(msg, param, __FILE__, __FUNCTION__, __LINE__);\
+}
+
 #define __RETHROW(NEW_EXCEPTION_TYPE, e, msg) \
 	throw NEW_EXCEPTION_TYPE(e, msg, __FILE__, __FUNCTION__, __LINE__)
 
@@ -140,5 +156,31 @@ public:\
 		throw NEW_EXCEPTION_TYPE(e, msg, __FILE__, __FUNCTION__, __LINE__);\
 	}
 
+
+/************************************************************************/
+/*
+/*	IOException <-	FileReadException
+/*				<-	FileWriteException
+/*
+/************************************************************************/
+
+class FOUNDATION_EXPORT FileIOException : public Exception
+{
+	DECLARE_EXCEPTION(FileIOException)
+};
+
+
+class FOUNDATION_EXPORT FileReadException : public FileIOException
+{
+	DECLARE_CHILD_EXCEPTION(FileReadException, FileIOException)
+};
+
+
+class FOUNDATION_EXPORT FileWriteException : public FileIOException
+{
+	DECLARE_CHILD_EXCEPTION(FileWriteException, FileIOException)
+};
 #endif
 
+//End namespace foundation
+}

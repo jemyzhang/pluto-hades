@@ -5,7 +5,7 @@
 **  CREATE DATE: 	2007/09/13
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Provide a Java-like Enum	
@@ -19,12 +19,6 @@
 #ifndef FOUNDATION_ENUM_H
 #define FOUNDATION_ENUM_H
 #include "foundation_global.h"
-
-#include <QTextStream>
-#include <QString>
-#include <QVector>
-#include <QMap>
-
 
 namespace foundation
 {

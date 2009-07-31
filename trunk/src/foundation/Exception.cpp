@@ -5,7 +5,7 @@
 **  CREATE DATE: 	06/03/2007
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Exception implementation
@@ -34,6 +34,23 @@ Exception::Exception(const QString& msg,
 					 , line_(ln)
 {
 }
+
+
+Exception::Exception(const QString& msg,
+					 const QVariant& param, 
+					 const QString& file, 
+					 const QString& func, 
+					 int ln) throw()
+					 : std::exception(qPrintable(msg))
+					 , msg_(msg)
+					 , param_ (param)
+					 , file_(file)
+					 , function_(func)
+					 , line_(ln)
+{
+
+}
+
 
 
 Exception::Exception(const Exception& prev,
@@ -81,9 +98,9 @@ Exception::print(QTextStream& out) const
 QString 
 Exception::toString() const
 {
-	QString detail = QString("(%1) %2 [%3 - %4 (%5)]")
+	QString detail = QString("(%1) %2 {%3} [%4 - %5 (%6)]")
 		.arg(typeid(*this).name())
-		.arg(this->msg_, this->file_, this->function_)
+		.arg(this->msg_, this->param_.toString(), this->file_, this->function_)
 		.arg(line_);
 
 	if (history_.size())
@@ -100,7 +117,14 @@ Exception::toString() const
 QString 
 Exception::message() const
 {
-	return msg_;
+	return this->msg_;
+}
+
+
+QVariant 
+Exception::parameter() const
+{
+	return this->param_;
 }
 
 
