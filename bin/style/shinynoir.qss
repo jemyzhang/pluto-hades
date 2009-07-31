@@ -96,7 +96,7 @@ background-color: rgb(0, 0, 255, 50);
 
 QFrame#statusBar
 {
-background-color: rgba(0, 0, 0, 200);
+background-color: rgba(0, 0, 0, 150);
 }
 
 QFrame#statusBar > QLabel
