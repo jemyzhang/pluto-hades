@@ -27,7 +27,7 @@ namespace pdf {
 
 
 static const double MAX_CUT_MARGIN = 0.3;
-static const quint32 MAX_ACCEPT_MEM_USE = 70;
+static const quint32 MAX_ACCEPT_MEM_USE = 85;
 static const QString DEFAULT_STYLE = "style/shinynoir.qss";
 
 struct PDFScreen::PDFScreenImpl
@@ -808,6 +808,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		else if (message->wParam == WA_INACTIVE)
 		{
 			plutoApp->releaseShellKey(this);
+			plutoApp->leaveFullScreen(this);
 		}
 	}
 	else if (message->message == plutoApp->getShellEventId())

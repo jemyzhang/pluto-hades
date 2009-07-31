@@ -267,6 +267,31 @@ Platform::lastScreenRotateAngle() const
 
 
 Platform::ScreenRotateAngle 
+Platform::nextScreenRotateAngle(ScreenRotateAngle angle) const
+{
+	ScreenRotateAngle nextAngle = angle;
+
+	switch(angle)
+	{
+	case Angle0:
+		nextAngle = Angle90;
+		break;
+	case Angle90:
+		nextAngle = Angle180;
+		break;
+	case Angle180:
+		nextAngle = Angle270;
+		break;
+	case Angle270:
+		nextAngle = Angle0;
+		break;
+	}
+
+	return nextAngle;
+}
+
+
+Platform::ScreenRotateAngle 
 Platform::currentScreenRotateAngle() const
 {
 	return this->currAngle_;
@@ -329,8 +354,7 @@ Platform::memoryStatus() const
 void 
 Platform::advance90degree()
 {
-	ScreenRotateAngle nextAngle = (ScreenRotateAngle)(
-		(this->currentScreenRotateAngle() + 1) % 4);
+	ScreenRotateAngle nextAngle = this->nextScreenRotateAngle(this->currAngle_);
 
 	this->rotateScreen_(nextAngle);
 
@@ -341,8 +365,8 @@ Platform::advance90degree()
 void 
 Platform::advance180degree()
 {
-	ScreenRotateAngle nextAngle = (ScreenRotateAngle)(
-		(this->currentScreenRotateAngle() + 2) % 4);
+	ScreenRotateAngle nextAngle = this->nextScreenRotateAngle(this->currAngle_);
+	nextAngle = this->nextScreenRotateAngle(nextAngle);
 
 	this->rotateScreen_(nextAngle);
 
@@ -491,6 +515,10 @@ M8Platform::enterFullScreen_(QWidget* mainWin)
 {
 	HideMzTopBar();
 
+	mainWin->setMinimumSize(this->screenResolution());
+	mainWin->setMaximumSize(this->screenResolution());
+	mainWin->resize(this->screenResolution());
+
 	mainWin->setWindowState(Qt::WindowFullScreen);
 	mainWin->show();
 }
@@ -501,7 +529,9 @@ M8Platform::leaveFullScreen_(QWidget* mainWin)
 {
 	ShowMzTopBar();
 
-	mainWin->hide();
+	mainWin->setMinimumSize(this->screenResolution());
+	mainWin->setMaximumSize(this->screenResolution());
+	mainWin->resize(this->screenResolution());
 
 	mainWin->setWindowState(Qt::WindowFullScreen);
 	mainWin->show();

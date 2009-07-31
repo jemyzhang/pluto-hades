@@ -86,6 +86,8 @@ public slots:
 	void on_m2JumpPre10_clicked();
 	void on_m2JumpPre100_clicked();
 
+	void on_m2Zoom400_clicked();
+	void on_m2Zoom300_clicked();
 	void on_m2Zoom200_clicked();
 	void on_m2Zoom180_clicked();
 	void on_m2Zoom150_clicked();

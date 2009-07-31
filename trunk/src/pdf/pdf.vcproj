@@ -366,7 +366,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing pdf.qrc..."
-						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
+						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
 						AdditionalDependencies=".\pdf.qrc"
 						Outputs=".\GeneratedFiles\qrc_pdf.cpp"
 					/>
@@ -377,7 +377,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing pdf.qrc..."
-						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
+						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
 						AdditionalDependencies=".\pdf.qrc"
 						Outputs=".\GeneratedFiles\qrc_pdf.cpp"
 					/>
@@ -390,6 +390,18 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			SourceControlFiles="false"
 			>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_PDFMenu.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_PDFMenu.cpp"
 				>
@@ -411,15 +423,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_PDFMenu.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_PDFScreen.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -447,25 +452,6 @@
 						Name="VCCLCompilerTool"
 						WarningLevel="1"
 						WarnAsError="false"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_PDFScreen.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
 			</File>

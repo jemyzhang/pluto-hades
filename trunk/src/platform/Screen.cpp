@@ -121,9 +121,9 @@ Screen::Screen(QWidget *parent)
 	impl_->ui.lbThumbMask->move(impl_->thumbBoundary, impl_->thumbBoundary);
 	impl_->ui.lbThumb->hide();
 
-	impl_->thumbTimeLine = new QTimeLine(1500, this);
-	impl_->thumbTimeLine->setUpdateInterval(500);
-	impl_->thumbTimeLine->setFrameRange(1, 3);
+	impl_->thumbTimeLine = new QTimeLine(1000, this);
+	impl_->thumbTimeLine->setUpdateInterval(100);
+	impl_->thumbTimeLine->setFrameRange(0, 3);
 	this->connect(impl_->thumbTimeLine, 
 		SIGNAL(frameChanged(int)), 
 		SLOT(thumbDisplay(int)));
@@ -362,7 +362,7 @@ Screen::generateThumb(const QPixmap& pixmap)
 	if (alpha.size() != thumb.size())
 	{
 		alpha = thumb.alphaChannel();
-		alpha.fill(qRgba(200, 200, 200, 255));
+		alpha.fill(qRgba(180, 180, 180, 255));
 	}
 
 	thumb.setAlphaChannel(alpha);

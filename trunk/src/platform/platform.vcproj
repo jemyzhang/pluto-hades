@@ -181,6 +181,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\qrc_platform.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Screen.cpp"
 				>
 				<FileConfiguration
@@ -309,6 +313,32 @@
 			UniqueIdentifier="{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}"
 			ParseFiles="false"
 			>
+			<File
+				RelativePath=".\platform.qrc"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Rcc&apos;ing platform.qrc..."
+						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
+						AdditionalDependencies=".\platform.qrc"
+						Outputs=".\GeneratedFiles\qrc_platform.cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Rcc&apos;ing platform.qrc..."
+						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
+						AdditionalDependencies=".\platform.qrc"
+						Outputs=".\GeneratedFiles\qrc_platform.cpp"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Generated Files"
