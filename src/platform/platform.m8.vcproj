@@ -256,6 +256,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\qrc_platform.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Screen.cpp"
 				>
 				<FileConfiguration
@@ -368,6 +372,32 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\platform.qrc"
+			>
+			<FileConfiguration
+				Name="Debug|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description=".\platform.qrc"
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
+					AdditionalDependencies=".\platform.qrc"
+					Outputs=".\GeneratedFiles\qrc_platform.cpp"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Rcc&apos;ing platform.qrc..."
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp"
+					AdditionalDependencies=".\platform.qrc"
+					Outputs=".\GeneratedFiles\qrc_platform.cpp"
+				/>
+			</FileConfiguration>
+		</File>
 		<File
 			RelativePath=".\Screen.ui"
 			>

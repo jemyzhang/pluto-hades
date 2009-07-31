@@ -51,6 +51,8 @@ public:
 
 	enum ZoomLevel
 	{
+		FitWidth400 = -400,
+		FitWidth300 = -300,
 		FitWidth200 = -200,
 		FitWidth180 = -180,
 		FitWidth150 = -150,

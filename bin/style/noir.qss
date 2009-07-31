@@ -13,6 +13,11 @@ color : white;
 font:   12pt "·½ÕýÀ¼Í¤ºÚ_GBK";
 }
 
+QAbstractButton[highlight="true"]
+{
+color : silver;
+}
+
 QAbstractButton
 {
 border:0px solid transparent;
@@ -97,12 +102,12 @@ background-color: rgb(0, 0, 0, 50);
 
 QFrame#statusBar
 {
-background-color: rgba(0, 0, 0, 200);
+background-image: url(:/Resources/169.png);
 }
 
 QFrame#statusBar > QLabel
 {
-font: bold 8pt "arial";
+font: bold 9pt "arial";
 }
 
 QFrame#line, QFrame#line2
@@ -118,5 +123,5 @@ background-color: transparent;
 
 QProgressBar::chunk 
 {
-background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 200), stop:1 rgba(0, 0, 0, 200));
+background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 220));
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>409</width>
-    <height>460</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="styleSheet">
@@ -25,13 +25,13 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>460</height>
+       <height>455</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>460</height>
+       <height>455</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -85,7 +85,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>60</height>
+            <height>55</height>
            </size>
           </property>
           <property name="text">
@@ -669,6 +669,75 @@
              <number>0</number>
             </property>
             <item>
+             <widget class="QCommandLinkButton" name="m2AutoCut">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Auto Cut</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="description">
+               <string>Auto detect left/right margin</string>
+              </property>
+              <property name="highlight" stdset="0">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCommandLinkButton" name="m2CutReset">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Cut Reset</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="description">
+               <string>Reset the cut persentage to zero</string>
+              </property>
+              <property name="highlight" stdset="0">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QCommandLinkButton" name="m2CutLeft3">
               <property name="minimumSize">
                <size>
@@ -761,7 +830,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Cut Right %5</string>
+               <string>Cut Right 5%</string>
               </property>
               <property name="iconSize">
                <size>
@@ -779,69 +848,6 @@
                <string>Cut right margin, increase 5% per time, up to 30%</string>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QCommandLinkButton" name="m2AutoCut">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Auto Cut</string>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="description">
-               <string>Auto detect left/right margin</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCommandLinkButton" name="m2CutReset">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Cut Reset</string>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-              <property name="description">
-               <string>Reset the cut persentage to zero</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -914,6 +920,9 @@
               <property name="description">
                <string>Jump to the below page</string>
               </property>
+              <property name="highlight" stdset="0">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -928,62 +937,6 @@
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QCommandLinkButton" name="m2JumpPre10">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Previous 10</string>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-              <property name="description">
-               <string>Jump back 10 page</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCommandLinkButton" name="m2JumpPre100">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Previous 100</string>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="autoDefault">
-               <bool>false</bool>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-              <property name="description">
-               <string>Jump back 100 page</string>
-              </property>
-             </widget>
             </item>
             <item>
              <widget class="QCommandLinkButton" name="m2JumpNext10">
@@ -1041,6 +994,62 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QCommandLinkButton" name="m2JumpPre10">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Previous 10</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="description">
+               <string>Jump back 10 page</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCommandLinkButton" name="m2JumpPre100">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Previous 100</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="description">
+               <string>Jump back 100 page</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="zoomSubMenu">
@@ -1052,7 +1061,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QCommandLinkButton" name="m2Zoom200">
+             <widget class="QCommandLinkButton" name="m2Zoom100">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1060,7 +1069,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Zoom 200%</string>
+               <string>Zoom 100%</string>
               </property>
               <property name="iconSize">
                <size>
@@ -1075,12 +1084,28 @@
                <bool>false</bool>
               </property>
               <property name="description">
-               <string>Zoom in 200% over screen width</string>
+               <string>Fit screen width</string>
+              </property>
+              <property name="highlight" stdset="0">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCommandLinkButton" name="m2Zoom180">
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QCommandLinkButton" name="m2Zoom120">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1088,7 +1113,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Zoom 180%</string>
+               <string>Zoom 120%</string>
               </property>
               <property name="iconSize">
                <size>
@@ -1103,7 +1128,7 @@
                <bool>false</bool>
               </property>
               <property name="description">
-               <string>Zoom in 180% over screen width</string>
+               <string>Zoom in 120% over screen width</string>
               </property>
              </widget>
             </item>
@@ -1136,7 +1161,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCommandLinkButton" name="m2Zoom120">
+             <widget class="QCommandLinkButton" name="m2Zoom180">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1144,7 +1169,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Zoom 120%</string>
+               <string>Zoom 180%</string>
               </property>
               <property name="iconSize">
                <size>
@@ -1159,12 +1184,12 @@
                <bool>false</bool>
               </property>
               <property name="description">
-               <string>Zoom in 120% over screen width</string>
+               <string>Zoom in 180% over screen width</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCommandLinkButton" name="m2Zoom100">
+             <widget class="QCommandLinkButton" name="m2Zoom300">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1172,7 +1197,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Zoom 100%</string>
+               <string>Zoom 300%</string>
               </property>
               <property name="iconSize">
                <size>
@@ -1187,22 +1212,65 @@
                <bool>false</bool>
               </property>
               <property name="description">
-               <string>Fit screen width</string>
+               <string>Zoom in 300% over screen width</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
+             <widget class="QCommandLinkButton" name="m2Zoom200">
+              <property name="minimumSize">
                <size>
-                <width>20</width>
-                <height>40</height>
+                <width>200</width>
+                <height>50</height>
                </size>
               </property>
-             </spacer>
+              <property name="text">
+               <string>Zoom 200%</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="description">
+               <string>Zoom in 200% over screen width</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCommandLinkButton" name="m2Zoom400">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Zoom 400%</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="description">
+               <string>Zoom in 400% over screen width</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1375,6 +1443,9 @@
               <property name="description">
                <string>Open help file</string>
               </property>
+              <property name="highlight" stdset="0">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -1415,18 +1486,10 @@
   <tabstop>m2CutLeft5</tabstop>
   <tabstop>m2CutRight3</tabstop>
   <tabstop>m2CutRight5</tabstop>
-  <tabstop>m2CutReset</tabstop>
   <tabstop>lePageNo</tabstop>
   <tabstop>m2Jump</tabstop>
   <tabstop>m2JumpPre10</tabstop>
   <tabstop>m2JumpPre100</tabstop>
-  <tabstop>m2JumpNext10</tabstop>
-  <tabstop>m2JumpNext100</tabstop>
-  <tabstop>m2Zoom200</tabstop>
-  <tabstop>m2Zoom180</tabstop>
-  <tabstop>m2Zoom150</tabstop>
-  <tabstop>m2Zoom120</tabstop>
-  <tabstop>m2Zoom100</tabstop>
   <tabstop>m2ShowThumb</tabstop>
   <tabstop>m2ShowStatus</tabstop>
  </tabstops>

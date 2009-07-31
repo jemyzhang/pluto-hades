@@ -261,6 +261,20 @@ PDFMenu::on_m2JumpPre100_clicked()
 
 
 void 
+PDFMenu::on_m2Zoom400_clicked()
+{
+	emit askZoom(PDFReader::FitWidth400);
+}
+
+
+void 
+PDFMenu::on_m2Zoom300_clicked()
+{
+	emit askZoom(PDFReader::FitWidth300);
+}
+
+
+void 
 PDFMenu::on_m2Zoom200_clicked()
 {
 	emit askZoom(PDFReader::FitWidth200);

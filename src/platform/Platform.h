@@ -43,6 +43,13 @@ public:
 		Angle270 = 4,
 	};
 
+	enum ScreenRotation
+	{
+		Portrait,
+		Landscape90,
+		Landscape270,
+	};
+
 	enum M8Key
 	{
 		WPARAM_KEY_EVENT_CLICK_VOLUP = 0xB001,
@@ -84,12 +91,16 @@ public://screen relative helper functions
 
 	ScreenRotateAngle lastScreenRotateAngle() const;
 	ScreenRotateAngle currentScreenRotateAngle() const;
+	ScreenRotateAngle nextScreenRotateAngle(ScreenRotateAngle angle) const;
 
 	Qt::Orientation screenOrientation() const;
 
 	void rotateScreen(ScreenRotateAngle angle);
 	void rotateScreenBack();
 	void rotateScreenToCurrent();
+
+	//void rotateScreen();
+	//void rotateScreen(ScreenRotation angle);
 
 	void advance90degree();
 	void advance180degree();

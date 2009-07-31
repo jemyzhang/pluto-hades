@@ -10,12 +10,6 @@
     <height>480</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>720</width>
-    <height>480</height>
-   </size>
-  </property>
   <property name="focusPolicy">
    <enum>Qt::NoFocus</enum>
   </property>
@@ -115,14 +109,17 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>20</height>
+       <height>25</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>20</height>
+       <height>25</height>
       </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
@@ -166,7 +163,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>20</height>
+          <height>25</height>
          </size>
         </property>
         <property name="value">
@@ -240,6 +237,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="platform.qrc"/>
+ </resources>
  <connections/>
 </ui>
