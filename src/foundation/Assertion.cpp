@@ -5,7 +5,7 @@
 **  CREATE DATE: 	2007/10/18
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **------------------------------------------------------------------------------	
 **	PURPOSE:	

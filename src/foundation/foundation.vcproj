@@ -192,6 +192,30 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\CacheableObject.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Configuration.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Enum.cpp"
 				>
 				<FileConfiguration
@@ -312,6 +336,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ThumbableObject.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Timer.cpp"
 				>
 				<FileConfiguration
@@ -342,6 +378,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CacheableObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Configuration.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Enum.h"
 				>
 			</File>
@@ -367,6 +411,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ThumbableObject.h"
 				>
 			</File>
 			<File

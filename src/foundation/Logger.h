@@ -5,7 +5,7 @@
 **  CREATE DATE: 	06/04/2007
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Logger interface
@@ -20,9 +20,6 @@
 #define FOUNDATION_LOGGER_H
 #include "foundation_global.h"
 
-#include <QHash>
-#include <QString>
-#include <QSharedPointer>
 
 namespace foundation 
 {

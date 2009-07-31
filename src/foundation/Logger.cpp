@@ -5,7 +5,7 @@
 **  CREATE DATE: 	06/04/2007
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Logger's method implementation

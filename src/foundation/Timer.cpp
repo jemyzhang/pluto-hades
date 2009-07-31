@@ -5,7 +5,7 @@
 **  CREATE DATE: 	06/03/2007
 **  AUTHOR:			Roger
 **  
-**  Copyright (C) 2007 - PlutoWare, All Rights Reserved
+**  Copyright (C) 2007 - PlutoWare All Rights Reserved
 ** 
 **	
 **	PURPOSE:	Timer and GroupableTimer's implementation
