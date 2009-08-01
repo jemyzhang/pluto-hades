@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,1,4,0
- PRODUCTVERSION 0,1,4,0
+ FILEVERSION 0,1,4,1
+ PRODUCTVERSION 0,1,4,1
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -72,12 +72,12 @@ BEGIN
             VALUE "Comments", "Roger.Yi"
             VALUE "CompanyName", "PlutoWare - Roger.Yi"
             VALUE "FileDescription", "Pluto PDF"
-            VALUE "FileVersion", "0, 1, 4, 0"
+            VALUE "FileVersion", "0, 1, 4, 1"
             VALUE "InternalName", "plutopdf"
             VALUE "LegalCopyright", "Copyright (C) 2009, PlutoWare"
             VALUE "OriginalFilename", "plutopdf.m8"
             VALUE "ProductName", "plutopdf"
-            VALUE "ProductVersion", "0, 1, 4, 0"
+            VALUE "ProductVersion", "0, 1, 4, 1"
         END
     END
     BLOCK "VarFileInfo"

@@ -58,7 +58,7 @@ private slots:
 	void onAskZoom(int zoomLevel);
 	void onAskChangeSettings(bool showThumb, bool showStatus);
 	void onAskChangeStyle(const QString& styleFile);
-	void onAskRotate180();
+	void onAskRotate90();
 
 	void scrollDown();
 	void scrollUp();

@@ -126,6 +126,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="748"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1348"/>
+        <source>Rotate 90 Degree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="749"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1357"/>
+        <source>Rotate screen 90 degree clockwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="707"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="680"/>
         <source>Auto Cut</source>
@@ -222,26 +234,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="738"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1200"/>
-        <source>Zoom 300%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="739"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1215"/>
-        <source>Zoom in 300% over screen width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="740"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="1228"/>
-        <source>Zoom 200%</source>
+        <source>Zoom 300%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="741"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="1243"/>
+        <source>Zoom in 300% over screen width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="738"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1200"/>
+        <source>Zoom 200%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="739"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1215"/>
         <source>Zoom in 200% over screen width</source>
         <translation type="unfinished"></translation>
     </message>
@@ -321,18 +333,6 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="747"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="1335"/>
         <source>Load different UI style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="748"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1348"/>
-        <source>Rotate 180 Degree</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="749"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1357"/>
-        <source>Rotate screen 180 degree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

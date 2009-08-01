@@ -1337,7 +1337,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCommandLinkButton" name="m2Rotate180">
+             <widget class="QCommandLinkButton" name="m2Rotate90">
               <property name="minimumSize">
                <size>
                 <width>200</width>
@@ -1345,7 +1345,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Rotate 180 Degree</string>
+               <string>Rotate 90 Degree</string>
               </property>
               <property name="iconSize">
                <size>
@@ -1354,7 +1354,7 @@
                </size>
               </property>
               <property name="description">
-               <string>Rotate screen 180 degree</string>
+               <string>Rotate screen 90 degree clockwise</string>
               </property>
              </widget>
             </item>

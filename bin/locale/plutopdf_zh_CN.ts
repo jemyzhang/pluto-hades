@@ -7,7 +7,7 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="684"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="92"/>
         <source>Roger&apos;s PlutoPDF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="685"/>
@@ -126,6 +126,18 @@
         <translation>裁剪右边沿，递增5%，最高30%</translation>
     </message>
     <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="748"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1348"/>
+        <source>Rotate 90 Degree</source>
+        <translation>旋转90度</translation>
+    </message>
+    <message>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="749"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1357"/>
+        <source>Rotate screen 90 degree clockwise</source>
+        <translation>顺时针旋转屏幕90度</translation>
+    </message>
+    <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="707"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="680"/>
         <source>Auto Cut</source>
@@ -153,7 +165,7 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="719"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="883"/>
         <source>0000; </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="721"/>
@@ -171,7 +183,7 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="727"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="1021"/>
         <source>Jump back 10 page</source>
-        <translation>往后跳转到10个页面</translation>
+        <translation>往回跳转10个页面</translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="728"/>
@@ -183,7 +195,7 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="729"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="1049"/>
         <source>Jump back 100 page</source>
-        <translation>往后跳转100个页面</translation>
+        <translation>往回跳转100个页面</translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="722"/>
@@ -195,7 +207,7 @@
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="723"/>
         <location filename="../../src/pdf/PDFMenu.ui" line="965"/>
         <source>Jump to next 10 page</source>
-        <translation>往前跳转10个页面</translation>
+        <translation>往后跳转10个页面</translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="724"/>
@@ -222,26 +234,26 @@
         <translation>放大至屏宽的4倍</translation>
     </message>
     <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="738"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1200"/>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="740"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1228"/>
         <source>Zoom 300%</source>
         <translation>放大300%</translation>
     </message>
     <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="739"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1215"/>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="741"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1243"/>
         <source>Zoom in 300% over screen width</source>
         <translation>放大至屏宽的3倍</translation>
     </message>
     <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="740"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1228"/>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="738"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1200"/>
         <source>Zoom 200%</source>
         <translation>放大200%</translation>
     </message>
     <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="741"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1243"/>
+        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="739"/>
+        <location filename="../../src/pdf/PDFMenu.ui" line="1215"/>
         <source>Zoom in 200% over screen width</source>
         <translation>放大至屏宽的2倍</translation>
     </message>
@@ -322,18 +334,6 @@
         <location filename="../../src/pdf/PDFMenu.ui" line="1335"/>
         <source>Load different UI style</source>
         <translation>加载不同的UI风格</translation>
-    </message>
-    <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="748"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1348"/>
-        <source>Rotate 180 Degree</source>
-        <translation>旋转180度</translation>
-    </message>
-    <message>
-        <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="749"/>
-        <location filename="../../src/pdf/PDFMenu.ui" line="1357"/>
-        <source>Rotate screen 180 degree</source>
-        <translation>屏幕旋转180度</translation>
     </message>
     <message>
         <location filename="../../src/pdf/GeneratedFiles/ui_PDFMenu.h" line="750"/>
