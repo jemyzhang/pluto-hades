@@ -86,6 +86,8 @@ public://screen relative helper functions
 	ScreenRotateAngle currentScreenRotateAngle() const;
 	ScreenRotateAngle nextScreenRotateAngle(ScreenRotateAngle angle) const;
 
+	int deltaAngle(ScreenRotateAngle angle1, ScreenRotateAngle angle2) const;
+
 	Qt::Orientation screenOrientation() const;
 
 	void rotateScreen(ScreenRotateAngle angle);

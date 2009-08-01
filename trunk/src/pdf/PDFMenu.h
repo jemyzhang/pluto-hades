@@ -32,10 +32,21 @@ class PDFMenu : public QWidget
 public:
 	enum CutRequest
 	{
+		CutLeft2,
+		CutRight2,
+		CutTop2,
+		CutBottom2,
+
 		CutLeft3,
 		CutRight3,
+		CutTop3,
+		CutBottom3,
+
 		CutLeft5,
 		CutRight5,
+		CutTop5,
+		CutBottom5,
+
 		CutAuto,
 		CutReset,
 	};

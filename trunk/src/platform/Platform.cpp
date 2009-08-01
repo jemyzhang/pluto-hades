@@ -355,6 +355,66 @@ Platform::advance180degree()
 }
 
 
+int 
+Platform::deltaAngle(ScreenRotateAngle angle1,
+					 ScreenRotateAngle angle2) const
+{
+	switch (angle1)
+	{
+	case Angle0:
+		switch (angle2)
+		{
+		case Angle0:
+			return 0;
+		case Angle90:
+			return 90;
+		case Angle180:
+			return 180;
+		case Angle270:
+			return 270;
+		}
+	case Angle90:
+		switch (angle2)
+		{
+		case Angle0:
+			return 270;
+		case Angle90:
+			return 0;
+		case Angle180:
+			return 90;
+		case Angle270:
+			return 180;
+		}
+	case Angle180:
+		switch (angle2)
+		{
+		case Angle0:
+			return 180;
+		case Angle90:
+			return 270;
+		case Angle180:
+			return 0;
+		case Angle270:
+			return 90;
+		}
+	case Angle270:
+		switch (angle2)
+		{
+		case Angle0:
+			return 90;
+		case Angle90:
+			return 180;
+		case Angle180:
+			return 270;
+		case Angle270:
+			return 0;
+		}
+	}
+
+	return 0;
+}
+
+
 /************************************************************************/
 /*                                                                      
 /*	M8Platform
@@ -500,14 +560,18 @@ M8Platform::enterFullScreen_(QWidget* mainWin)
 {
 	HideMzTopBar();
 
-	QDesktopWidget dw;
+	if (mainWin)
+	{
+		QDesktopWidget dw;
 
-	mainWin->setMinimumSize(dw.size());
-	mainWin->setMaximumSize(dw.size());
-	mainWin->resize(dw.size());
+		mainWin->setMinimumSize(dw.size());
+		mainWin->setMaximumSize(dw.size());
+		mainWin->resize(dw.size());
 
-	mainWin->setWindowState(Qt::WindowFullScreen);
-	mainWin->show();
+		mainWin->setWindowState(Qt::WindowFullScreen);
+		mainWin->show();
+	}
+
 }
 
 
@@ -516,8 +580,11 @@ M8Platform::leaveFullScreen_(QWidget* mainWin)
 {
 	ShowMzTopBar();
 
-	mainWin->setWindowState(Qt::WindowFullScreen);
-	mainWin->show();
+	if (mainWin)
+	{
+		mainWin->setWindowState(Qt::WindowFullScreen);
+		mainWin->show();
+	}
 }
 
 
