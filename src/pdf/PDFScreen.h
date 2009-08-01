@@ -37,6 +37,7 @@ public:
 
 public slots:
 	void getPdfBook();
+	void openFirstPdfBook();
 	void openPdfBook(const QString& pdfFile);
 
 	void scrollPrePage();
@@ -47,11 +48,9 @@ public slots:
 	void renderPage();
 
 
-signals:
-	void firstShow();
 
 private slots:
-	void onFirstShown();
+
 	void onAskHelp();
 	void onAskCut(int req);
 	void onAskJump(int pageNo);

@@ -240,25 +240,6 @@ Platform::getShellEventId() const
 }
 
 
-QSize 
-Platform::screenResolution() const
-{
-#ifdef _WIN32_WCE
-	static QDesktopWidget* dw = NULL;
-
-	if (!dw)
-	{
-		dw = new QDesktopWidget();
-	}
-	
-	QRect rect = dw->screenGeometry();
-	return rect.size();
-#else
-	return QSize(720, 480);
-#endif
-}
-
-
 Platform::ScreenRotateAngle 
 Platform::lastScreenRotateAngle() const
 {
@@ -501,12 +482,16 @@ M8Platform::rotateScreen_(ScreenRotateAngle angle)
 
 	if(DISP_CHANGE_SUCCESSFUL == result)
 	{
-		__LOG(QString("Rotate screeen %1 successed.").arg(angle));
+		__LOG(QString("Rotate screen %1 successful.").arg(angle));
 	}
 	else
 	{
-		__LOG(QString("Rotate screeen %1 failed.").arg(angle));
+		__LOG(QString("Rotate screen %1 failed.").arg(angle));
 	}
+
+	::Sleep(100);
+
+	this->processEvents();
 }
 
 
@@ -515,9 +500,11 @@ M8Platform::enterFullScreen_(QWidget* mainWin)
 {
 	HideMzTopBar();
 
-	mainWin->setMinimumSize(this->screenResolution());
-	mainWin->setMaximumSize(this->screenResolution());
-	mainWin->resize(this->screenResolution());
+	QDesktopWidget dw;
+
+	mainWin->setMinimumSize(dw.size());
+	mainWin->setMaximumSize(dw.size());
+	mainWin->resize(dw.size());
 
 	mainWin->setWindowState(Qt::WindowFullScreen);
 	mainWin->show();
@@ -528,10 +515,6 @@ void
 M8Platform::leaveFullScreen_(QWidget* mainWin)
 {
 	ShowMzTopBar();
-
-	mainWin->setMinimumSize(this->screenResolution());
-	mainWin->setMaximumSize(this->screenResolution());
-	mainWin->resize(this->screenResolution());
 
 	mainWin->setWindowState(Qt::WindowFullScreen);
 	mainWin->show();

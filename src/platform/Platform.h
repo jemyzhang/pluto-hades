@@ -43,13 +43,6 @@ public:
 		Angle270 = 4,
 	};
 
-	enum ScreenRotation
-	{
-		Portrait,
-		Landscape90,
-		Landscape270,
-	};
-
 	enum M8Key
 	{
 		WPARAM_KEY_EVENT_CLICK_VOLUP = 0xB001,
@@ -99,17 +92,12 @@ public://screen relative helper functions
 	void rotateScreenBack();
 	void rotateScreenToCurrent();
 
-	//void rotateScreen();
-	//void rotateScreen(ScreenRotation angle);
-
 	void advance90degree();
 	void advance180degree();
 
 	void enterFullScreen(QWidget* mainWin);
 	void leaveFullScreen(QWidget* mainWin);
 	void reEnterFullScreen(QWidget* mainWin);
-
-	QSize screenResolution() const;
 
 
 public://system info helper functions
