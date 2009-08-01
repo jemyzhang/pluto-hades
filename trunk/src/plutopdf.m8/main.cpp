@@ -24,6 +24,13 @@ main(int argc, char *argv[])
 {
 	pltM8Platform m8App(argc, argv);
 
+	//splash
+	QSplashScreen splash;
+	splash.setPixmap(QPixmap(":/Resources/pluto.png"));
+	splash.show();
+	plutoApp->processEvents();
+
+
 	//rotate
 	QSettings settings(plutoApp->pathRelateToAppDir("config/config.ini"),
 		QSettings::IniFormat);
@@ -34,12 +41,15 @@ main(int argc, char *argv[])
 		settings.value("rotateAngle", plutoApp->realScreenRotateAngle() + 1).toInt();
 
 	settings.endGroup();
-
 	plutoApp->rotateScreen(newAngle);
 
 
+	//open screen
 	pltPDFScreen screen;
+	screen.openFirstPdfBook();
+
 	m8App.enterFullScreen(&screen);
+	splash.finish(&screen);
 
 	m8App.connect(&m8App, SIGNAL(lastWindowClosed()), SLOT(quit()));
 

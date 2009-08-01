@@ -34,9 +34,12 @@ struct PDFScreen::PDFScreenImpl
 {
 	PDFScreenImpl()
 		: zoomLevel (PDFReader::FitWidth)
+		, screenRegion (NULL)
 	{
 
 	}
+
+	QDesktopWidget dw;
 
 	PDFMenu* menu;
 	QGraphicsScene* scene;
@@ -76,25 +79,39 @@ struct PDFScreen::PDFScreenImpl
 
 	void setupLayout()
 	{
-		int cornerW = plutoApp->screenResolution().width() / 6;
-		int cornerH = plutoApp->screenResolution().height() / 5;
+		if (screenRegion)
+		{
+			scene->removeItem(screenRegion);
+			SAFE_DELETE(screenRegion);
+		}
 
-		tlCorner = QRect(0,				0,				cornerW,	cornerH);
-		trCorner = QRect(cornerW * 5,	0,				cornerW,	cornerH);
+		int cornerW = 120;
+		int cornerH = 120;
 
-		blCorner = QRect(0,				cornerH * 4,	cornerW,	cornerH);
-		brCorner = QRect(cornerW * 5,	cornerH * 4,	cornerW,	cornerH);
-
-		center =   QRect(cornerW * 2.5,	cornerH * 2,	cornerW,	cornerH);
+		tlCorner = QRect(0, 0, cornerW, cornerH);
+		trCorner = QRect(dw.width() - cornerW,	
+			0,			
+			cornerW,	
+			cornerH);
+		blCorner = QRect(0,				
+			dw.height() - cornerH,
+			cornerW,	
+			cornerH);
+		brCorner = QRect(dw.width() - cornerW,
+			dw.height() - cornerH,	
+			cornerW,	
+			cornerH);
+		center =   QRect((dw.width() - cornerW) / 2,	
+			(dw.height() - cornerH) / 2,
+			cornerW,
+			cornerH);
 
 
 		QList<QRect> rects;
 		rects<<tlCorner<<trCorner<<center<<blCorner<<brCorner;
 
 		screenRegion = 
-			scene->addRect(0, 0, 
-			plutoApp->screenResolution().width(), 
-			plutoApp->screenResolution().height());
+			scene->addRect(0, 0, dw.width(), dw.height());
 
 		screenRegion->setBrush(QColor("transparent"));
 		screenRegion->setPen(QPen(QColor("transparent")));
@@ -317,7 +334,7 @@ PDFScreen::renderPage()
 			impl_->ignoreCutPages);
 
 		QImage pg = impl_->pdfReader.renderFitWidth(impl_->pageNumber,
-			plutoApp->screenResolution().width(),
+			impl_->dw.screenGeometry().width(),
 			impl_->zoomLevel);
 
 		//if necessary, clear store buffer to save memory
@@ -574,22 +591,7 @@ PDFScreen::keyPressEvent(QKeyEvent *event)
 void 
 PDFScreen::showEvent(QShowEvent *event)
 {
-	static bool first = true;
-
 	pltScreen::showEvent(event);
-	QCoreApplication::processEvents();
-
-	if (first)
-	{
-		first = false;
-
-		this->connect(this, 
-			SIGNAL(firstShow()),
-			SLOT(onFirstShown()), 
-			Qt::QueuedConnection);
-
-		emit firstShow();
-	}
 }
 
 
@@ -601,7 +603,7 @@ PDFScreen::setFirstPdfBook(const QString& pdfFile)
 
 
 void 
-PDFScreen::onFirstShown()
+PDFScreen::openFirstPdfBook()
 {
 	QString file =  plutoApp->fileInArgument();;
 
@@ -609,19 +611,6 @@ PDFScreen::onFirstShown()
 	{
 		impl_->firstPdfBook = file;
 	}
-	//else if (!impl_->firstPdfBook.isEmpty())
-	//{
-	//	//ask open last reading
-	//	QMessageBox::StandardButton result = plutoApp->msgboxQuestion(this, 
-	//		plutoApp->applicationName(),
-	//		tr("Open last reading book - %1")
-	//		.arg(QFileInfo(impl_->firstPdfBook).fileName()));
-
-	//	if (result == QMessageBox::No)
-	//	{
-	//		impl_->firstPdfBook = "";//clear
-	//	}
-	//}
 
 	if (!QFile::exists(impl_->firstPdfBook))
 	{
@@ -771,9 +760,13 @@ PDFScreen::onAskChangeStyle(const QString& styleFile)
 void 
 PDFScreen::onAskRotate180()
 {
-	plutoApp->advance180degree();
-
+	plutoApp->advance90degree();
 	impl_->writeSettings();
+
+	plutoApp->enterFullScreen(this);
+	
+	impl_->setupLayout();
+	this->renderPage();
 }
 
 

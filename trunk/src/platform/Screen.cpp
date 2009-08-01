@@ -85,8 +85,6 @@ Screen::Screen(QWidget *parent)
 
 	impl_->ui.statusBar->layout()->removeWidget(impl_->ui.progress);
 	impl_->ui.progress->move(0, 0);
-	impl_->ui.progress->resize(plutoApp->screenResolution().width(),
-		impl_->ui.statusBar->height());
 	impl_->ui.progress->hide();
 
 	impl_->ui.statusBar->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -105,9 +103,6 @@ Screen::Screen(QWidget *parent)
 	//scroll
 	impl_->vScrollBar = this->verticalScrollBar();
 	impl_->hScrollBar = this->horizontalScrollBar();
-
-	impl_->pageStep = plutoApp->screenResolution().height() - 60;
-	impl_->stepRemain = 60;
 
 	//info
 	impl_->freshInfoTimerId = this->startTimer(1000 * 30);
@@ -221,6 +216,18 @@ Screen::timerEvent(QTimerEvent *event)
 
 		this->handleLongTouched(impl_->lastPressedPoint, impl_->pressTriggerTime);
 	}
+}
+
+
+void 
+Screen::resizeEvent(QResizeEvent *event)
+{
+	QGraphicsView::resizeEvent(event);
+
+	impl_->ui.progress->resize(this->width(), impl_->ui.statusBar->height());
+
+	impl_->stepRemain = 60;
+	impl_->pageStep = this->height() - impl_->stepRemain;
 }
 
 
@@ -539,7 +546,7 @@ Screen::updateThumbMask()
 		this->sceneRect().height();
 
 	int startY = qRound(impl_->vScrollBar->value() * ratio + impl_->thumbBoundary);
-	int height = qRound(plutoApp->screenResolution().height() * ratio);
+	int height = qRound(this->height() * ratio);
 
 	impl_->ui.lbThumbMask->setGeometry(impl_->thumbBoundary, startY,
 		impl_->ui.lbThumb->contentsRect().width(), height);

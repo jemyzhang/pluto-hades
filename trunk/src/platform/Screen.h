@@ -91,6 +91,8 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 
+	void resizeEvent(QResizeEvent *event);
+
 	virtual void handleTouching(QPoint pos);
 	virtual void handleTouched(QPoint pos, int elapsed);
 	virtual void handleDoubleTouched(QPoint pos, int elapsed);
