@@ -20,6 +20,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1D0BB111404E4F1CA6EA32CDFC4539BC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1D230A074CD34D89BA5ADCD8A4A5DF18"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -146,6 +152,24 @@
             "TargetName" = "8:help_en.pdf"
             "Tag" = "8:"
             "Folder" = "8:_B34A31D136BA4AFF8964276988A37682"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_1D0BB111404E4F1CA6EA32CDFC4539BC"
+            {
+            "SourcePath" = "8:..\\..\\bin\\splash.png"
+            "TargetName" = "8:splash.png"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
