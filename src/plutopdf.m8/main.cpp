@@ -38,7 +38,7 @@ main(int argc, char *argv[])
 
 	//splash
 	QSplashScreen splash;
-	splash.setPixmap(QPixmap(":/Resources/pluto.png"));
+	splash.setPixmap(QPixmap(plutoApp->pathRelateToAppDir("splash.png")));
 	splash.showMessage("PlutoPDF v0.1.4.1\nRoger (roger2yi@gmail.com)", 
 		Qt::AlignBottom|Qt::AlignLeft,
 		QColor("white"));
