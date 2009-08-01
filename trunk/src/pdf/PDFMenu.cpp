@@ -392,9 +392,9 @@ PDFMenu::on_m2Style_clicked()
 
 
 void 
-PDFMenu::on_m2Rotate180_clicked()
+PDFMenu::on_m2Rotate90_clicked()
 {
-	emit askRotate180();
+	emit askRotate90();
 }
 
 

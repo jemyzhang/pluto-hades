@@ -24,13 +24,6 @@ main(int argc, char *argv[])
 {
 	pltM8Platform m8App(argc, argv);
 
-	//splash
-	QSplashScreen splash;
-	splash.setPixmap(QPixmap(":/Resources/pluto.png"));
-	splash.show();
-	plutoApp->processEvents();
-
-
 	//rotate
 	QSettings settings(plutoApp->pathRelateToAppDir("config/config.ini"),
 		QSettings::IniFormat);
@@ -43,9 +36,18 @@ main(int argc, char *argv[])
 	settings.endGroup();
 	plutoApp->rotateScreen(newAngle);
 
+	//splash
+	QSplashScreen splash;
+	splash.setPixmap(QPixmap(":/Resources/pluto.png"));
+	splash.showMessage("PlutoPDF v0.1.4.1\nRoger (roger2yi@gmail.com)", 
+		Qt::AlignBottom|Qt::AlignLeft,
+		QColor("white"));
+	splash.show();
+	plutoApp->processEvents();
+
 
 	//open screen
-	pltPDFScreen screen;
+	pltPDFScreen screen; 
 	screen.openFirstPdfBook();
 
 	m8App.enterFullScreen(&screen);

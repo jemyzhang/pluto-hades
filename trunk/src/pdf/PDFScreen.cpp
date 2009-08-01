@@ -27,7 +27,7 @@ namespace pdf {
 
 
 static const double MAX_CUT_MARGIN = 0.3;
-static const quint32 MAX_ACCEPT_MEM_USE = 85;
+static const quint32 MAX_ACCEPT_MEM_USE = 90;
 static const QString DEFAULT_STYLE = "style/shinynoir.qss";
 
 struct PDFScreen::PDFScreenImpl
@@ -89,20 +89,20 @@ struct PDFScreen::PDFScreenImpl
 		int cornerH = 120;
 
 		tlCorner = QRect(0, 0, cornerW, cornerH);
-		trCorner = QRect(dw.width() - cornerW,	
+		trCorner = QRect(dw.screenGeometry().width() - cornerW,	
 			0,			
 			cornerW,	
 			cornerH);
 		blCorner = QRect(0,				
-			dw.height() - cornerH,
+			dw.screenGeometry().height() - cornerH,
 			cornerW,	
 			cornerH);
-		brCorner = QRect(dw.width() - cornerW,
-			dw.height() - cornerH,	
+		brCorner = QRect(dw.screenGeometry().width() - cornerW,
+			dw.screenGeometry().height() - cornerH,	
 			cornerW,	
 			cornerH);
-		center =   QRect((dw.width() - cornerW) / 2,	
-			(dw.height() - cornerH) / 2,
+		center =   QRect((dw.screenGeometry().width() - cornerW) / 2,	
+			(dw.screenGeometry().height() - cornerH) / 2,
 			cornerW,
 			cornerH);
 
@@ -111,7 +111,8 @@ struct PDFScreen::PDFScreenImpl
 		rects<<tlCorner<<trCorner<<center<<blCorner<<brCorner;
 
 		screenRegion = 
-			scene->addRect(0, 0, dw.width(), dw.height());
+			scene->addRect(0, 0, 
+			dw.screenGeometry().width(), dw.screenGeometry().height());
 
 		screenRegion->setBrush(QColor("transparent"));
 		screenRegion->setPen(QPen(QColor("transparent")));
@@ -239,7 +240,7 @@ PDFScreen::PDFScreen(QWidget *parent)
 		SLOT(onAskChangeSettings(bool, bool)));
 	this->connect(impl_->menu, SIGNAL(askChangeStyle(const QString&)),
 		SLOT(onAskChangeStyle(const QString&)));
-	this->connect(impl_->menu, SIGNAL(askRotate180()), SLOT(onAskRotate180()));
+	this->connect(impl_->menu, SIGNAL(askRotate90()), SLOT(onAskRotate90()));
 
 	//layout
 	impl_->setupLayout();
@@ -758,15 +759,15 @@ PDFScreen::onAskChangeStyle(const QString& styleFile)
 
 
 void 
-PDFScreen::onAskRotate180()
+PDFScreen::onAskRotate90()
 {
 	plutoApp->advance90degree();
-	impl_->writeSettings();
-
 	plutoApp->enterFullScreen(this);
 	
-	impl_->setupLayout();
 	this->renderPage();
+
+	impl_->setupLayout();
+	impl_->writeSettings();
 }
 
 

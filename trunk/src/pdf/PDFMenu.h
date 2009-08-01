@@ -104,7 +104,7 @@ public slots:
 	void on_m2ShowThumb_clicked();
 	void on_m2ShowStatus_clicked();
 	void on_m2Style_clicked();
-	void on_m2Rotate180_clicked();
+	void on_m2Rotate90_clicked();
 
 protected:
 	void showEvent(QShowEvent * event);
@@ -121,7 +121,7 @@ signals:
 	void askRecent(const QString& recentFile);
 	void askChangeSettings(bool showThumb, bool showStatus);
 	void askChangeStyle(const QString& styleFile);
-	void askRotate180();
+	void askRotate90();
 
 private:
 	void showSubMenu(int index);
