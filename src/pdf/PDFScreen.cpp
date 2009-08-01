@@ -683,14 +683,22 @@ PDFScreen::onAskCut(int req)
 
 		int leftMg = pltImageProcessor::margin(pageImg, pltImageProcessor::Left);
 		int rightMg = pltImageProcessor::margin(pageImg, pltImageProcessor::Right);
+		int topMg = pltImageProcessor::margin(pageImg, pltImageProcessor::Top);
+		int bottomMg = pltImageProcessor::margin(pageImg, pltImageProcessor::Bottom);
 
 		double originalW = pageImg.width() * 1.0 / (1.0 - impl_->leftMargin - impl_->rightMargin);
+		double originalH = pageImg.height() * 1.0 / (1.0 - impl_->topMargin - impl_->bottomMargin);
 
 		impl_->leftMargin += leftMg / originalW;
 		impl_->rightMargin += rightMg / originalW;
+		impl_->topMargin += topMg / originalH;
+		impl_->bottomMargin += bottomMg / originalH;
 
-		impl_->leftMargin = (int)(impl_->leftMargin * 100) / 100.0;
-		impl_->rightMargin = (int)(impl_->rightMargin * 100) / 100.0;
+		impl_->leftMargin = ((int)(impl_->leftMargin * 100)) / 100.0;
+		impl_->rightMargin = ((int)(impl_->rightMargin * 100)) / 100.0;
+		
+		impl_->topMargin = qMax(((int)(impl_->topMargin * 100)) / 100.0 - 0.02, 0.0);
+		impl_->bottomMargin = qMax(((int)(impl_->bottomMargin * 100)) / 100.0 - 0.05, 0.0);
 
 		this->renderPage();
 	}
