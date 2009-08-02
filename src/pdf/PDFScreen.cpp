@@ -49,6 +49,8 @@ struct PDFScreen::PDFScreenImpl
 	QRect brCorner;
 	QRect tlCorner;
 	QRect blCorner;
+	QRect mlCorner;
+	QRect mrCorner;
 	QRect center;
 
 	QGraphicsRectItem* screenRegion;
@@ -77,7 +79,7 @@ struct PDFScreen::PDFScreenImpl
 	int ignoreCutPages;
 	int pageNumber;
 
-	void setupLayout()
+	void setupLayout(QWidget* topWin)
 	{
 		if (screenRegion)
 		{
@@ -89,30 +91,41 @@ struct PDFScreen::PDFScreenImpl
 		int cornerH = 120;
 
 		tlCorner = QRect(0, 0, cornerW, cornerH);
-		trCorner = QRect(dw.screenGeometry().width() - cornerW,	
+		trCorner = QRect(topWin->width() - cornerW,	
 			0,			
 			cornerW,	
 			cornerH);
+
+		mlCorner = QRect(0, 
+			(topWin->height() - cornerH) / 2,
+			cornerW,
+			cornerH);
+		mrCorner = QRect(topWin->width() - cornerW,	
+			(topWin->height() - cornerH) / 2,			
+			cornerW,	
+			cornerH);
+
 		blCorner = QRect(0,				
-			dw.screenGeometry().height() - cornerH,
+			topWin->height() - cornerH,
 			cornerW,	
 			cornerH);
-		brCorner = QRect(dw.screenGeometry().width() - cornerW,
-			dw.screenGeometry().height() - cornerH,	
+		brCorner = QRect(topWin->width() - cornerW,
+			topWin->height() - cornerH,	
 			cornerW,	
 			cornerH);
-		center =   QRect((dw.screenGeometry().width() - cornerW) / 2,	
-			(dw.screenGeometry().height() - cornerH) / 2,
+
+		center =   QRect((topWin->width() - cornerW) / 2,	
+			(topWin->height() - cornerH) / 2,
 			cornerW,
 			cornerH);
 
 
 		QList<QRect> rects;
-		rects<<tlCorner<<trCorner<<center<<blCorner<<brCorner;
+		rects<<tlCorner<<trCorner<<mlCorner<<mrCorner<<center<<blCorner<<brCorner;
 
 		screenRegion = 
 			scene->addRect(0, 0, 
-			dw.screenGeometry().width(), dw.screenGeometry().height());
+			topWin->width(), topWin->height());
 
 		screenRegion->setBrush(QColor("transparent"));
 		screenRegion->setPen(QPen(QColor("transparent")));
@@ -242,9 +255,6 @@ PDFScreen::PDFScreen(QWidget *parent)
 		SLOT(onAskChangeStyle(const QString&)));
 	this->connect(impl_->menu, SIGNAL(askRotate90()), SLOT(onAskRotate90()));
 
-	//layout
-	impl_->setupLayout();
-
 	//settings
 	impl_->settings = new QSettings(plutoApp->pathRelateToAppDir("config/config.ini"),
 		QSettings::IniFormat,
@@ -335,7 +345,7 @@ PDFScreen::renderPage()
 			impl_->ignoreCutPages);
 
 		QImage pg = impl_->pdfReader.renderFitWidth(impl_->pageNumber,
-			impl_->dw.screenGeometry().width(),
+			this->width(),
 			impl_->zoomLevel);
 
 		//if necessary, clear store buffer to save memory
@@ -403,6 +413,14 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	{
 		this->scrollSceen(DirectionUpRight);
 	}
+	else if (impl_->mlCorner.contains(pos))
+	{
+		this->scrollSceen(DirectionLeft);
+	}
+	else if (impl_->mrCorner.contains(pos))
+	{
+		this->scrollSceen(DirectionRight);
+	}
 	else if (impl_->blCorner.contains(pos))
 	{
 		this->scrollSceen(DirectionDownLeft);
@@ -418,7 +436,6 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	else
 	{
 		scrollDown();
-
 	}
 }
 
@@ -593,6 +610,10 @@ void
 PDFScreen::showEvent(QShowEvent *event)
 {
 	pltScreen::showEvent(event);
+	event->accept();
+
+	//layout
+	impl_->setupLayout(this);
 }
 
 
@@ -774,7 +795,7 @@ PDFScreen::onAskRotate90()
 	
 	this->renderPage();
 
-	impl_->setupLayout();
+	impl_->setupLayout(this);
 	impl_->writeSettings();
 }
 
