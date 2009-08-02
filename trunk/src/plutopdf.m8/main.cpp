@@ -37,11 +37,15 @@ main(int argc, char *argv[])
 
 	plutoApp->rotateScreen(newAngle);
 
+	if (newAngle != realAngle)
+	{
+		plutoApp->enterFullScreen(NULL);
+	}
+
 	//splash
 	QSplashScreen splash;
-	QPixmap splashPix(plutoApp->pathRelateToAppDir("splash.png"));
 
-	splash.setPixmap(splashPix);
+	splash.setPixmap(QPixmap(plutoApp->pathRelateToAppDir("splash.png")));
 	splash.showMessage("PlutoPDF v0.1.4.1\nRoger (roger2yi@gmail.com)", 
 		Qt::AlignBottom|Qt::AlignLeft,
 		QColor("white"));
@@ -57,6 +61,8 @@ main(int argc, char *argv[])
 	plutoApp->enterFullScreen(&screen);
 
 	splash.finish(&screen);
+	splash.setPixmap(QPixmap());//release
 
 	return m8App.exec();
 }
+

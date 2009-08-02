@@ -364,12 +364,12 @@ Screen::generateThumb(const QPixmap& pixmap)
 
 	QPixmap thumb = pixmap.scaled(impl_->ui.lbThumb->contentsRect().size(),
 		Qt::KeepAspectRatio,
-		Qt::SmoothTransformation);
+		Qt::FastTransformation);
 
 	if (alpha.size() != thumb.size())
 	{
-		alpha = thumb.alphaChannel();
-		alpha.fill(qRgba(180, 180, 180, 255));
+		alpha = QPixmap(thumb.size());
+		alpha.fill(qRgba(200, 200, 200, 255));
 	}
 
 	thumb.setAlphaChannel(alpha);
@@ -501,6 +501,14 @@ Screen::scrollSceen(ScrollScreenDirection direction)
 		impl_->vScrollBar->setValue(impl_->vScrollBar->value() 
 			- impl_->pageStep);
 	}
+	else if (direction == DirectionLeft)
+	{
+		impl_->hScrollBar->setValue(0);
+	}
+	else if (direction == DirectionRight)
+	{
+		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());
+	}
 	else if (direction == DirectionUpLeft)
 	{
 		impl_->vScrollBar->setValue(0);
@@ -521,6 +529,7 @@ Screen::scrollSceen(ScrollScreenDirection direction)
 		impl_->vScrollBar->setValue(impl_->vScrollBar->maximum());
 		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());
 	}
+
 	this->startThumbDiaplay();
 }
 

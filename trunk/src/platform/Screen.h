@@ -37,8 +37,11 @@ class PLATFORM_EXPORT Screen : public QGraphicsView
 public:
 	enum ScrollScreenDirection
 	{
+		DirectionNone,
 		DirectionUp,
 		DirectionDown,
+		DirectionLeft,
+		DirectionRight,
 		DirectionUpLeft,
 		DirectionDownLeft,
 		DirectionUpRight,
