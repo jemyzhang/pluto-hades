@@ -136,7 +136,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="2"
-				FavorSizeOrSpeed="2"
+				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QT_CE_DIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QT_CE_DIR)\include\QtCore&quot;;&quot;$(QT_CE_DIR)\include\QtGui&quot;"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_WINDOWS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB"
 				RuntimeLibrary="0"

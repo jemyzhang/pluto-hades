@@ -30,7 +30,7 @@ namespace platform
 struct Screen::ScreenImpl
 {
 	ScreenImpl()
-		: doubleTouchRange(100, 100)
+		: doubleTouchRange(50, 50)
 		, touchRange(10, 10)
 		, lastPressedTime(0)
 		, lastReleaseTime(0)
@@ -314,7 +314,7 @@ Screen::setPageImage(const QImage& pg)
 	impl_->scene->setSceneRect(pixmap.rect());
 	//impl_->pixItem->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 
-	this->scrollSceen(DirectionUpLeft);
+	this->scrollSceen(DirectionUpLeftCorner);
 	this->startThumbDiaplay();
 }
 
@@ -362,9 +362,13 @@ Screen::generateThumb(const QPixmap& pixmap)
 {
 	static QPixmap alpha;
 
-	QPixmap thumb = pixmap.scaled(impl_->ui.lbThumb->contentsRect().size(),
+	QSize size = impl_->ui.lbThumb->contentsRect().size();
+
+	QPixmap thumb = pixmap.scaled(size * 2,
 		Qt::KeepAspectRatio,
 		Qt::FastTransformation);
+
+	thumb = thumb.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 	if (alpha.size() != thumb.size())
 	{
@@ -511,20 +515,44 @@ Screen::scrollSceen(ScrollScreenDirection direction)
 	}
 	else if (direction == DirectionUpLeft)
 	{
-		impl_->vScrollBar->setValue(0);
+		impl_->vScrollBar->setValue(impl_->vScrollBar->value() 
+			- impl_->pageStep);
 		impl_->hScrollBar->setValue(0);
 	}
 	else if (direction == DirectionUpRight)
 	{
-		impl_->vScrollBar->setValue(0);
+		impl_->vScrollBar->setValue(impl_->vScrollBar->value() 
+			- impl_->pageStep);
 		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());
 	}
 	else if (direction == DirectionDownLeft)
 	{
-		impl_->vScrollBar->setValue(impl_->vScrollBar->maximum());
+		impl_->vScrollBar->setValue(impl_->vScrollBar->value() 
+			+ impl_->pageStep);
 		impl_->hScrollBar->setValue(0);
 	}
 	else if (direction == DirectionDownRight)
+	{
+		impl_->vScrollBar->setValue(impl_->vScrollBar->value() 
+			+ impl_->pageStep);
+		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());
+	}
+	else if (direction == DirectionUpLeftCorner)
+	{
+		impl_->vScrollBar->setValue(0);
+		impl_->hScrollBar->setValue(0);
+	}
+	else if (direction == DirectionUpRightCorner)
+	{
+		impl_->vScrollBar->setValue(0);
+		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());
+	}
+	else if (direction == DirectionDownLeftCorner)
+	{
+		impl_->vScrollBar->setValue(impl_->vScrollBar->maximum());
+		impl_->hScrollBar->setValue(0);
+	}
+	else if (direction == DirectionDownRightCorner)
 	{
 		impl_->vScrollBar->setValue(impl_->vScrollBar->maximum());
 		impl_->hScrollBar->setValue(impl_->hScrollBar->maximum());

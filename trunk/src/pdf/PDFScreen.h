@@ -38,7 +38,9 @@ public:
 public slots:
 	void getPdfBook();
 	void openFirstPdfBook();
-	void openPdfBook(const QString& pdfFile);
+	void openPdfBook(const QString& pdfFile, 
+		bool render = true,
+		bool addIntoList = true);
 
 	void scrollPrePage();
 	void scrollNextPage();
@@ -50,7 +52,7 @@ public slots:
 
 
 private slots:
-
+	void onFirstShown();
 	void onAskHelp();
 	void onAskCut(int req);
 	void onAskJump(int pageNo);
@@ -64,6 +66,9 @@ private slots:
 	void scrollUp();
 
 	void showMenu();
+
+signals:
+	void firstShow();
 
 protected:
 	virtual void showEvent(QShowEvent *event);
