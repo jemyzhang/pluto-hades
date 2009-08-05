@@ -46,6 +46,10 @@ public:
 		DirectionDownLeft,
 		DirectionUpRight,
 		DirectionDownRight,
+		DirectionUpLeftCorner,
+		DirectionDownLeftCorner,
+		DirectionUpRightCorner,
+		DirectionDownRightCorner,
 	};
 
 public:

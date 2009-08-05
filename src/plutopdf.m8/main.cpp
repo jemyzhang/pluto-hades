@@ -24,44 +24,28 @@ main(int argc, char *argv[])
 {
 	pltM8Platform m8App(argc, argv);
 
-	//rotate
-	QSettings settings(plutoApp->pathRelateToAppDir("config/config.ini"), QSettings::IniFormat);
-
-	settings.beginGroup("PlutoPDF");
-
-	pltM8Platform::ScreenRotateAngle realAngle = plutoApp->realScreenRotateAngle();
-	pltM8Platform::ScreenRotateAngle newAngle = (pltM8Platform::ScreenRotateAngle)
-		settings.value("rotateAngle", realAngle + 1).toInt();
-
-	settings.endGroup();
-
-	plutoApp->rotateScreen(newAngle);
-
-	if (newAngle != realAngle)
-	{
-		plutoApp->enterFullScreen(NULL);
-	}
-
 	//splash
-	QSplashScreen splash;
+	QSplashScreen splash(QPixmap(plutoApp->pathRelateToAppDir("splash.png")));
 
-	splash.setPixmap(QPixmap(plutoApp->pathRelateToAppDir("splash.png")));
 	splash.showMessage("PlutoPDF v0.1.4.1\nRoger (roger2yi@gmail.com)", 
 		Qt::AlignBottom|Qt::AlignLeft,
 		QColor("white"));
+
 	splash.show();
 	plutoApp->processEvents();
 
 
 	//open screen
 	pltPDFScreen screen; 
-	screen.openFirstPdfBook();
 
-	plutoApp->connect(plutoApp, SIGNAL(lastWindowClosed()), SLOT(quit()));
+	screen.openFirstPdfBook();
 	plutoApp->enterFullScreen(&screen);
 
+	//splash.move((screen.width() - splash.width()) / 2,
+	//	(screen.height() - splash.height()) / 2);
 	splash.finish(&screen);
-	splash.setPixmap(QPixmap());//release
+
+	plutoApp->connect(plutoApp, SIGNAL(lastWindowClosed()), SLOT(quit()));
 
 	return m8App.exec();
 }

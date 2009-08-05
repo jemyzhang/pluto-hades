@@ -10,7 +10,7 @@ border-top-right-radius: 50px;
 QAbstractButton, QLabel, QLineEdit
 {
 color : white;
-font:   12pt "tahoma";
+font:   12pt;
 }
 
 QAbstractButton[highlight="true"]
@@ -106,7 +106,7 @@ background-image: url(:/Resources/169.png);
 
 QFrame#statusBar > QLabel
 {
-font: bold 9pt "arial";
+font: bold 10pt;
 }
 
 QFrame#line, QFrame#line2
@@ -122,5 +122,5 @@ background-color: transparent;
 
 QProgressBar::chunk 
 {
-background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(0, 0, 255, 50), stop:1 rgba(0, 0, 255, 150));
+background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(1, 105, 201, 100), stop:1 rgba(1, 105, 201, 240));
 }

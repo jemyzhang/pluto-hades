@@ -27,7 +27,7 @@ namespace pdf {
 
 
 static const double MAX_CUT_MARGIN = 0.3;
-static const quint32 MAX_ACCEPT_MEM_USE = 90;
+static const quint32 MAX_ACCEPT_MEM_USE = 85;
 static const QString DEFAULT_STYLE = "style/shinynoir.qss";
 
 struct PDFScreen::PDFScreenImpl
@@ -39,7 +39,7 @@ struct PDFScreen::PDFScreenImpl
 
 	}
 
-	QDesktopWidget dw;
+	pltM8Platform::ScreenRotateAngle newAngle;
 
 	PDFMenu* menu;
 	QGraphicsScene* scene;
@@ -87,8 +87,8 @@ struct PDFScreen::PDFScreenImpl
 			SAFE_DELETE(screenRegion);
 		}
 
-		int cornerW = 120;
-		int cornerH = 120;
+		int cornerW = 100;
+		int cornerH = 100;
 
 		tlCorner = QRect(0, 0, cornerW, cornerH);
 		trCorner = QRect(topWin->width() - cornerW,	
@@ -167,6 +167,9 @@ struct PDFScreen::PDFScreenImpl
 
 		styleFile = settings->value("style", DEFAULT_STYLE).toString();
 
+		newAngle = (pltM8Platform::ScreenRotateAngle)
+			settings->value("rotateAngle", plutoApp->realScreenRotateAngle()).toInt();
+
 		settings->endGroup();
 	}
 
@@ -235,9 +238,11 @@ PDFScreen::PDFScreen(QWidget *parent)
 	plutoApp->setOrganizationName("PlutoWare - Roger.Yi (roger2yi@gmail.com)");
 
 
+	//scene
 	impl_->scene = this->scene();
 	__ASSERT_E(impl_->scene, "Scene not created.");
 
+	//menu
 	impl_->menu = new PDFMenu(this);
 	impl_->menu->move(0, 0);
 	impl_->menu->hide();
@@ -260,14 +265,14 @@ PDFScreen::PDFScreen(QWidget *parent)
 		QSettings::IniFormat,
 		this);
 
+	//system configuration
 	impl_->readSettings();
 	impl_->menu->setCurrentSettings(impl_->showThumb, impl_->showStatus);
+	this->setThumbVisible(impl_->showThumb);
+	this->setStatusBarVisible(impl_->showStatus);
 
 	//load style
 	plutoApp->loadStyle(impl_->styleFile);
-
-	this->setThumbVisible(impl_->showThumb);
-	this->setStatusBarVisible(impl_->showStatus);
 }
 
 
@@ -293,7 +298,9 @@ PDFScreen::getPdfBook()
 
 
 void 
-PDFScreen::openPdfBook(const QString& pdfFile)
+PDFScreen::openPdfBook(const QString& pdfFile, 
+					   bool render,
+					   bool addIntoList)
 {
 	QTime time; time.start();
 	this->startProgress(0, 10); this->stepProgress(3);
@@ -305,12 +312,15 @@ PDFScreen::openPdfBook(const QString& pdfFile)
 	{
 		//open
 		impl_->pdfReader.open(pdfFile); 
-		impl_->addIntoRecentList(pdfFile);
+
+		if (addIntoList)
+			impl_->addIntoRecentList(pdfFile);
 		
 		this->stepProgress(2);
 
 		//render start page
-		this->renderPage(); 
+		if (render)
+			this->renderPage(); 
 
 		this->setFileInfo(impl_->pdfReader.fileBaseName());
 		this->setMessage(QString("Open %1 successes, used %2ms")
@@ -407,11 +417,11 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	if (impl_->tlCorner.contains(pos))
 	{
 		//top-left, show menu
-		this->scrollSceen(DirectionUpLeft);
+		this->scrollSceen(DirectionUpLeftCorner);
 	}
 	else if (impl_->trCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionUpRight);
+		this->scrollSceen(DirectionUpRightCorner);
 	}
 	else if (impl_->mlCorner.contains(pos))
 	{
@@ -423,11 +433,11 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	}
 	else if (impl_->blCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownLeft);
+		this->scrollSceen(DirectionDownLeftCorner);
 	}
 	else if (impl_->brCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownRight);
+		this->scrollSceen(DirectionDownRightCorner);
 	}
 	else if (pos.y() < this->rect().height() / 2)
 	{
@@ -462,6 +472,14 @@ PDFScreen::handleDoubleTouched(QPoint pos, int elapsed)
 	else if (impl_->brCorner.contains(pos))
 	{
 		scrollPage(10);
+	}
+	else if (impl_->mlCorner.contains(pos))
+	{
+		this->scrollSceen(DirectionDownLeft);
+	}
+	else if (impl_->mrCorner.contains(pos))
+	{
+		this->scrollSceen(DirectionDownRight);
 	}
 	else
 	{
@@ -525,7 +543,7 @@ void
 PDFScreen::scrollPrePage()
 {
 	this->scrollPage(-1);
-	this->scrollSceen(DirectionDownLeft);
+	this->scrollSceen(DirectionDownLeftCorner);
 	this->updateThumbMask();
 }
 
@@ -609,11 +627,38 @@ PDFScreen::keyPressEvent(QKeyEvent *event)
 void 
 PDFScreen::showEvent(QShowEvent *event)
 {
+	static bool first = true;
+
 	pltScreen::showEvent(event);
-	event->accept();
+	plutoApp->processEvents();
+
+	if (first)
+	{
+		first = false;
+
+		this->connect(this, 
+			SIGNAL(firstShow()),
+			SLOT(onFirstShown()), 
+			Qt::QueuedConnection);
+
+		emit firstShow();
+	}
+}
+
+
+void 
+PDFScreen::onFirstShown()
+{
+	//rotate
+	plutoApp->rotateScreen(impl_->newAngle);
+	plutoApp->enterFullScreen(this);
 
 	//layout
 	impl_->setupLayout(this);
+
+
+	//render first page
+	this->renderPage();
 }
 
 
@@ -639,16 +684,13 @@ PDFScreen::openFirstPdfBook()
 		impl_->firstPdfBook = plutoApp->helpFile();
 	}
 
-	this->openPdfBook(impl_->firstPdfBook);
+	this->openPdfBook(impl_->firstPdfBook, false, false);
 }
 
 
 void 
 PDFScreen::showMenu()
 {
-	//impl_->menu->setApplicationName(QString("%1")
-	//	.arg(plutoApp->applicationName()/*, plutoApp->applicationVersion()*/));
-
 	impl_->menu->setRecentOpenFiles(impl_->recentPdfBooks);
 	impl_->menu->show();
 }
