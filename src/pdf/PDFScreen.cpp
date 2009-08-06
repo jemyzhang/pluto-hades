@@ -22,6 +22,7 @@
 #include "PDFReader.h"
 
 
+
 namespace pdf {
 
 
@@ -337,10 +338,13 @@ PDFScreen::openPdfBook(const QString& pdfFile,
 
 
 void 
-PDFScreen::renderPage()
+PDFScreen::renderPage(int screenWidth)
 {
 	if (impl_->pdfReader.isNull())
 		return;
+
+	if (screenWidth <= 0)
+		screenWidth = this->width();
 
 	QTime time; time.start();
 	this->startProgress(0, 10); this->stepProgress(5);
@@ -355,7 +359,7 @@ PDFScreen::renderPage()
 			impl_->ignoreCutPages);
 
 		QImage pg = impl_->pdfReader.renderFitWidth(impl_->pageNumber,
-			this->width(),
+			screenWidth,
 			impl_->zoomLevel);
 
 		//if necessary, clear store buffer to save memory
@@ -658,7 +662,7 @@ PDFScreen::onFirstShown()
 
 
 	//render first page
-	this->renderPage();
+	//this->renderPage();
 }
 
 
@@ -684,7 +688,26 @@ PDFScreen::openFirstPdfBook()
 		impl_->firstPdfBook = plutoApp->helpFile();
 	}
 
+	//no render first, only open book
 	this->openPdfBook(impl_->firstPdfBook, false, false);
+
+
+	//render page, the needed width will depend on newAngle and current Angle
+	pltPlatform::ScreenRotateAngle currAngle = 
+		plutoApp->realScreenRotateAngle();
+
+	int deltaAngle = plutoApp->deltaAngle(currAngle, impl_->newAngle);
+
+	QDesktopWidget dw;
+
+	if ((deltaAngle == 90 || deltaAngle == 270))
+	{
+		this->renderPage(dw.screenGeometry().height());
+	}
+	else
+	{
+		this->renderPage(dw.screenGeometry().width());
+	}
 }
 
 
@@ -899,4 +922,22 @@ PDFScreen::winEvent(MSG *message, long *result)
 
 //end namespace
 }
+
+
+PDF_EXPORT int 
+startApp(QSplashScreen* splash)
+{
+	//open screen
+	pdf::PDFScreen screen; 
+	screen.openFirstPdfBook();
+
+	plutoApp->enterFullScreen(&screen);
+
+	splash->finish(&screen);
+
+	plutoApp->connect(plutoApp, SIGNAL(lastWindowClosed()), SLOT(quit()));
+
+	return plutoApp->exec();
+}
+
 
