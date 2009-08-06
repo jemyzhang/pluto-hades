@@ -47,7 +47,7 @@ public slots:
 	void scrollPage(int delta);
 	void scrollToPage(int pageNo);
 
-	void renderPage();
+	void renderPage(int screenWidth = 0);
 
 
 
@@ -93,4 +93,15 @@ private:
 
 //end namespace
 }
+
+
+extern "C"
+{
+	class QSplashScreen;
+
+	PDF_EXPORT int startApp(QSplashScreen* splash);
+
+}
+
+
 #endif // PDFScreen

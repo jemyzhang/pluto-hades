@@ -534,6 +534,11 @@ M8Platform::rotateScreen_(ScreenRotateAngle angle)
 	mode.dmFields = DM_DISPLAYORIENTATION;
 	mode.dmDisplayOrientation = angle;
 
+	Qt::Orientation oldOrientation = this->screenOrientation();
+
+	QDesktopWidget dw;
+	int oldScreenWidth = dw.screenGeometry().width();
+
 	LONG result = ::ChangeDisplaySettingsEx(NULL
 		, &mode
 		, NULL
@@ -549,9 +554,18 @@ M8Platform::rotateScreen_(ScreenRotateAngle angle)
 		__LOG(QString("Rotate screen %1 failed.").arg(angle));
 	}
 
-	::Sleep(100);
+	//wait screen rotate
+	if (oldOrientation != this->screenOrientation())
+	{
+		int i = 10;
 
-	this->processEvents();
+		while (oldScreenWidth == dw.screenGeometry().width() && --i)
+		{
+			::Sleep(100);
+
+			this->processEvents();
+		}
+	}
 }
 
 
