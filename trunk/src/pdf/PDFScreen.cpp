@@ -942,6 +942,8 @@ startApp(QSplashScreen* splash)
 	pdf::PDFScreen screen; 
 	screen.openFirstPdfBook();
 
+	//splash->close();
+
 	plutoApp->enterFullScreen(&screen);
 
 	splash->finish(&screen);
@@ -950,6 +952,7 @@ startApp(QSplashScreen* splash)
 
 	int result = plutoApp->exec();
 
+	plutoApp->leaveFullScreen(NULL);
 	plutoApp->rotateScreenToOriginal();
 
 	return result;
