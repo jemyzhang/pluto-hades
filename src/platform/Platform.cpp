@@ -138,6 +138,17 @@ Platform::screenCanRotate() const
 Platform::ScreenRotateAngle 
 Platform::realScreenRotateAngle() const
 {
+	static bool first = true;
+
+	if (first)
+	{
+		this->originalAngle_ = this->realScreenRotateAngle_();
+
+		first = false;
+
+		return this->originalAngle_;
+	}
+
 	return this->realScreenRotateAngle_();
 }
 
@@ -160,7 +171,14 @@ Platform::rotateScreen(ScreenRotateAngle angle)
 
 
 void 
-Platform::rotateScreenBack()
+Platform::rotateScreenToOriginal()
+{
+	this->rotateScreen(this->originalAngle_);
+}
+
+
+void 
+Platform::rotateScreenToLast()
 {
 	this->rotateScreen(this->lastAngle_);
 }
@@ -237,6 +255,13 @@ quint32
 Platform::getShellEventId() const
 {
 	return this->getShellEventId_();
+}
+
+
+Platform::ScreenRotateAngle 
+Platform::originalRotateAngle() const
+{
+	return this->originalAngle_;
 }
 
 
@@ -635,7 +660,7 @@ M8Platform::getOpenFileName_(QWidget *parent,
 	COM_INIT_ com_init;
 
 
-	this->rotateScreenBack();//need rotate back first
+	this->rotateScreenToOriginal();//rotate to original vertical screen
 	ShowMzTopBar();
 
 	QString file;
@@ -679,7 +704,11 @@ M8Platform::getOpenFileName_(QWidget *parent,
 	SAFE_RELEASE(browser);
 
 	HideMzTopBar();
-	this->rotateScreenBack();//rotate back
+
+	if (this->currentScreenRotateAngle() != this->realScreenRotateAngle())
+	{
+		this->rotateScreenToLast();//rotate back
+	}
 
 	return file;
 }
@@ -712,13 +741,11 @@ M8Platform::getShellEventId_() const
 	return eventId;
 }
 
-
 void 
 M8Platform::holdShellKey_(QWidget * mainWin) const
 {
-
 	HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_HOME*/);
 }
 
 
@@ -726,7 +753,7 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_HOME*/);
 }
 
 

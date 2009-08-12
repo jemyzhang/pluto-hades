@@ -86,13 +86,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B9287BF96C7A43248F12B10A6922F037"
+        "MsmKey" = "8:_B75429C3F13D478CA88904F90CC84166"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_BDC505C1D3B94682899178438576F9CC"
+        "MsmKey" = "8:_B9287BF96C7A43248F12B10A6922F037"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -326,10 +326,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_BDC505C1D3B94682899178438576F9CC"
+            "{BA458234-9B71-4F46-8107-E91156377184}:_B75429C3F13D478CA88904F90CC84166"
             {
-            "SourcePath" = "8:..\\..\\src\\plutopdf64.png"
-            "TargetName" = "8:plutopdf64.png"
+            "SourcePath" = "8:..\\..\\src\\plutopdf32.png"
+            "TargetName" = "8:plutopdf32.png"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
@@ -753,7 +753,7 @@
                                     "Name" = "8:DefaultIcon"
                                     "Condition" = "8:"
                                     "ValueTypes" = "3:1"
-                                    "Value" = "8:\\disk\\programs\\PlutoWare\\PlutoPdf64.png"
+                                    "Value" = "8:\\disk\\programs\\PlutoWare\\PlutoPdf32.png"
                                     }
                                 }
                             }

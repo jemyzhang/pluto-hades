@@ -486,7 +486,7 @@ void
 Screen::exit()
 {
 	plutoApp->leaveFullScreen(this);
-	plutoApp->rotateScreenBack();
+	plutoApp->rotateScreenToLast();
 
 	this->close();
 }
