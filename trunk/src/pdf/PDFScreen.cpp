@@ -866,7 +866,7 @@ PDFScreen::onAskRotate90()
 bool 
 PDFScreen::winEvent(MSG *message, long *result)
 {
-	if (message->message == WM_ACTIVATE && message->lParam != 0)
+	if (message->message == WM_ACTIVATE)
 	{
 		if (message->wParam == WA_ACTIVE || message->wParam == WA_CLICKACTIVE)
 		{
