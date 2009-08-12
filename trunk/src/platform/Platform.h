@@ -82,6 +82,7 @@ public://screen relative helper functions
 
 	ScreenRotateAngle realScreenRotateAngle() const;
 
+	ScreenRotateAngle originalRotateAngle() const;
 	ScreenRotateAngle lastScreenRotateAngle() const;
 	ScreenRotateAngle currentScreenRotateAngle() const;
 	ScreenRotateAngle nextScreenRotateAngle(ScreenRotateAngle angle) const;
@@ -91,7 +92,9 @@ public://screen relative helper functions
 	Qt::Orientation screenOrientation() const;
 
 	void rotateScreen(ScreenRotateAngle angle);
-	void rotateScreenBack();
+
+	void rotateScreenToOriginal();
+	void rotateScreenToLast();
 	void rotateScreenToCurrent();
 
 	void advance90degree();
@@ -164,6 +167,7 @@ private:
 	virtual void closeSip_() {};
 
 private:
+	mutable ScreenRotateAngle originalAngle_;
 	ScreenRotateAngle lastAngle_;
 	ScreenRotateAngle currAngle_;
 

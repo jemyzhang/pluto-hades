@@ -40,7 +40,7 @@ struct PDFScreen::PDFScreenImpl
 
 	}
 
-	pltM8Platform::ScreenRotateAngle newAngle;
+	pltM8Platform::ScreenRotateAngle screenAngle;
 
 	PDFMenu* menu;
 	QGraphicsScene* scene;
@@ -80,7 +80,7 @@ struct PDFScreen::PDFScreenImpl
 	int ignoreCutPages;
 	int pageNumber;
 
-	void setupLayout(QWidget* topWin)
+	void setupHotspots(QWidget* topWin)
 	{
 		if (screenRegion)
 		{
@@ -168,7 +168,7 @@ struct PDFScreen::PDFScreenImpl
 
 		styleFile = settings->value("style", DEFAULT_STYLE).toString();
 
-		newAngle = (pltM8Platform::ScreenRotateAngle)
+		screenAngle = (pltM8Platform::ScreenRotateAngle)
 			settings->value("rotateAngle", plutoApp->realScreenRotateAngle()).toInt();
 
 		settings->endGroup();
@@ -208,7 +208,8 @@ struct PDFScreen::PDFScreenImpl
 
 		settings->setValue("style", styleFile);
 
-		settings->setValue("rotateAngle", plutoApp->realScreenRotateAngle());
+		screenAngle = plutoApp->realScreenRotateAngle();
+		settings->setValue("rotateAngle", screenAngle);
 
 		settings->beginGroup(pdfReader.fileName());
 
@@ -631,22 +632,22 @@ PDFScreen::keyPressEvent(QKeyEvent *event)
 void 
 PDFScreen::showEvent(QShowEvent *event)
 {
-	static bool first = true;
+
+	impl_->setupHotspots(this);
 
 	pltScreen::showEvent(event);
-	plutoApp->processEvents();
 
-	if (first)
-	{
-		first = false;
+	//plutoApp->processEvents();
 
-		this->connect(this, 
-			SIGNAL(firstShow()),
-			SLOT(onFirstShown()), 
-			Qt::QueuedConnection);
-
-		emit firstShow();
-	}
+	//static bool first = true;
+	//if (first)
+	//{
+	//	first = false;
+	//	this->onFirstShown();
+	//	
+	//	this->connect(this, SIGNAL(firstShow()), SLOT(onFirstShown()), Qt::QueuedConnection);
+	//	emit firstShow();
+	//}
 }
 
 
@@ -654,15 +655,11 @@ void
 PDFScreen::onFirstShown()
 {
 	//rotate
-	plutoApp->rotateScreen(impl_->newAngle);
+	plutoApp->rotateScreen(impl_->screenAngle);
 	plutoApp->enterFullScreen(this);
 
 	//layout
-	impl_->setupLayout(this);
-
-
-	//render first page
-	//this->renderPage();
+	impl_->setupHotspots(this);
 }
 
 
@@ -693,10 +690,10 @@ PDFScreen::openFirstPdfBook()
 
 
 	//render page, the needed width will depend on newAngle and current Angle
-	pltPlatform::ScreenRotateAngle currAngle = 
+	pltPlatform::ScreenRotateAngle realAngle = 
 		plutoApp->realScreenRotateAngle();
 
-	int deltaAngle = plutoApp->deltaAngle(currAngle, impl_->newAngle);
+	int deltaAngle = plutoApp->deltaAngle(realAngle, impl_->screenAngle);
 
 	QDesktopWidget dw;
 
@@ -860,7 +857,7 @@ PDFScreen::onAskRotate90()
 	
 	this->renderPage();
 
-	impl_->setupLayout(this);
+	impl_->setupHotspots(this);
 	impl_->writeSettings();
 }
 
@@ -869,26 +866,27 @@ PDFScreen::onAskRotate90()
 bool 
 PDFScreen::winEvent(MSG *message, long *result)
 {
-	if (message->message == WM_ACTIVATE)
+	if (message->message == WM_ACTIVATE && message->lParam != 0)
 	{
 		if (message->wParam == WA_ACTIVE || message->wParam == WA_CLICKACTIVE)
 		{
 			plutoApp->holdShellKey(this);
 
 			pltPlatform::ScreenRotateAngle realAngle = plutoApp->realScreenRotateAngle();
-			pltPlatform::ScreenRotateAngle currAngle = plutoApp->currentScreenRotateAngle();
 
-			this->setMessage(QString("AP re-active, real rotate angle %1, curr %2")
-				.arg(realAngle).arg(currAngle));
+			this->setMessage(QString("AP re-active, real ANG %1, screen %2")
+				.arg(realAngle).arg(impl_->screenAngle));
 
-			if (currAngle != realAngle)
+			if (impl_->screenAngle != realAngle)
 			{
 				//the screen rotate outside, need rotate back
 				this->setMessage(QString("!!!Rotate outside, need rotate back by myself."));
 
-				plutoApp->rotateScreenToCurrent();
+				plutoApp->rotateScreen(impl_->screenAngle);
 				plutoApp->enterFullScreen(this);
 
+				impl_->setupHotspots(this);
+				
 				result = 0;
 				return true;
 			}
@@ -897,6 +895,9 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			plutoApp->releaseShellKey(this);
 			plutoApp->leaveFullScreen(this);
+
+			result = 0;
+			return true;
 		}
 	}
 	else if (message->message == plutoApp->getShellEventId())
@@ -911,7 +912,17 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			this->scrollDown();
 		}
+		//else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
+		//{
+		//	plutoApp->releaseShellKey(this);
+		//	plutoApp->leaveFullScreen(this);
+		//	plutoApp->rotateScreenToOriginal();
 
+		//	this->showMinimized();
+		//}
+
+		result = 0;
+		return true;
 	}
 
 	return false;
@@ -937,7 +948,11 @@ startApp(QSplashScreen* splash)
 
 	plutoApp->connect(plutoApp, SIGNAL(lastWindowClosed()), SLOT(quit()));
 
-	return plutoApp->exec();
+	int result = plutoApp->exec();
+
+	plutoApp->rotateScreenToOriginal();
+
+	return result;
 }
 
 
