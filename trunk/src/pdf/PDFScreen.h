@@ -49,6 +49,8 @@ public slots:
 
 	void onRendered(int pageNo, QImage image);
 	void onRenderError(QString errMsg);
+	void onRendering(QString msg);
+	void onCached(QString cacheMsg);
 
 
 private slots:

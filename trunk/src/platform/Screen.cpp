@@ -284,7 +284,7 @@ Screen::setZoomInfo(int zoom)
 void 
 Screen::setFileInfo(const QString& fileInfo)
 {
-	static const int MAX_FILE_LENGTH = 20;
+	static const int MAX_FILE_LENGTH = 10;
 
 	QString info = fileInfo;
 
@@ -368,11 +368,9 @@ Screen::generateThumb(const QPixmap& pixmap)
 
 	QSize size = impl_->ui.lbThumb->contentsRect().size();
 
-	QPixmap thumb = pixmap.scaled(size * 2,
+	QPixmap thumb = pixmap.scaled(size, 
 		Qt::KeepAspectRatio,
-		Qt::FastTransformation);
-
-	thumb = thumb.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		Qt::SmoothTransformation);
 
 	if (alpha.size() != thumb.size())
 	{

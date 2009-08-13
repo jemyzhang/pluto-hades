@@ -107,7 +107,12 @@ background-image: url(:/Resources/169.png);
 
 QFrame#statusBar > QLabel
 {
-font: bold 9pt "arial";
+font: bold 10pt;
+}
+
+QFrame#statusBar > QLabel#lbMessage
+{
+font: bold 8pt;
 }
 
 QFrame#line, QFrame#line2

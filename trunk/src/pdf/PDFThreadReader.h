@@ -67,10 +67,12 @@ public://command
 	void askRender(int pageNo);
 
 signals:
-	void rendering();
-
 	void renderError(QString errMsg);
+	void rendering(QString msg);
+
 	void rendered(int pageNo, QImage image);
+
+	void cached(QString msg);
 
 protected:
 	virtual void run();
@@ -81,6 +83,7 @@ private:
 	void stop();
 
 	void renderPage(int pageNo);
+	void cache(int pageNo, const QImage& image);
 
 private:
 	Q_DISABLE_COPY(PDFThreadReader)

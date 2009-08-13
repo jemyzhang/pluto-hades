@@ -126,13 +126,13 @@
        <number>6</number>
       </property>
       <property name="leftMargin">
-       <number>6</number>
+       <number>3</number>
       </property>
       <property name="topMargin">
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>6</number>
+       <number>3</number>
       </property>
       <property name="bottomMargin">
        <number>0</number>
@@ -145,16 +145,8 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-          <pointsize>8</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
         <property name="wordWrap">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
        </widget>
       </item>

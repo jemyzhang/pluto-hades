@@ -114,6 +114,8 @@ public:
 		const QString& loggerName = DEFAULT_LOGGER);
 	~GuardTimer() throw();
 
+	double elapsed() const;
+
 private:
 	static const QString DEFAULT_LOGGER;
 

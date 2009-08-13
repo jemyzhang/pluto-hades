@@ -28,7 +28,6 @@ namespace pdf {
 
 
 static const double MAX_CUT_MARGIN = 0.3;
-static const quint32 MAX_ACCEPT_MEM_USE = 90;
 static const QString DEFAULT_STYLE = "style/shinynoir.qss";
 
 struct PDFScreen::PDFScreenImpl
@@ -154,7 +153,7 @@ struct PDFScreen::PDFScreenImpl
 		recentPdfBooks.removeAll(nativeFile);
 		recentPdfBooks.prepend(nativeFile);
 
-		writeSettings();
+		writeSettings(false);
 	}
 
 
@@ -198,7 +197,7 @@ struct PDFScreen::PDFScreenImpl
 	}
 
 
-	void writeSettings()
+	void writeSettings(bool writeScreenAngle = true)
 	{
 		settings->beginGroup(plutoApp->applicationName());
 
@@ -210,8 +209,11 @@ struct PDFScreen::PDFScreenImpl
 
 		settings->setValue("style", styleFile);
 
-		screenAngle = plutoApp->realScreenRotateAngle();
-		settings->setValue("rotateAngle", screenAngle);
+		if (writeScreenAngle)
+		{
+			screenAngle = plutoApp->realScreenRotateAngle();
+			settings->setValue("rotateAngle", screenAngle);
+		}
 
 		settings->beginGroup(pdfReader.fileName());
 
@@ -238,7 +240,6 @@ PDFScreen::PDFScreen(QWidget *parent)
 , impl_(new PDFScreenImpl)
 {
 	plutoApp->setApplicationName("PlutoPDF");
-	plutoApp->setApplicationVersion("v0.1.5.0");
 	plutoApp->setOrganizationName("PlutoWare - Roger.Yi (roger2yi@gmail.com)");
 
 
@@ -267,6 +268,8 @@ PDFScreen::PDFScreen(QWidget *parent)
 
 	this->connect(&impl_->pdfReader, SIGNAL(rendered(int, QImage)), SLOT(onRendered(int, QImage)), Qt::QueuedConnection);
 	this->connect(&impl_->pdfReader, SIGNAL(renderError(QString)), SLOT(onRenderError(QString)));
+	this->connect(&impl_->pdfReader, SIGNAL(rendering(QString)), SLOT(onRendering(QString)));
+	this->connect(&impl_->pdfReader, SIGNAL(cached(QString)), SLOT(onCached(QString)));
 
 	//settings
 	impl_->settings = new QSettings(plutoApp->pathRelateToAppDir("config/config.ini"),
@@ -357,6 +360,8 @@ PDFScreen::renderPage(int screenWidth)
 	this->startProgress();
 
 	//render
+	this->updateMemoryInfo();
+
 	impl_->pdfReader.setMargin(impl_->leftMargin, 
 		impl_->rightMargin, 
 		impl_->topMargin, 
@@ -374,12 +379,6 @@ PDFScreen::onRendered(int pageNo, QImage image)
 {
 	//if necessary, clear store buffer to save memory
 	this->updateMemoryInfo();
-
-	if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
-	{
-		impl_->pdfReader.clearEngineBuffer();
-		this->updateMemoryInfo();
-	}
 
 	int realPageNo = pageNo + 1;
 
@@ -409,12 +408,27 @@ PDFScreen::onRendered(int pageNo, QImage image)
 
 
 void 
+PDFScreen::onRendering(QString msg)
+{
+	this->setMessage(msg);
+}
+
+
+void 
 PDFScreen::onRenderError(QString errMsg)
 {
 	this->setMessage(errMsg);
 
 	//hide progress display
 	this->hideProgress();
+}
+
+
+void 
+PDFScreen::onCached(QString cacheMsg)
+{
+	this->setMessage(cacheMsg);
+	this->updateMemoryInfo();
 }
 
 
