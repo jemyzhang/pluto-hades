@@ -134,7 +134,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:..\\PlutoPDF_M8_v0.1.4.2.cab"
+        "OutputFilename" = "8:..\\PlutoPDF_M8_v0.1.5.0.cab"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
         "SignOutput" = "11:FALSE"

@@ -22,9 +22,12 @@
 namespace pdf
 {
 
+static const quint32 MAX_ACCEPT_MEM_USE = 80;
 
 struct PDFPage
 {
+	static int compressLevel;
+
 	QByteArray data;
 	
 	QSize imgsize;
@@ -32,10 +35,31 @@ struct PDFPage
 
 	void compress(const QImage& image)
 	{
-		data = qCompress(image.bits(), image.numBytes());
+		pltGuardTimer guard(__FUNCTION__);
+
+		data = qCompress(image.bits(), image.numBytes(), compressLevel);
 
 		imgsize = image.size();
 		format = image.format();
+
+		double used = guard.elapsed();
+
+		if (used > 4)
+		{
+			--compressLevel;
+		}
+		else if (used < 1)
+		{
+			++compressLevel;
+		}
+
+		compressLevel = qBound(1, compressLevel, 9);
+
+		__LOG(QString("Compress level %1, ratio %2/%3 - %4")
+			.arg(compressLevel)
+			.arg(data.size())
+			.arg(image.numBytes())
+			.arg(data.size() * 1.0 / image.numBytes()));
 	}
 
 	QImage uncompress()
@@ -59,6 +83,7 @@ struct PDFPage
 	}
 };
 
+int PDFPage::compressLevel = 5;
 
 struct Request
 {
@@ -68,10 +93,13 @@ struct Request
 struct PDFThreadReader::PDFThreadReaderImpl
 {
 	QCache<int, PDFPage> pages;
+	bool noCacheNext;
 
 	QQueue<int>	requests;
 	QMutex requestMutex;
+
 	volatile int requestPageNo;
+	volatile int renderingPageNo;
 
 	PDFThreadReader::ZoomLevel zoomLevel;
 	int screenWidth;
@@ -80,35 +108,53 @@ struct PDFThreadReader::PDFThreadReaderImpl
 
 	volatile bool stopFlag;
 
-	bool addIntoCache(int pageNo, const QImage& image)
+	PDFThreadReaderImpl()
+		: requestMutex(QMutex::Recursive)
+		, noCacheNext (false)
 	{
-		PDFPage* page = new PDFPage();
-		page->compress(image);
+	}
 
-		if (page->size() != 0 && page->size() < pages.maxCost())
+	PDFPage* addIntoCache(int pageNo, const QImage& image)
+	{
+		PDFPage* page = NULL;
+		
+		if (noCacheNext)
 		{
-			pages.insert(pageNo, page, page->size());
-
-			qDebug()<<"Cached : "<<pages.keys()
-				<<", cost (k)"<< (page->size() / 1000)
-				<<", total cost (m)"<< (pages.totalCost() * 1.0 / (1024 * 1024));
-
-			return true;
+			noCacheNext = false;
 		}
 		else
 		{
-			SAFE_DELETE(page);
-			return false;
+			page = new PDFPage();
+
+			if (page)
+			{
+				page->compress(image);
+
+				if (page->size() != 0 && page->size() < pages.maxCost())
+				{
+					pages.insert(pageNo, page, page->size());
+				}
+				else
+				{
+					SAFE_DELETE(page);
+				}
+			}
 		}
+
+		return page;
 	}
 
-	void clearCache()
+	void clearCache(bool noCacheNext)
 	{
 		pages.clear();
+
+		this->noCacheNext = noCacheNext;
 	}
 
 	void clearRequest()
 	{
+		QMutexLocker locker(&requestMutex);
+
 		requests.clear();
 	}
 };
@@ -167,7 +213,7 @@ void
 PDFThreadReader::open(const QString& pdfFile, 
 					  const QString& password /*= ""*/)
 {
-	impl_->clearCache();
+	impl_->clearCache(this->isRunning());
 	impl_->clearRequest();
 
 	this->stop();
@@ -188,7 +234,7 @@ PDFThreadReader::setMargin(double leftPercent /*= 0.05*/,
 		qAbs(this->topMargin() - topPercent) > 0.01 ||
 		qAbs(this->bottomMargin() - bottomPercent) > 0.01)
 	{
-		impl_->clearCache();
+		impl_->clearCache(this->isRunning());
 
 		PDFReader::setMargin(leftPercent, 
 			rightPercent,
@@ -210,7 +256,7 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 		impl_->screenHeight != screenH ||
 		impl_->rotation != rotation)
 	{
-		impl_->clearCache();
+		impl_->clearCache(this->isRunning());
 
 		impl_->zoomLevel = level;
 		impl_->screenWidth = screenW;
@@ -223,16 +269,31 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 void 
 PDFThreadReader::askRender(int pageNo)
 {
+	QMutexLocker locker(&impl_->requestMutex);
+
 	impl_->requestPageNo = pageNo;
 	impl_->clearRequest();
 
 	if (this->hasPage(pageNo))
 	{
-		emit rendered(pageNo, this->getPage(pageNo));
+		QImage image = this->getPage(pageNo);
+
+		if (!image.isNull())
+		{
+			emit rendered(pageNo, image);
+		}
+		else
+		{
+			emit renderError(QString("Render p%1 error - %2")
+				.arg(pageNo + 1).arg("Out of memory"));
+		}
 	}
 	else
 	{
-		impl_->requests.enqueue(pageNo);
+		if (impl_->renderingPageNo != pageNo)
+			impl_->requests.enqueue(pageNo);
+
+		emit rendering(QString("Rendering p%1, please wait").arg(pageNo + 1));
 	}
 
 	this->prefetch(pageNo, 2);
@@ -257,8 +318,13 @@ PDFThreadReader::run()
 		}
 		else
 		{
-			int pageNo = impl_->requests.dequeue();
-
+			int pageNo = 0;
+			
+			{
+				QMutexLocker locker(&impl_->requestMutex);
+				pageNo = impl_->requests.dequeue();
+			}
+			
 			if (this->hasPage(pageNo))
 			{
 				//do not need to render, already has page
@@ -314,6 +380,8 @@ PDFThreadReader::renderPage(int pageNo)
 {
 	try
 	{
+		impl_->renderingPageNo = pageNo;
+
 		QImage image = this->render(pageNo, 
 			impl_->zoomLevel,
 			impl_->screenWidth,
@@ -325,24 +393,63 @@ PDFThreadReader::renderPage(int pageNo)
 			__THROW_L(PDFException, "Out of memory");
 		}
 
-		if (pageNo == impl_->requestPageNo)
+		if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
 		{
-			emit rendered(pageNo, image);
+			this->clearEngineBuffer();
 		}
 
-		bool success = impl_->addIntoCache(pageNo, image);
-
-		if (!success && pageNo == impl_->requestPageNo)
+		if (pageNo == impl_->requestPageNo)
 		{
-			//too large, can not add into cache
-			//remove the later request
-			impl_->clearRequest();
+			//emit directly
+			emit rendered(pageNo, image);
+
+			cache(pageNo, image);
+		}
+		else
+		{
+			//cache then emit
+			cache(pageNo, image);
+
+			if (pageNo == impl_->requestPageNo)
+			{
+				emit rendered(pageNo, image);
+			}
 		}
 	}
 	catch (PDFException& e)
 	{
 		emit renderError(QString("Render p%1 error - %2")
 			.arg(pageNo + 1).arg(e.what()));
+	}
+}
+
+
+void 
+PDFThreadReader::cache(int pageNo, const QImage& image)
+{
+	PDFPage* page = impl_->addIntoCache(pageNo, image);
+
+	QStringList pages;
+	foreach(int i, impl_->pages.keys())
+	{
+		pages<<QString::number(i + 1);
+	}
+
+	QString cachedMsg = QString("Cached p%1 (%2), cost %3k, total %4m")
+		.arg(pageNo + 1)
+		.arg(pages.join(", "))
+		.arg(page->size() / 1000)
+		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2);
+
+	__LOG(cachedMsg);
+
+	emit cached(cachedMsg);
+
+	if (page == NULL && pageNo == impl_->requestPageNo)
+	{
+		//too large, can not add into cache
+		//remove the later request
+		impl_->clearRequest();
 	}
 }
 

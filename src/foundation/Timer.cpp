@@ -298,6 +298,16 @@ GuardTimer::~GuardTimer() throw()
 	Timer::removeTimer(name_);
 }
 
+
+double 
+GuardTimer::elapsed() const
+{
+	Timer timer = Timer::getTimer(name_);
+	timer.trigger();
+
+	return timer.total();
+}
+
 /************************************************************************
 ** 	                                                                
 ** Groupable Timer's Methods                                                               

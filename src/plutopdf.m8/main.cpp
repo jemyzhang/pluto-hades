@@ -28,7 +28,7 @@ main(int argc, char *argv[])
 	//splash
 	QSplashScreen splash(QPixmap(plutoApp->pathRelateToAppDir("splash.png")));
 
-	splash.showMessage("PlutoPDF for M8 v0.1.4.2 \nRoger (roger2yi@gmail.com)", 
+	splash.showMessage("PlutoPDF for M8 v0.1.5.0 \nRoger (roger2yi@gmail.com)", 
 		Qt::AlignBottom|Qt::AlignLeft,
 		QColor("white"));
 

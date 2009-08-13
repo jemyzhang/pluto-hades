@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\moc_PDFThreadReader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PDFMenu.cpp"
 				>
 			</File>
@@ -247,6 +251,26 @@
 			<File
 				RelativePath=".\PDFScreen.cpp"
 				>
+			</File>
+			<File
+				RelativePath=".\PDFThreadReader.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\qrc_pdf.cpp"
@@ -339,6 +363,32 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\PDFThreadReader.h"
+				>
+				<FileConfiguration
+					Name="Debug|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFThreadReader.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFThreadReader.h&quot; -o &quot;.\GeneratedFiles\moc_PDFThreadReader.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFThreadReader.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFThreadReader.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFThreadReader.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFThreadReader.h&quot; -o &quot;.\GeneratedFiles\moc_PDFThreadReader.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFThreadReader.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFThreadReader.cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
@@ -373,7 +423,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Rcc&apos;ing pdf.qrc..."
-					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp"
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
 					AdditionalDependencies=".\pdf.qrc"
 					Outputs=".\GeneratedFiles\qrc_pdf.cpp"
 				/>
