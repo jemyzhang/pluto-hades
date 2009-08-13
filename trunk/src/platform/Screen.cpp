@@ -70,6 +70,8 @@ struct Screen::ScreenImpl
 	int pressTimerId;
 
 	QTimeLine* thumbTimeLine;
+	QTimeLine* progressTimeLine;
+
 	bool thumbVisible;
 };
 
@@ -123,10 +125,12 @@ Screen::Screen(QWidget *parent)
 		SIGNAL(frameChanged(int)), 
 		SLOT(thumbDisplay(int)));
 
-	//impl_->alphaThumb = QPixmap(impl_->ui.frameThumb->contentsRect().size());
-	//impl_->alphaThumb.fill(qRgba(0, 0, 0, 50));
-	//impl_->alphaThumb = impl_->alphaThumb.alphaChannel();
-
+	impl_->progressTimeLine = new QTimeLine(10000, this);
+	impl_->progressTimeLine->setCurveShape(QTimeLine::EaseOutCurve);
+	impl_->progressTimeLine->setUpdateInterval(100);
+	this->connect(impl_->progressTimeLine, 
+		SIGNAL(frameChanged(int)), 
+		SLOT(stepProgress(int)));
 }
 
 
@@ -301,12 +305,12 @@ Screen::setMessage(const QString& message)
 	impl_->ui.lbMessage->setText(message);
 
 	if (impl_->ui.progress->value() == impl_->ui.progress->maximum())
-		impl_->ui.progress->hide();
+		this->hideProgress();
 }
 
 
 void 
-Screen::setPageImage(const QImage& pg)
+Screen::setPageImage(const QImage& pg, ScrollScreenDirection direction)
 {
 	QPixmap pixmap = QPixmap::fromImage(pg);
 	impl_->pixItem->setPixmap(pixmap);
@@ -314,7 +318,7 @@ Screen::setPageImage(const QImage& pg)
 	impl_->scene->setSceneRect(pixmap.rect());
 	//impl_->pixItem->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 
-	this->scrollSceen(DirectionUpLeftCorner);
+	this->scrollSceen(direction);
 	this->startThumbDiaplay();
 }
 
@@ -387,26 +391,41 @@ Screen::startProgress(int minmimum, int maximum)
 {
 	impl_->ui.progress->setRange(minmimum, maximum);
 	impl_->ui.progress->setValue(minmimum);
-
 	impl_->ui.progress->show();
+
+	impl_->progressTimeLine->setFrameRange(minmimum, maximum);
+	impl_->progressTimeLine->start();
 }
 
 
 void 
 Screen::stepProgress(int step /*= 1*/)
 {
-	impl_->ui.progress->setValue(impl_->ui.progress->value() + step);
-
-	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+	impl_->ui.progress->setValue(step);
 }
 
 
 void 
 Screen::endProgress()
 {
-	impl_->ui.progress->setValue(impl_->ui.progress->maximum());
+	impl_->progressTimeLine->stop();
+	impl_->progressTimeLine->setCurrentTime(0);
 
-	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+	impl_->ui.progress->setValue(impl_->ui.progress->maximum());
+}
+
+
+void 
+Screen::hideProgress()
+{
+	impl_->ui.progress->hide();
+}
+
+
+int 
+Screen::progressTime() const
+{
+	return impl_->progressTimeLine->currentTime();
 }
 
 

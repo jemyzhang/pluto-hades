@@ -717,5 +717,33 @@ PDFReader::clearEngineBuffer()
 }
 
 
+double 
+PDFReader::leftMargin() const
+{
+	return impl_->info.margin.left;
+}
+
+
+double 
+PDFReader::rightMargin() const
+{
+	return impl_->info.margin.right;
+}
+
+
+double 
+PDFReader::topMargin() const
+{
+	return impl_->info.margin.top;
+}
+
+
+double 
+PDFReader::bottomMargin() const
+{
+	return impl_->info.margin.bottom;
+}
+
+
 //namespace pdf
 }

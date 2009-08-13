@@ -20,9 +20,11 @@
 #define pdf_include_h__
 
 #include "../src/pdf/PDFReader.h"
+#include "../src/pdf/PDFThreadReader.h"
 #include "../src/pdf/PDFScreen.h"
 
 typedef pdf::PDFReader			pltPDFReader;
+typedef pdf::PDFThreadReader	pltPDFThreadReader;
 typedef pdf::PDFException		pltPDFException;
 
 typedef pdf::PDFScreen			pltPDFScreen;
