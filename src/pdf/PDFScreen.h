@@ -38,9 +38,7 @@ public:
 public slots:
 	void getPdfBook();
 	void openFirstPdfBook();
-	void openPdfBook(const QString& pdfFile, 
-		bool render = true,
-		bool addIntoList = true);
+	bool openPdfBook(const QString& pdfFile);
 
 	void scrollPrePage();
 	void scrollNextPage();
@@ -49,6 +47,8 @@ public slots:
 
 	void renderPage(int screenWidth = 0);
 
+	void onRendered(int pageNo, QImage image);
+	void onRenderError(QString errMsg);
 
 
 private slots:

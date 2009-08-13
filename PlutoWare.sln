@@ -18,25 +18,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{C2BA
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "foundation", "src\foundation\foundation.vcproj", "{3398E734-35F7-4ED0-8AD9-937727D1D0A9}"
-	GlobalSection(Qt) = preSolution
-		Integration = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "foundation.ce", "src\foundation\foundation.ce.vcproj", "{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdf", "src\pdf\pdf.vcproj", "{DC1796AC-0559-4D84-B0FB-96890F98615C}"
-	GlobalSection(Qt) = preSolution
-		Integration = True
-	EndGlobalSection
 	ProjectSection(ProjectDependencies) = postProject
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9} = {3398E734-35F7-4ED0-8AD9-937727D1D0A9}
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8} = {D868475A-F512-4C42-A3FB-B2DAADEFAEB8}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdftest", "tests\pdftest\pdftest.vcproj", "{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}"
-	GlobalSection(Qt) = preSolution
-		Integration = True
-	EndGlobalSection
 	ProjectSection(ProjectDependencies) = postProject
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9} = {3398E734-35F7-4ED0-8AD9-937727D1D0A9}
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8} = {D868475A-F512-4C42-A3FB-B2DAADEFAEB8}
@@ -46,9 +37,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2AE3429F-1ED8-4056-927D-6D4E7615917F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "platform", "src\platform\platform.vcproj", "{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}"
-	GlobalSection(Qt) = preSolution
-		Integration = True
-	EndGlobalSection
 	ProjectSection(ProjectDependencies) = postProject
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9} = {3398E734-35F7-4ED0-8AD9-937727D1D0A9}
 	EndProjectSection
@@ -79,20 +67,24 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|M8SDK (ARMV4I) = Debug|M8SDK (ARMV4I)
 		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Pocket PC 2003 (ARMV4) = Debug|Pocket PC 2003 (ARMV4)
 		Debug|Win32 = Debug|Win32
 		Release|M8SDK (ARMV4I) = Release|M8SDK (ARMV4I)
 		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Pocket PC 2003 (ARMV4) = Release|Pocket PC 2003 (ARMV4)
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Debug|Win32.Build.0 = Debug|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|M8SDK (ARMV4I).ActiveCfg = Release|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|Win32.ActiveCfg = Release|Win32
 		{3398E734-35F7-4ED0-8AD9-937727D1D0A9}.Release|Win32.Build.0 = Release|Win32
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|M8SDK (ARMV4I)
@@ -101,6 +93,7 @@ Global
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|Mixed Platforms.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|Mixed Platforms.Build.0 = Debug|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|Mixed Platforms.Deploy.0 = Debug|M8SDK (ARMV4I)
+		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Debug|Win32.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|M8SDK (ARMV4I).ActiveCfg = Release|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|M8SDK (ARMV4I).Build.0 = Release|M8SDK (ARMV4I)
@@ -108,35 +101,42 @@ Global
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|Mixed Platforms.ActiveCfg = Release|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|Mixed Platforms.Build.0 = Release|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|Mixed Platforms.Deploy.0 = Release|M8SDK (ARMV4I)
+		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|M8SDK (ARMV4I)
 		{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}.Release|Win32.ActiveCfg = Release|M8SDK (ARMV4I)
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Debug|Win32.Build.0 = Debug|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|M8SDK (ARMV4I).ActiveCfg = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|Win32.ActiveCfg = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615C}.Release|Win32.Build.0 = Release|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Debug|Win32.Build.0 = Debug|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|M8SDK (ARMV4I).ActiveCfg = Release|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|Win32.ActiveCfg = Release|Win32
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E}.Release|Win32.Build.0 = Release|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Debug|Win32.Build.0 = Debug|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|M8SDK (ARMV4I).ActiveCfg = Release|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|Win32.ActiveCfg = Release|Win32
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8}.Release|Win32.Build.0 = Release|Win32
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|M8SDK (ARMV4I)
@@ -145,6 +145,7 @@ Global
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|Mixed Platforms.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|Mixed Platforms.Build.0 = Debug|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|Mixed Platforms.Deploy.0 = Debug|M8SDK (ARMV4I)
+		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Debug|Win32.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|M8SDK (ARMV4I).ActiveCfg = Release|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|M8SDK (ARMV4I).Build.0 = Release|M8SDK (ARMV4I)
@@ -152,6 +153,7 @@ Global
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|Mixed Platforms.ActiveCfg = Release|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|Mixed Platforms.Build.0 = Release|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|Mixed Platforms.Deploy.0 = Release|M8SDK (ARMV4I)
+		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|M8SDK (ARMV4I)
 		{93DBF380-EBB2-4A4E-960E-25DA7C8F47CF}.Release|Win32.ActiveCfg = Release|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|M8SDK (ARMV4I).Build.0 = Debug|M8SDK (ARMV4I)
@@ -159,6 +161,7 @@ Global
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|Mixed Platforms.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|Mixed Platforms.Build.0 = Debug|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|Mixed Platforms.Deploy.0 = Debug|M8SDK (ARMV4I)
+		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Debug|Win32.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|M8SDK (ARMV4I).ActiveCfg = Release|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|M8SDK (ARMV4I).Build.0 = Release|M8SDK (ARMV4I)
@@ -166,6 +169,7 @@ Global
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|Mixed Platforms.ActiveCfg = Release|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|Mixed Platforms.Build.0 = Release|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|Mixed Platforms.Deploy.0 = Release|M8SDK (ARMV4I)
+		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|M8SDK (ARMV4I)
 		{1126A84C-20A1-440B-B873-6EFE711C6A3A}.Release|Win32.ActiveCfg = Release|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|M8SDK (ARMV4I).Build.0 = Debug|M8SDK (ARMV4I)
@@ -173,6 +177,7 @@ Global
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|Mixed Platforms.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|Mixed Platforms.Build.0 = Debug|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|Mixed Platforms.Deploy.0 = Debug|M8SDK (ARMV4I)
+		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Debug|Win32.ActiveCfg = Debug|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|M8SDK (ARMV4I).ActiveCfg = Release|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|M8SDK (ARMV4I).Build.0 = Release|M8SDK (ARMV4I)
@@ -180,12 +185,17 @@ Global
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|Mixed Platforms.ActiveCfg = Release|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|Mixed Platforms.Build.0 = Release|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|Mixed Platforms.Deploy.0 = Release|M8SDK (ARMV4I)
+		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|M8SDK (ARMV4I)
 		{0B2BE8EB-9BB0-4B6C-A5F7-3A4F0DB55962}.Release|Win32.ActiveCfg = Release|M8SDK (ARMV4I)
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{306D236A-ACD4-4754-9472-F5257BE3D991}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug
+		{306D236A-ACD4-4754-9472-F5257BE3D991}.Debug|Pocket PC 2003 (ARMV4).Build.0 = Debug
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Debug|Win32.ActiveCfg = Debug
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Release|M8SDK (ARMV4I).ActiveCfg = Release
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Release|Mixed Platforms.ActiveCfg = Release
+		{306D236A-ACD4-4754-9472-F5257BE3D991}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release
+		{306D236A-ACD4-4754-9472-F5257BE3D991}.Release|Pocket PC 2003 (ARMV4).Build.0 = Release
 		{306D236A-ACD4-4754-9472-F5257BE3D991}.Release|Win32.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
@@ -204,5 +214,17 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		QtVersion = 4.5.0
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
 	EndGlobalSection
 EndGlobal

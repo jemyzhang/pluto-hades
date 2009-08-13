@@ -73,7 +73,8 @@ public slots:
 
 	void setMessage(const QString& message);
 
-	void setPageImage(const QImage& pg);
+	void setPageImage(const QImage& pg,
+		ScrollScreenDirection direction = DirectionUpLeftCorner);
 
 	void startThumbDiaplay();
 
@@ -82,9 +83,12 @@ public slots:
 
 	void updateThumbMask();
 
-	void startProgress(int minmimum, int maximum);
+	void startProgress(int minmimum = 0, int maximum = 99);
 	void stepProgress(int step = 1);
 	void endProgress();
+	void hideProgress();
+
+	int progressTime() const;
 
 	void exit();
 

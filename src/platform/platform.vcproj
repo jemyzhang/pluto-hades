@@ -314,6 +314,66 @@
 			ParseFiles="false"
 			>
 			<File
+				RelativePath=".\Resources\169.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\269.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\image1.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\platform.qrc"
 				>
 				<FileConfiguration
@@ -322,8 +382,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing platform.qrc..."
-						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
-						AdditionalDependencies=".\platform.qrc"
+						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;platform&quot; -no-compress &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
+						AdditionalDependencies=".\platform.qrc;.\Resources\169.png;.\Resources\269.png"
 						Outputs=".\GeneratedFiles\qrc_platform.cpp"
 					/>
 				</FileConfiguration>
@@ -333,8 +393,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing platform.qrc..."
-						CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
-						AdditionalDependencies=".\platform.qrc"
+						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;platform&quot; -no-compress &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
+						AdditionalDependencies=".\platform.qrc;.\Resources\169.png;.\Resources\269.png"
 						Outputs=".\GeneratedFiles\qrc_platform.cpp"
 					/>
 				</FileConfiguration>
@@ -346,18 +406,6 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			SourceControlFiles="false"
 			>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_Platform.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_Platform.cpp"
 				>
@@ -380,6 +428,30 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\Release\moc_Platform.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_Screen.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_Screen.cpp"
 				>
 				<FileConfiguration
@@ -397,18 +469,6 @@
 						Name="VCCLCompilerTool"
 						WarningLevel="0"
 						WarnAsError="false"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\GeneratedFiles\Release\moc_Screen.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
 			</File>

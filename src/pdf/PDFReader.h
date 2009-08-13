@@ -91,6 +91,11 @@ public:
 
 	int pageRotation(int pageNo) const;
 
+	double leftMargin() const;
+	double rightMargin() const;
+	double topMargin() const;
+	double bottomMargin() const;
+
 	QImage render(int pageNo,
 		ZoomLevel level,
 		int screenW,
@@ -103,17 +108,17 @@ public:
 		int rotation = 0) const;
 
 public:
-	void open(const QString& pdfFile, const QString& password = "");
+	virtual void open(const QString& pdfFile, const QString& password = "");
 
-	void clearEngineBuffer();
+	virtual void clearEngineBuffer();
 
-	void setMargin(double leftPercent = 0.05, 
+	virtual void setMargin(double leftPercent = 0.05, 
 		double rightPercent = 0.05,
 		double topPercent = 0.0,
 		double bottomPercent = 0.0,
 		int ignorePages = 0);
 
-	void setBackground(QColor bk);
+	virtual void setBackground(QColor bk);
 
 private:
 	Q_DISABLE_COPY(PDFReader)
