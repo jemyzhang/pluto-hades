@@ -80,7 +80,9 @@ protected:
 
 private:
 	void prefetch(int pageNo, int count);
+
 	void stop();
+	void stopAndClean();
 
 	void renderPage(int pageNo);
 	void cache(int pageNo, const QImage& image);

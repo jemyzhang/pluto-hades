@@ -271,6 +271,8 @@ PDFScreen::PDFScreen(QWidget *parent)
 	this->connect(&impl_->pdfReader, SIGNAL(rendering(QString)), SLOT(onRendering(QString)));
 	this->connect(&impl_->pdfReader, SIGNAL(cached(QString)), SLOT(onCached(QString)));
 
+	impl_->pdfReader.setConvertTo16Bits(true);
+
 	//settings
 	impl_->settings = new QSettings(plutoApp->pathRelateToAppDir("config/config.ini"),
 		QSettings::IniFormat,
@@ -386,6 +388,7 @@ PDFScreen::onRendered(int pageNo, QImage image)
 	this->setPageImage(image, impl_->scrollDirection);
 	impl_->scrollDirection = DirectionUpLeftCorner;//set back
 
+
 	//update ui info
 	this->setPageIndicator(realPageNo, impl_->pdfReader.pageCount());
 	this->setZoomInfo(qAbs((int)impl_->zoomLevel));
@@ -400,10 +403,11 @@ PDFScreen::onRendered(int pageNo, QImage image)
 		.arg(qAbs((int)impl_->zoomLevel))
 		);
 
-	this->setFocus();
 
 	//end progress display
 	this->endProgress();
+
+	this->setFocus();
 }
 
 

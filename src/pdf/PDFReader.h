@@ -120,6 +120,8 @@ public:
 
 	virtual void setBackground(QColor bk);
 
+	virtual void setConvertTo16Bits(bool convert);
+
 private:
 	Q_DISABLE_COPY(PDFReader)
 

@@ -613,7 +613,7 @@ Screen::updateMemoryInfo()
 	Platform::MemoryStatus ms = plutoApp->memoryStatus();
 
 	QString meminfo = QString("%1/%2M")
-		.arg(ms.usedPhys, 0, 'f', 1).arg(ms.totalPhys, 0, 'f', 1);
+		.arg((int)ms.usedPhys).arg((int)ms.totalPhys);
 
 	impl_->ui.lbMem->setText(meminfo);
 }

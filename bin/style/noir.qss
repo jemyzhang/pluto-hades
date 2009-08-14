@@ -110,11 +110,6 @@ QFrame#statusBar > QLabel
 font: bold 10pt;
 }
 
-QFrame#statusBar > QLabel#lbMessage
-{
-font: bold 8pt;
-}
-
 QFrame#line, QFrame#line2
 {
 color : dimgray;

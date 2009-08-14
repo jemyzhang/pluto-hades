@@ -93,10 +93,10 @@ struct Request
 struct PDFThreadReader::PDFThreadReaderImpl
 {
 	QCache<int, PDFPage> pages;
-	bool noCacheNext;
-
 	QQueue<int>	requests;
+
 	QMutex requestMutex;
+	QMutex cacheMutex;
 
 	volatile int requestPageNo;
 	volatile int renderingPageNo;
@@ -110,45 +110,49 @@ struct PDFThreadReader::PDFThreadReaderImpl
 
 	PDFThreadReaderImpl()
 		: requestMutex(QMutex::Recursive)
-		, noCacheNext (false)
+		, cacheMutex(QMutex::Recursive)
+		, renderingPageNo(-1)
 	{
 	}
 
 	PDFPage* addIntoCache(int pageNo, const QImage& image)
 	{
-		PDFPage* page = NULL;
-		
-		if (noCacheNext)
+		PDFPage* page = new PDFPage();
+		page->compress(image);
+
+		if (page->size() != 0 && page->size() < pages.maxCost())
 		{
-			noCacheNext = false;
+			QMutexLocker locker(&cacheMutex);
+			
+			pages.insert(pageNo, page, page->size());
 		}
 		else
 		{
-			page = new PDFPage();
-
-			if (page)
-			{
-				page->compress(image);
-
-				if (page->size() != 0 && page->size() < pages.maxCost())
-				{
-					pages.insert(pageNo, page, page->size());
-				}
-				else
-				{
-					SAFE_DELETE(page);
-				}
-			}
+			SAFE_DELETE(page);
 		}
 
 		return page;
 	}
 
-	void clearCache(bool noCacheNext)
+	void clearCache()
 	{
-		pages.clear();
+		QMutexLocker locker(&cacheMutex);
 
-		this->noCacheNext = noCacheNext;
+		pages.clear();
+	}
+
+	void enqueueRequest(int pageNo)
+	{
+		QMutexLocker locker(&requestMutex);
+
+		requests.enqueue(pageNo);
+	}
+
+	int dequeueRequest()
+	{
+		QMutexLocker locker(&requestMutex);
+
+		return requests.dequeue();
 	}
 
 	void clearRequest()
@@ -157,6 +161,17 @@ struct PDFThreadReader::PDFThreadReaderImpl
 
 		requests.clear();
 	}
+
+	void setRenderingPageNo(int pageNo)
+	{
+		renderingPageNo = pageNo;
+	}
+
+	void resetRenderingPageNo()
+	{
+		renderingPageNo = -1;
+	}
+
 };
 
 
@@ -213,12 +228,12 @@ void
 PDFThreadReader::open(const QString& pdfFile, 
 					  const QString& password /*= ""*/)
 {
-	impl_->clearCache(this->isRunning());
-	impl_->clearRequest();
+	if (QFileInfo(pdfFile) != QFileInfo(this->filePath()))
+	{
+		this->stopAndClean();
 
-	this->stop();
-
-	PDFReader::open(pdfFile, password);
+		PDFReader::open(pdfFile, password);
+	}
 }
 
 
@@ -234,7 +249,7 @@ PDFThreadReader::setMargin(double leftPercent /*= 0.05*/,
 		qAbs(this->topMargin() - topPercent) > 0.01 ||
 		qAbs(this->bottomMargin() - bottomPercent) > 0.01)
 	{
-		impl_->clearCache(this->isRunning());
+		this->stopAndClean();
 
 		PDFReader::setMargin(leftPercent, 
 			rightPercent,
@@ -256,7 +271,7 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 		impl_->screenHeight != screenH ||
 		impl_->rotation != rotation)
 	{
-		impl_->clearCache(this->isRunning());
+		this->stopAndClean();
 
 		impl_->zoomLevel = level;
 		impl_->screenWidth = screenW;
@@ -269,8 +284,6 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 void 
 PDFThreadReader::askRender(int pageNo)
 {
-	QMutexLocker locker(&impl_->requestMutex);
-
 	impl_->requestPageNo = pageNo;
 	impl_->clearRequest();
 
@@ -291,13 +304,12 @@ PDFThreadReader::askRender(int pageNo)
 	else
 	{
 		if (impl_->renderingPageNo != pageNo)
-			impl_->requests.enqueue(pageNo);
+			impl_->enqueueRequest(pageNo);
 
 		emit rendering(QString("Rendering p%1, please wait").arg(pageNo + 1));
 	}
 
 	this->prefetch(pageNo, 2);
-
 
 	if (!this->isRunning())
 	{
@@ -318,12 +330,7 @@ PDFThreadReader::run()
 		}
 		else
 		{
-			int pageNo = 0;
-			
-			{
-				QMutexLocker locker(&impl_->requestMutex);
-				pageNo = impl_->requests.dequeue();
-			}
+			int pageNo = impl_->dequeueRequest();
 			
 			if (this->hasPage(pageNo))
 			{
@@ -350,11 +357,23 @@ PDFThreadReader::stop()
 	{
 		impl_->stopFlag = true;
 
-		if (!this->wait(1000))
+		if (!this->wait(10000))
 		{
 			this->terminate();
 		}
 	}
+}
+
+
+void 
+PDFThreadReader::stopAndClean()
+{
+	this->stop();
+
+	impl_->clearCache();
+	impl_->clearRequest();
+
+	impl_->resetRenderingPageNo();
 }
 
 
@@ -367,7 +386,7 @@ PDFThreadReader::prefetch(int pageNo, int count)
 	{
 		if (!this->hasPage(nextPage) && nextPage < this->pageCount())
 		{
-			impl_->requests.enqueue(nextPage);
+			impl_->enqueueRequest(nextPage);
 		}
 
 		++nextPage;
@@ -380,7 +399,7 @@ PDFThreadReader::renderPage(int pageNo)
 {
 	try
 	{
-		impl_->renderingPageNo = pageNo;
+		impl_->setRenderingPageNo(pageNo);
 
 		QImage image = this->render(pageNo, 
 			impl_->zoomLevel,
@@ -398,21 +417,24 @@ PDFThreadReader::renderPage(int pageNo)
 			this->clearEngineBuffer();
 		}
 
-		if (pageNo == impl_->requestPageNo)
+		if (!impl_->stopFlag)
 		{
-			//emit directly
-			emit rendered(pageNo, image);
-
-			cache(pageNo, image);
-		}
-		else
-		{
-			//cache then emit
-			cache(pageNo, image);
-
 			if (pageNo == impl_->requestPageNo)
 			{
+				//emit directly
 				emit rendered(pageNo, image);
+
+				cache(pageNo, image);
+			}
+			else
+			{
+				//cache then emit
+				cache(pageNo, image);
+
+				if (pageNo == impl_->requestPageNo)
+				{
+					emit rendered(pageNo, image);
+				}
 			}
 		}
 	}
@@ -429,21 +451,13 @@ PDFThreadReader::cache(int pageNo, const QImage& image)
 {
 	PDFPage* page = impl_->addIntoCache(pageNo, image);
 
-	QStringList pages;
-	foreach(int i, impl_->pages.keys())
-	{
-		pages<<QString::number(i + 1);
-	}
-
-	QString cachedMsg = QString("Cached p%1 (%2), cost %3k, total %4m")
+	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m)")
 		.arg(pageNo + 1)
-		.arg(pages.join(", "))
-		.arg(page->size() / 1000)
+		.arg(impl_->pages.size())
+		.arg(page->size() / 1024)
 		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2);
 
-	__LOG(cachedMsg);
-
-	emit cached(cachedMsg);
+	emit cached(cachedMsg); __LOG(cachedMsg);
 
 	if (page == NULL && pageNo == impl_->requestPageNo)
 	{
