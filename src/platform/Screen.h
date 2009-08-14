@@ -57,12 +57,15 @@ public:
 	virtual ~Screen();
 
 public:
-	QImage pageImage() const;
+	QSize neededThumbSize() const;
 
-public slots:
+	QImage pageImage() const;
+	
+	int progressTime() const;
+
+public:
 	void setStatusBarVisible(bool visible);
 	void setThumbVisible(bool visible);
-
 	void setBatteryInfo(int percentage);
 	void updateTimeInfo();
 	void updateMemoryInfo();
@@ -70,13 +73,16 @@ public slots:
 	void setPageIndicator(int curr, int total);
 	void setZoomInfo(int zoom);
 	void setFileInfo(const QString& fileInfo);
-
+		
 	void setMessage(const QString& message);
 
 	void setPageImage(const QImage& pg,
+		const QPixmap& thumb = QPixmap(),
 		ScrollScreenDirection direction = DirectionUpLeftCorner);
 
 	void startThumbDiaplay();
+
+public slots:
 
 	void showThumb();
 	void hideThumb();
@@ -87,8 +93,6 @@ public slots:
 	void stepProgress(int step = 1);
 	void endProgress();
 	void hideProgress();
-
-	int progressTime() const;
 
 	void exit();
 

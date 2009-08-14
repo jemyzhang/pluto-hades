@@ -266,12 +266,13 @@ PDFScreen::PDFScreen(QWidget *parent)
 
 	this->connect(this, SIGNAL(firstShow()), SLOT(onFirstShown()), Qt::QueuedConnection);
 
-	this->connect(&impl_->pdfReader, SIGNAL(rendered(int, QImage)), SLOT(onRendered(int, QImage)), Qt::QueuedConnection);
+	this->connect(&impl_->pdfReader, SIGNAL(rendered(int, QImage, QImage)), SLOT(onRendered(int, QImage, QImage)), Qt::QueuedConnection);
 	this->connect(&impl_->pdfReader, SIGNAL(renderError(QString)), SLOT(onRenderError(QString)));
 	this->connect(&impl_->pdfReader, SIGNAL(rendering(QString)), SLOT(onRendering(QString)));
 	this->connect(&impl_->pdfReader, SIGNAL(cached(QString)), SLOT(onCached(QString)));
 
 	impl_->pdfReader.setConvertTo16Bits(true);
+	impl_->pdfReader.setThumbSize(this->neededThumbSize());
 
 	//settings
 	impl_->settings = new QSettings(plutoApp->pathRelateToAppDir("config/config.ini"),
@@ -377,7 +378,7 @@ PDFScreen::renderPage(int screenWidth)
 
 
 void 
-PDFScreen::onRendered(int pageNo, QImage image)
+PDFScreen::onRendered(int pageNo, QImage image, QImage thumb)
 {
 	//if necessary, clear store buffer to save memory
 	this->updateMemoryInfo();
@@ -385,7 +386,10 @@ PDFScreen::onRendered(int pageNo, QImage image)
 	int realPageNo = pageNo + 1;
 
 	//painting
-	this->setPageImage(image, impl_->scrollDirection);
+	this->setPageImage(image, 
+		QPixmap::fromImage(thumb), 
+		impl_->scrollDirection);
+
 	impl_->scrollDirection = DirectionUpLeftCorner;//set back
 
 
