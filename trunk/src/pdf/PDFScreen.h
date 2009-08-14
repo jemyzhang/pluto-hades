@@ -47,7 +47,7 @@ public slots:
 
 	void renderPage(int screenWidth = 0);
 
-	void onRendered(int pageNo, QImage image);
+	void onRendered(int pageNo, QImage image, QImage thumb);
 	void onRenderError(QString errMsg);
 	void onRendering(QString msg);
 	void onCached(QString cacheMsg);

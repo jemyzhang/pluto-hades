@@ -44,7 +44,10 @@ public:
 
 public://query
 	bool hasPage(int pageNo) const;
-	QImage getPage(int pageNo) const;
+	QImage pageImage(int pageNo) const;
+
+	bool hasPageThumb(int pageNo) const;
+	QImage pageThumb(int pageNo) const;
 
 	ZoomLevel zoomLevel() const;
 
@@ -64,13 +67,18 @@ public://command
 		int screenH,
 		int rotation = 0);
 
+	void setThumbSize(QSize size);
+
+	void setConvertTo16Bits(bool convert);
+
 	void askRender(int pageNo);
+
 
 signals:
 	void renderError(QString errMsg);
 	void rendering(QString msg);
 
-	void rendered(int pageNo, QImage image);
+	void rendered(int pageNo, QImage image, QImage thumb);
 
 	void cached(QString msg);
 

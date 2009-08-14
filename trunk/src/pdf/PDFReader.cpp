@@ -65,7 +65,6 @@ struct BookInfo
 {
 	BookInfo()
 		: pageCount(0)
-		, convert16bits(false)
 	{
 		margin.left = margin.right = margin.top = margin.bottom = 0.0;
 		margin.ignorePages = 0;
@@ -85,8 +84,6 @@ struct BookInfo
 
 	PageMargin margin;
 	QColor bk;
-
-	bool convert16bits;
 };
 
 
@@ -269,12 +266,6 @@ struct PDFReader::PDFReaderImpl
 
 				++src;
 				++dst;
-			}
-
-			//covert to 16bits
-			if (info.convert16bits)
-			{
-				image = image.convertToFormat(QImage::Format_RGB16);
 			}
 		}
 
@@ -716,13 +707,6 @@ void
 PDFReader::setBackground(QColor bk)
 {
 	impl_->info.bk = bk;
-}
-
-
-void 
-PDFReader::setConvertTo16Bits(bool convert)
-{
-	impl_->info.convert16bits = convert;
 }
 
 

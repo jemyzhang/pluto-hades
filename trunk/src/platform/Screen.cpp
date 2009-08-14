@@ -72,6 +72,7 @@ struct Screen::ScreenImpl
 	QTimeLine* thumbTimeLine;
 	QTimeLine* progressTimeLine;
 
+	QPixmap thumb;
 	bool thumbVisible;
 };
 
@@ -310,13 +311,16 @@ Screen::setMessage(const QString& message)
 
 
 void 
-Screen::setPageImage(const QImage& pg, ScrollScreenDirection direction)
+Screen::setPageImage(const QImage& pg, 
+					 const QPixmap& thumb,
+					 ScrollScreenDirection direction)
 {
 	QPixmap pixmap = QPixmap::fromImage(pg);
 	impl_->pixItem->setPixmap(pixmap);
 
 	impl_->scene->setSceneRect(pixmap.rect());
-	//impl_->pixItem->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+
+	impl_->thumb = thumb;
 
 	this->scrollSceen(direction);
 	this->startThumbDiaplay();
@@ -361,16 +365,26 @@ Screen::hideThumb()
 }
 
 
+QSize 
+Screen::neededThumbSize() const
+{
+	return impl_->ui.lbThumb->contentsRect().size();
+}
+
+
 void 
 Screen::generateThumb(const QPixmap& pixmap)
 {
 	static QPixmap alpha;
 
-	QSize size = impl_->ui.lbThumb->contentsRect().size();
+	QPixmap thumb = impl_->thumb;
 
-	QPixmap thumb = pixmap.scaled(size, 
-		Qt::KeepAspectRatio,
-		Qt::SmoothTransformation);
+	if (thumb.isNull())
+	{
+		thumb = pixmap.scaled(this->neededThumbSize(), 
+			Qt::KeepAspectRatio,
+			Qt::SmoothTransformation);
+	}
 
 	if (alpha.size() != thumb.size())
 	{

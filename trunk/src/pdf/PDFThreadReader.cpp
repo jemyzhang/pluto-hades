@@ -24,7 +24,7 @@ namespace pdf
 
 static const quint32 MAX_ACCEPT_MEM_USE = 80;
 
-struct PDFPage
+struct CompressedImage
 {
 	static int compressLevel;
 
@@ -83,7 +83,7 @@ struct PDFPage
 	}
 };
 
-int PDFPage::compressLevel = 5;
+int CompressedImage::compressLevel = 5;
 
 struct Request
 {
@@ -92,7 +92,9 @@ struct Request
 
 struct PDFThreadReader::PDFThreadReaderImpl
 {
-	QCache<int, PDFPage> pages;
+	QCache<int, CompressedImage> pages;
+	QCache<int, CompressedImage> thumbs;
+
 	QQueue<int>	requests;
 
 	QMutex requestMutex;
@@ -108,16 +110,21 @@ struct PDFThreadReader::PDFThreadReaderImpl
 
 	volatile bool stopFlag;
 
+	bool convert16bits;
+	QSize thumbSize;
+
 	PDFThreadReaderImpl()
 		: requestMutex(QMutex::Recursive)
 		, cacheMutex(QMutex::Recursive)
 		, renderingPageNo(-1)
+		, convert16bits(false)
+		, thumbSize (128, 128)
 	{
 	}
 
-	PDFPage* addIntoCache(int pageNo, const QImage& image)
+	CompressedImage* addIntoCache(int pageNo, const QImage& image)
 	{
-		PDFPage* page = new PDFPage();
+		CompressedImage* page = new CompressedImage();
 		page->compress(image);
 
 		if (page->size() != 0 && page->size() < pages.maxCost())
@@ -139,6 +146,34 @@ struct PDFThreadReader::PDFThreadReaderImpl
 		QMutexLocker locker(&cacheMutex);
 
 		pages.clear();
+	}
+
+	QImage addThumb(int pageNo, const QImage& image)
+	{
+		QImage thumbImg = QImage(image.scaled(thumbSize, 
+			Qt::KeepAspectRatio,
+			Qt::SmoothTransformation));
+
+		CompressedImage* thumb = new CompressedImage();
+		thumb->compress(thumbImg);
+
+		if (thumb->size() != 0 && thumb->size() < thumbs.maxCost())
+		{
+			thumbs.insert(pageNo, thumb, thumb->size());
+		}
+		else
+		{
+			SAFE_DELETE(thumb);
+		}
+
+		__LOG(QString("Add thumb, size : %1").arg(thumb->size()));
+
+		return thumbImg;
+	}
+
+	void clearThumbs()
+	{
+		thumbs.clear();
 	}
 
 	void enqueueRequest(int pageNo)
@@ -183,6 +218,7 @@ PDFThreadReader::PDFThreadReader(QObject *parent /*= NULL*/,
 	, impl_ (new PDFThreadReaderImpl)
 {
 	impl_->pages.setMaxCost(cacheSize);
+	impl_->thumbs.setMaxCost(cacheSize / 5);
 }
 
 
@@ -198,15 +234,15 @@ PDFThreadReader::~PDFThreadReader()
 bool 
 PDFThreadReader::hasPage(int pageNo) const
 {
-	return impl_->pages.object(pageNo) != NULL;
+	return impl_->pages.contains(pageNo);
 }
 
 
 QImage 
-PDFThreadReader::getPage(int pageNo) const
+PDFThreadReader::pageImage(int pageNo) const
 {
 	QImage image;
-	PDFPage* page = impl_->pages.object(pageNo);
+	CompressedImage* page = impl_->pages.object(pageNo);
 
 	if (page)
 	{
@@ -289,11 +325,12 @@ PDFThreadReader::askRender(int pageNo)
 
 	if (this->hasPage(pageNo))
 	{
-		QImage image = this->getPage(pageNo);
+		QImage image = this->pageImage(pageNo);
+		QImage thumb = this->pageThumb(pageNo);
 
 		if (!image.isNull())
 		{
-			emit rendered(pageNo, image);
+			emit rendered(pageNo, image, thumb);
 		}
 		else
 		{
@@ -337,7 +374,9 @@ PDFThreadReader::run()
 				//do not need to render, already has page
 				if (pageNo == impl_->requestPageNo)
 				{
-					emit rendered(pageNo, this->getPage(pageNo));
+					emit rendered(pageNo, 
+						this->pageImage(pageNo),
+						this->pageThumb(pageNo));
 				}
 			}
 			else
@@ -371,6 +410,7 @@ PDFThreadReader::stopAndClean()
 	this->stop();
 
 	impl_->clearCache();
+	impl_->clearThumbs();
 	impl_->clearRequest();
 
 	impl_->resetRenderingPageNo();
@@ -407,14 +447,34 @@ PDFThreadReader::renderPage(int pageNo)
 			impl_->screenHeight,
 			impl_->rotation);
 
+		//check
 		if (image.isNull())
 		{
 			__THROW_L(PDFException, "Out of memory");
 		}
 
+		//release memory
 		if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
 		{
 			this->clearEngineBuffer();
+		}
+
+		//add thumb
+		QImage thumb;
+		
+		if (this->hasPageThumb(pageNo))
+		{
+			thumb = this->pageThumb(pageNo);
+		}
+		{
+			thumb = impl_->addThumb(pageNo, image);
+		}
+
+
+		//convert to 16bits
+		if (impl_->convert16bits)
+		{
+			image = image.convertToFormat(QImage::Format_RGB16);
 		}
 
 		if (!impl_->stopFlag)
@@ -422,7 +482,7 @@ PDFThreadReader::renderPage(int pageNo)
 			if (pageNo == impl_->requestPageNo)
 			{
 				//emit directly
-				emit rendered(pageNo, image);
+				emit rendered(pageNo, image, thumb);
 
 				cache(pageNo, image);
 			}
@@ -433,7 +493,7 @@ PDFThreadReader::renderPage(int pageNo)
 
 				if (pageNo == impl_->requestPageNo)
 				{
-					emit rendered(pageNo, image);
+					emit rendered(pageNo, image, thumb);
 				}
 			}
 		}
@@ -449,13 +509,14 @@ PDFThreadReader::renderPage(int pageNo)
 void 
 PDFThreadReader::cache(int pageNo, const QImage& image)
 {
-	PDFPage* page = impl_->addIntoCache(pageNo, image);
+	CompressedImage* page = impl_->addIntoCache(pageNo, image);
 
-	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m)")
+	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m / %5m)")
 		.arg(pageNo + 1)
 		.arg(impl_->pages.size())
 		.arg(page->size() / 1024)
-		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2);
+		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2)
+		.arg(impl_->thumbs.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2);
 
 	emit cached(cachedMsg); __LOG(cachedMsg);
 
@@ -465,6 +526,42 @@ PDFThreadReader::cache(int pageNo, const QImage& image)
 		//remove the later request
 		impl_->clearRequest();
 	}
+}
+
+
+void 
+PDFThreadReader::setConvertTo16Bits(bool convert)
+{
+	impl_->convert16bits = convert;
+}
+
+
+void 
+PDFThreadReader::setThumbSize(QSize size)
+{
+	impl_->thumbSize = size;
+}
+
+
+bool 
+PDFThreadReader::hasPageThumb(int pageNo) const
+{
+	return impl_->thumbs.contains(pageNo);
+}
+
+
+QImage 
+PDFThreadReader::pageThumb(int pageNo) const
+{
+	QImage thumbImg;
+	CompressedImage* thumb = impl_->thumbs.object(pageNo);
+
+	if (thumb)
+	{
+		thumbImg = thumb->uncompress();
+	}
+
+	return thumbImg;
 }
 
 
