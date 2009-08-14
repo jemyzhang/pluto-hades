@@ -49,11 +49,11 @@ draw_splash()
 
 	helper->Draw(desktopDC, &rect);
 
-	::DrawText(desktopDC, 
-		L"PlutoPDF for M8 v0.1.5.0 \r\nRoger (roger2yi@gmail.com)", 
-		-1,
-		&rect,
-		DT_LEFT | DT_VCENTER);
+	//::DrawText(desktopDC, 
+	//	L"PlutoPDF for M8 v0.1.5.0 \r\nRoger (roger2yi@gmail.com)", 
+	//	-1,
+	//	&rect,
+	//	DT_LEFT | DT_VCENTER);
 	
 	::ReleaseDC(NULL, desktopDC);
 

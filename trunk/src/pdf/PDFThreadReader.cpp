@@ -33,18 +33,28 @@ struct CompressedImage
 	QSize imgsize;
 	QImage::Format format;
 
+	bool useDefaultLevel;
+
+	CompressedImage(bool useDefaultLevel_ = false)
+		: useDefaultLevel (useDefaultLevel_)
+	{
+	}
+
+
 	void compress(const QImage& image)
 	{
 		pltGuardTimer guard(__FUNCTION__);
 
-		data = qCompress(image.bits(), image.numBytes(), compressLevel);
+		int level = useDefaultLevel ?  -1 : compressLevel;
+
+		data = qCompress(image.bits(), image.numBytes(), level);
 
 		imgsize = image.size();
 		format = image.format();
 
 		double used = guard.elapsed();
 
-		if (used > 4)
+		if (used > 2)
 		{
 			--compressLevel;
 		}
@@ -83,7 +93,7 @@ struct CompressedImage
 	}
 };
 
-int CompressedImage::compressLevel = 5;
+int CompressedImage::compressLevel = 1;
 
 struct Request
 {
@@ -156,7 +166,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 			Qt::KeepAspectRatio,
 			Qt::SmoothTransformation));
 
-		CompressedImage* thumb = new CompressedImage();
+		CompressedImage* thumb = new CompressedImage(true);
 		thumb->compress(thumbImg);
 
 		if (thumb->size() != 0 && thumb->size() < thumbs.maxCost())
@@ -531,12 +541,13 @@ PDFThreadReader::cache(int pageNo, const QImage& image)
 {
 	CompressedImage* page = impl_->addIntoCache(pageNo, image);
 
-	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m / %5m)")
+	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m / %5m) - [%6]")
 		.arg(pageNo + 1)
 		.arg(impl_->pages.size())
 		.arg(page->size() / 1024)
-		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2)
-		.arg(impl_->thumbs.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 2);
+		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 1)
+		.arg(impl_->thumbs.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 1)
+		.arg(CompressedImage::compressLevel);
 
 	emit cached(cachedMsg); __LOG(cachedMsg);
 
