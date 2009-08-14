@@ -45,7 +45,7 @@ public slots:
 	void scrollPage(int delta);
 	void scrollToPage(int pageNo);
 
-	void renderPage(int screenWidth = 0);
+	void renderPage(int screenWidth = 0, bool wait = false);
 
 	void onRendered(int pageNo, QImage image, QImage thumb);
 	void onRenderError(QString errMsg);
@@ -99,9 +99,7 @@ private:
 
 extern "C"
 {
-	class QSplashScreen;
-
-	PDF_EXPORT int startApp(QSplashScreen* splash);
+	PDF_EXPORT int start_pdf_app(int argc, char* argv[]);
 
 }
 

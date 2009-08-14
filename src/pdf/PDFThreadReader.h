@@ -71,7 +71,7 @@ public://command
 
 	void setConvertTo16Bits(bool convert);
 
-	void askRender(int pageNo);
+	void askRender(int pageNo, bool wait = false);
 
 
 signals:
@@ -93,6 +93,9 @@ private:
 	void stopAndClean();
 
 	void renderPage(int pageNo);
+
+	void emitRendered(int pageNo, const QImage& image, const QImage& thumb);
+
 	void cache(int pageNo, const QImage& image);
 
 private:

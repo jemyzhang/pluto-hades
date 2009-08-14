@@ -100,6 +100,8 @@ struct PDFThreadReader::PDFThreadReaderImpl
 	QMutex requestMutex;
 	QMutex cacheMutex;
 
+	QSemaphore renderSemaphore;
+
 	volatile int requestPageNo;
 	volatile int renderingPageNo;
 
@@ -318,7 +320,7 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 
 
 void 
-PDFThreadReader::askRender(int pageNo)
+PDFThreadReader::askRender(int pageNo, bool wait)
 {
 	impl_->requestPageNo = pageNo;
 	impl_->clearRequest();
@@ -330,7 +332,7 @@ PDFThreadReader::askRender(int pageNo)
 
 		if (!image.isNull())
 		{
-			emit rendered(pageNo, image, thumb);
+			this->emitRendered(pageNo, image, thumb);
 		}
 		else
 		{
@@ -348,10 +350,17 @@ PDFThreadReader::askRender(int pageNo)
 
 	this->prefetch(pageNo, 2);
 
-	if (!this->isRunning())
+	if (!this->isRunning() && !this->hasPage(pageNo))
 	{
+		//start
 		impl_->stopFlag = false;
 		this->start(QThread::LowPriority);
+
+		if (wait)
+		{
+			impl_->renderSemaphore.acquire(
+				impl_->renderSemaphore.available() + 1);
+		}
 	}
 }
 
@@ -374,7 +383,7 @@ PDFThreadReader::run()
 				//do not need to render, already has page
 				if (pageNo == impl_->requestPageNo)
 				{
-					emit rendered(pageNo, 
+					this->emitRendered(pageNo, 
 						this->pageImage(pageNo),
 						this->pageThumb(pageNo));
 				}
@@ -441,6 +450,12 @@ PDFThreadReader::renderPage(int pageNo)
 	{
 		impl_->setRenderingPageNo(pageNo);
 
+		//release memory
+		if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
+		{
+			this->clearEngineBuffer();
+		}
+
 		QImage image = this->render(pageNo, 
 			impl_->zoomLevel,
 			impl_->screenWidth,
@@ -451,12 +466,6 @@ PDFThreadReader::renderPage(int pageNo)
 		if (image.isNull())
 		{
 			__THROW_L(PDFException, "Out of memory");
-		}
-
-		//release memory
-		if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
-		{
-			this->clearEngineBuffer();
 		}
 
 		//add thumb
@@ -481,19 +490,19 @@ PDFThreadReader::renderPage(int pageNo)
 		{
 			if (pageNo == impl_->requestPageNo)
 			{
-				//emit directly
-				emit rendered(pageNo, image, thumb);
+				//emit then cache
+				this->emitRendered(pageNo, image, thumb);
 
-				cache(pageNo, image);
+				this->cache(pageNo, image);
 			}
 			else
 			{
 				//cache then emit
-				cache(pageNo, image);
+				this->cache(pageNo, image);
 
 				if (pageNo == impl_->requestPageNo)
 				{
-					emit rendered(pageNo, image, thumb);
+					this->emitRendered(pageNo, image, thumb);
 				}
 			}
 		}
@@ -503,6 +512,17 @@ PDFThreadReader::renderPage(int pageNo)
 		emit renderError(QString("Render p%1 error - %2")
 			.arg(pageNo + 1).arg(e.what()));
 	}
+}
+
+
+void 
+PDFThreadReader::emitRendered(int pageNo, 
+							  const QImage& image,
+							  const QImage& thumb)
+{
+	impl_->renderSemaphore.release();
+
+	emit rendered(pageNo, image, thumb);
 }
 
 

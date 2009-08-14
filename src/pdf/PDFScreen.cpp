@@ -351,7 +351,7 @@ PDFScreen::openPdfBook(const QString& pdfFile)
 
 
 void 
-PDFScreen::renderPage(int screenWidth)
+PDFScreen::renderPage(int screenWidth, bool wait)
 {
 	if (impl_->pdfReader.isNull())
 		return;
@@ -373,7 +373,7 @@ PDFScreen::renderPage(int screenWidth)
 
 	impl_->pdfReader.setRenderParams(impl_->zoomLevel, screenWidth, 0);
 
-	impl_->pdfReader.askRender(impl_->pageNumber);
+	impl_->pdfReader.askRender(impl_->pageNumber, wait);
 }
 
 
@@ -724,11 +724,11 @@ PDFScreen::openFirstPdfBook()
 
 		if ((deltaAngle == 90 || deltaAngle == 270))
 		{
-			this->renderPage(dw.screenGeometry().height());
+			this->renderPage(dw.screenGeometry().height(), true);
 		}
 		else
 		{
-			this->renderPage(dw.screenGeometry().width());
+			this->renderPage(dw.screenGeometry().width(), true);
 		}
 	}
 }
@@ -919,17 +919,20 @@ PDFScreen::winEvent(MSG *message, long *result)
 	{
 		if (message->wParam == WA_ACTIVE || message->wParam == WA_CLICKACTIVE)
 		{
+			static bool first = true;
+
 			plutoApp->holdShellKey(this);
 
-			pltPlatform::ScreenRotateAngle realAngle = plutoApp->realScreenRotateAngle();
+			pltPlatform::ScreenRotateAngle realAngle = 
+				plutoApp->realScreenRotateAngle();
 
 			this->setMessage(QString("AP re-active, real ANG %1, screen %2")
 				.arg(realAngle).arg(impl_->screenAngle));
 
-			if (impl_->screenAngle != realAngle)
+			if (impl_->screenAngle != realAngle && !first)
 			{
 				//the screen rotate outside, need rotate back
-				this->setMessage(QString("!!!Rotate outside, need rotate back by myself."));
+				this->setMessage(QString("!!!Rotate outside, need rotate back by AP."));
 
 				plutoApp->rotateScreen(impl_->screenAngle);
 				plutoApp->enterFullScreen(this);
@@ -939,6 +942,8 @@ PDFScreen::winEvent(MSG *message, long *result)
 				result = 0;
 				return true;
 			}
+
+			first = false;
 		}
 		else if (message->wParam == WA_INACTIVE)
 		{
@@ -985,16 +990,15 @@ PDFScreen::winEvent(MSG *message, long *result)
 
 
 PDF_EXPORT int 
-startApp(QSplashScreen* splash)
+start_pdf_app(int argc, char* argv[])
 {
+	pltM8Platform m8App(argc, argv);
+
 	//open screen
 	pdf::PDFScreen screen; 
 	screen.openFirstPdfBook();
 
 	plutoApp->enterFullScreen(&screen);
-
-	splash->finish(&screen);
-
 	plutoApp->connect(plutoApp, SIGNAL(lastWindowClosed()), SLOT(quit()));
 
 	int result = plutoApp->exec();
