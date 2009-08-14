@@ -34,9 +34,8 @@ ImageProcessor::margin(QImage& docImg,
 {
 	__PRECOND_E(!docImg.isNull(), "Null image");
 
-	if (docImg.depth() != 32)
-		docImg = docImg.convertToFormat(QImage::Format_ARGB32);
-
+	//if (docImg.depth() != 32)
+	//	docImg = docImg.convertToFormat(QImage::Format_ARGB32);
 
 	int x = 0, y = 0;
 	int marginR = qRed(marginColor);
