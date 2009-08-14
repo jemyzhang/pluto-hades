@@ -607,8 +607,7 @@ M8Platform::enterFullScreen_(QWidget* mainWin)
 		mainWin->setMaximumSize(dw.size());
 		mainWin->resize(dw.size());
 
-		mainWin->setWindowState(Qt::WindowFullScreen);
-		mainWin->show();
+		mainWin->showFullScreen();
 	}
 
 }
@@ -621,8 +620,7 @@ M8Platform::leaveFullScreen_(QWidget* mainWin)
 
 	if (mainWin)
 	{
-		mainWin->setWindowState(Qt::WindowFullScreen);
-		mainWin->show();
+		mainWin->showFullScreen();
 	}
 }
 
