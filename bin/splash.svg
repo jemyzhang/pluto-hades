@@ -65,10 +65,10 @@
      inkscape:object-nodes="true"
      inkscape:zoom="2.155814"
      inkscape:cx="158"
-     inkscape:cy="184.70354"
+     inkscape:cy="202.88142"
      inkscape:window-x="1916"
      inkscape:window-y="-4"
-     inkscape:current-layer="g2475">
+     inkscape:current-layer="svg2440">
     <inkscape:grid
        type="xygrid"
        id="grid2451"
@@ -95,37 +95,31 @@
        id="tspan2455"
        x="26.991343"
        y="350.88745" /></text>
-  <g
-     id="g2475"
-     transform="translate(-270,-49.633209)"
-     inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90">
-    <text
-       sodipodi:linespacing="100%"
-       id="text2457"
-       y="414.27182"
-       x="290"
-       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ecd854;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black Heavy"
-       xml:space="preserve"><tspan
-         id="tspan2463"
-         y="414.27182"
-         x="290"
-         sodipodi:role="line">PlutoPDF v0.1.5.0</tspan></text>
-    <text
-       sodipodi:linespacing="90%"
-       id="text2469"
-       y="429.63321"
-       x="290"
-       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:90%;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Palatino Linotype;-inkscape-font-specification:Palatino Linotype Bold"
-       xml:space="preserve"
-       inkscape:transform-center-y="-8.1345322"><tspan
-         y="429.63321"
-         x="290"
-         id="tspan2471"
-         sodipodi:role="line">PlutoWare All Rights Reserved.</tspan><tspan
-         id="tspan2473"
-         y="440.4332"
-         x="290"
-         sodipodi:role="line">Roger (roger2yi@gmail.com)</tspan></text>
-  </g>
+  <text
+     xml:space="preserve"
+     style="font-size:20px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ecd854;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black Heavy"
+     x="20"
+     y="370"
+     id="text2457"
+     sodipodi:linespacing="100%"><tspan
+       sodipodi:role="line"
+       x="20"
+       y="370"
+       id="tspan2463">PlutoPDF v0.1.5.0</tspan></text>
+  <text
+     inkscape:transform-center-y="-8.1345322"
+     xml:space="preserve"
+     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Microsoft YaHei;-inkscape-font-specification:Microsoft YaHei Bold"
+     x="20"
+     y="385.36139"
+     id="text2469"
+     sodipodi:linespacing="100%"><tspan
+       sodipodi:role="line"
+       id="tspan2471"
+       x="20"
+       y="385.36139">PlutoWare All Rights Reserved.</tspan><tspan
+       sodipodi:role="line"
+       x="20"
+       y="397.36139"
+       id="tspan2473">Roger (roger2yi@gmail.com)</tspan></text>
 </svg>
