@@ -97,8 +97,8 @@ public slots:
 	void on_m2JumpPre10_clicked();
 	void on_m2JumpPre100_clicked();
 
-	void on_m2Zoom400_clicked();
 	void on_m2Zoom300_clicked();
+	void on_m2Zoom250_clicked();
 	void on_m2Zoom200_clicked();
 	void on_m2Zoom180_clicked();
 	void on_m2Zoom150_clicked();
@@ -116,6 +116,7 @@ public slots:
 	void on_m2ShowStatus_clicked();
 	void on_m2Style_clicked();
 	void on_m2Rotate90_clicked();
+	void on_m2Rotate180_clicked();
 
 protected:
 	void showEvent(QShowEvent * event);
@@ -133,6 +134,7 @@ signals:
 	void askChangeSettings(bool showThumb, bool showStatus);
 	void askChangeStyle(const QString& styleFile);
 	void askRotate90();
+	void askRotate180();
 
 private:
 	void showSubMenu(int index);

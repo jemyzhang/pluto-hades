@@ -19,6 +19,52 @@
 #include "stdafx.h"
 #include "PDFThreadReader.h"
 
+#include "../src/3rdparty/zlib/zlib.h"
+
+//rewrite qt version for save memory purpose
+bool qUncompress_(const uchar* data, int nbytes, uchar* target, ulong trgsz)
+{
+	if (!data) {
+		qWarning("qUncompress: Data is null");
+		return false;
+	}
+	if (nbytes <= 4) {
+		if (nbytes < 4 || (data[0]!=0 || data[1]!=0 || data[2]!=0 || data[3]!=0))
+			qWarning("qUncompress: Input data is corrupted");
+		return false;
+	}
+
+	ulong expectedSize = (data[0] << 24) | (data[1] << 16) |
+		(data[2] <<  8) | (data[3]      );
+	ulong len = qMax(expectedSize, 1ul);
+
+
+	int res;
+	do {
+		if (len > trgsz)
+			return false;
+
+		res = ::uncompress(target, &len, (uchar*)data+4, nbytes-4);
+
+		switch (res) {
+		case Z_OK:
+			break;
+		case Z_MEM_ERROR:
+			qWarning("qUncompress: Z_MEM_ERROR: Not enough memory");
+			break;
+		case Z_BUF_ERROR:
+			len *= 2;
+			break;
+		case Z_DATA_ERROR:
+			qWarning("qUncompress: Z_DATA_ERROR: Input data is corrupted");
+			break;
+		}
+	} while (res == Z_BUF_ERROR);
+
+	return res == Z_OK;
+}
+
+
 namespace pdf
 {
 
@@ -52,18 +98,12 @@ struct CompressedImage
 		imgsize = image.size();
 		format = image.format();
 
-		double used = guard.elapsed();
+		if (!useDefaultLevel)
+		{
 
-		if (used > 2)
-		{
-			--compressLevel;
-		}
-		else if (used < 1)
-		{
-			++compressLevel;
 		}
 
-		compressLevel = qBound(1, compressLevel, 9);
+		adjustCompressLevel(guard.elapsed());
 
 		__LOG(QString("Compress level %1, ratio %2/%3 - %4")
 			.arg(compressLevel)
@@ -72,16 +112,35 @@ struct CompressedImage
 			.arg(data.size() * 1.0 / image.numBytes()));
 	}
 
+	void adjustCompressLevel(double used)
+	{
+		if (used > 1)
+		{
+			--compressLevel;
+		}
+		else if (used < 0.5)
+		{
+			++compressLevel;
+		}
+
+		compressLevel = qBound(1, compressLevel, 4);
+	}
+
 	QImage uncompress()
 	{
 		pltGuardTimer guard(__FUNCTION__);
 
-		QByteArray imgData = qUncompress(data);
 		QImage image(imgsize, format);
 
-		if (!image.isNull() && !imgData.isNull())
+		if (!image.isNull())
 		{
-			qMemCopy(image.bits(), imgData.data(), image.numBytes());
+			bool success = qUncompress_(reinterpret_cast<const uchar*>(data.constData()), 
+				data.size(),
+				image.bits(),
+				image.numBytes());
+
+			if (!success)
+				image = QImage();//failed, release
 		}
 
 		return image;
@@ -125,12 +184,17 @@ struct PDFThreadReader::PDFThreadReaderImpl
 	bool convert16bits;
 	QSize thumbSize;
 
+	int prefetchNum;
+	bool enableCaching;
+
 	PDFThreadReaderImpl()
 		: requestMutex(QMutex::Recursive)
 		, cacheMutex(QMutex::Recursive)
 		, renderingPageNo(-1)
 		, convert16bits(false)
 		, thumbSize (128, 128)
+		, prefetchNum (2)
+		, enableCaching (true)
 	{
 	}
 
@@ -325,7 +389,30 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 		impl_->screenWidth = screenW;
 		impl_->screenHeight = screenH;
 		impl_->rotation = rotation;
+
+		if (level <= FitWidth250)
+		{
+			impl_->enableCaching = false;
+			impl_->prefetchNum = 0;
+		}
+		else if (level < FitWidth150)
+		{
+			impl_->enableCaching = true;
+			impl_->prefetchNum = 1;
+		}
+		else
+		{
+			impl_->enableCaching = true;
+			impl_->prefetchNum = 2;
+		}
 	}
+}
+
+
+void 
+PDFThreadReader::enableCaching(bool enable)
+{
+	impl_->enableCaching = enable;
 }
 
 
@@ -356,22 +443,22 @@ PDFThreadReader::askRender(int pageNo, bool wait)
 			impl_->enqueueRequest(pageNo);
 
 		emit rendering(QString("Rendering p%1, please wait").arg(pageNo + 1));
-	}
 
-	this->prefetch(pageNo, 2);
-
-	if (!this->isRunning() && !this->hasPage(pageNo))
-	{
-		//start
-		impl_->stopFlag = false;
-		this->start(QThread::LowPriority);
-
-		if (wait)
+		if (!this->isRunning())
 		{
-			impl_->renderSemaphore.acquire(
-				impl_->renderSemaphore.available() + 1);
+			//start
+			impl_->stopFlag = false;
+			this->start(QThread::LowPriority);
+
+			if (wait)
+			{
+				impl_->renderSemaphore.acquire(
+					impl_->renderSemaphore.available() + 1);
+			}
 		}
 	}
+
+	this->prefetch(pageNo, impl_->prefetchNum);
 }
 
 
@@ -460,17 +547,14 @@ PDFThreadReader::renderPage(int pageNo)
 	{
 		impl_->setRenderingPageNo(pageNo);
 
-		//release memory
-		if (plutoApp->memoryStatus().memoryLoad > MAX_ACCEPT_MEM_USE)
-		{
-			this->clearEngineBuffer();
-		}
-
 		QImage image = this->render(pageNo, 
 			impl_->zoomLevel,
 			impl_->screenWidth,
 			impl_->screenHeight,
 			impl_->rotation);
+
+		//release memory
+		this->clearEngineBuffer();
 
 		//check
 		if (image.isNull())
@@ -489,7 +573,6 @@ PDFThreadReader::renderPage(int pageNo)
 			thumb = impl_->addThumb(pageNo, image);
 		}
 
-
 		//convert to 16bits
 		if (impl_->convert16bits)
 		{
@@ -498,24 +581,17 @@ PDFThreadReader::renderPage(int pageNo)
 
 		if (!impl_->stopFlag)
 		{
+			//cache then emit
+			if (impl_->enableCaching)
+				this->cache(pageNo, image);
+
 			if (pageNo == impl_->requestPageNo)
 			{
-				//emit then cache
 				this->emitRendered(pageNo, image, thumb);
-
-				this->cache(pageNo, image);
-			}
-			else
-			{
-				//cache then emit
-				this->cache(pageNo, image);
-
-				if (pageNo == impl_->requestPageNo)
-				{
-					this->emitRendered(pageNo, image, thumb);
-				}
 			}
 		}
+
+		impl_->resetRenderingPageNo();
 	}
 	catch (PDFException& e)
 	{

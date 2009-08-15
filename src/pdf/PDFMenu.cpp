@@ -261,16 +261,16 @@ PDFMenu::on_m2JumpPre100_clicked()
 
 
 void 
-PDFMenu::on_m2Zoom400_clicked()
+PDFMenu::on_m2Zoom300_clicked()
 {
-	emit askZoom(PDFReader::FitWidth400);
+	emit askZoom(PDFReader::FitWidth300);
 }
 
 
 void 
-PDFMenu::on_m2Zoom300_clicked()
+PDFMenu::on_m2Zoom250_clicked()
 {
-	emit askZoom(PDFReader::FitWidth300);
+	emit askZoom(PDFReader::FitWidth250);
 }
 
 
@@ -395,6 +395,13 @@ void
 PDFMenu::on_m2Rotate90_clicked()
 {
 	emit askRotate90();
+}
+
+
+void 
+PDFMenu::on_m2Rotate180_clicked()
+{
+	emit askRotate180();
 }
 
 

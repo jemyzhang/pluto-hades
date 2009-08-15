@@ -263,10 +263,11 @@ PDFScreen::PDFScreen(QWidget *parent)
 	this->connect(impl_->menu, SIGNAL(askChangeSettings(bool, bool)), SLOT(onAskChangeSettings(bool, bool)));
 	this->connect(impl_->menu, SIGNAL(askChangeStyle(const QString&)), SLOT(onAskChangeStyle(const QString&)));
 	this->connect(impl_->menu, SIGNAL(askRotate90()), SLOT(onAskRotate90()));
+	this->connect(impl_->menu, SIGNAL(askRotate180()), SLOT(onAskRotate180()));
 
 	this->connect(this, SIGNAL(firstShow()), SLOT(onFirstShown()), Qt::QueuedConnection);
 
-	this->connect(&impl_->pdfReader, SIGNAL(rendered(int, QImage, QImage)), SLOT(onRendered(int, QImage, QImage)), Qt::QueuedConnection);
+	this->connect(&impl_->pdfReader, SIGNAL(rendered(int, QImage, QImage)), SLOT(onRendered(int, QImage, QImage))/*, Qt::QueuedConnection*/);
 	this->connect(&impl_->pdfReader, SIGNAL(renderError(QString)), SLOT(onRenderError(QString)));
 	this->connect(&impl_->pdfReader, SIGNAL(rendering(QString)), SLOT(onRendering(QString)));
 	this->connect(&impl_->pdfReader, SIGNAL(cached(QString)), SLOT(onCached(QString)));
@@ -477,11 +478,11 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	{
 		this->scrollSceen(DirectionDownRightCorner);
 	}
-	else if (pos.y() < this->rect().height() / 2)
+	else if (pos.y() < this->rect().height() / 3)
 	{
 		this->scrollUp();
 	}
-	else
+	else if (pos.y() > this->rect().height() * 2 / 3)
 	{
 		scrollDown();
 	}
@@ -519,13 +520,18 @@ PDFScreen::handleDoubleTouched(QPoint pos, int elapsed)
 	{
 		this->scrollSceen(DirectionDownRight);
 	}
+	else if (impl_->center.contains(pos))
+	{
+		plutoApp->rotateScreen(impl_->screenAngle);
+		plutoApp->enterFullScreen(this);
+	}
 	else
 	{
-		if (pos.y() < this->rect().height() / 2)
+		if (pos.y() < this->rect().height() / 3)
 		{
 			this->scrollPrePage();
 		}
-		else
+		else if (pos.y() > this->rect().height() * 2 / 3)
 		{
 			this->scrollNextPage();
 		}
@@ -724,11 +730,11 @@ PDFScreen::openFirstPdfBook()
 
 		if ((deltaAngle == 90 || deltaAngle == 270))
 		{
-			this->renderPage(dw.screenGeometry().height(), true);
+			this->renderPage(dw.screenGeometry().height());
 		}
 		else
 		{
-			this->renderPage(dw.screenGeometry().width(), true);
+			this->renderPage(dw.screenGeometry().width());
 		}
 	}
 }
@@ -907,6 +913,16 @@ PDFScreen::onAskRotate90()
 	this->renderPage();
 
 	impl_->setupHotspots(this);
+	impl_->writeSettings();
+}
+
+
+void 
+PDFScreen::onAskRotate180()
+{
+	plutoApp->advance180degree();
+	plutoApp->enterFullScreen(this);
+
 	impl_->writeSettings();
 }
 

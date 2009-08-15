@@ -53,6 +53,7 @@ public:
 	{
 		FitWidth400 = -400,
 		FitWidth300 = -300,
+		FitWidth250 = -250,
 		FitWidth200 = -200,
 		FitWidth180 = -180,
 		FitWidth150 = -150,
