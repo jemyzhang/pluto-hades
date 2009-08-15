@@ -126,7 +126,7 @@ Screen::Screen(QWidget *parent)
 		SIGNAL(frameChanged(int)), 
 		SLOT(thumbDisplay(int)));
 
-	impl_->progressTimeLine = new QTimeLine(10000, this);
+	impl_->progressTimeLine = new QTimeLine(20000, this);
 	impl_->progressTimeLine->setCurveShape(QTimeLine::EaseOutCurve);
 	impl_->progressTimeLine->setUpdateInterval(100);
 	this->connect(impl_->progressTimeLine, 
@@ -402,10 +402,10 @@ void
 Screen::startProgress(int minmimum, int maximum)
 {
 	impl_->ui.progress->setRange(minmimum, maximum);
-	impl_->ui.progress->setValue(minmimum);
+	impl_->ui.progress->setValue(minmimum + (maximum - minmimum) / 3);
 	impl_->ui.progress->show();
 
-	impl_->progressTimeLine->setFrameRange(minmimum, maximum);
+	impl_->progressTimeLine->setFrameRange(minmimum + (maximum - minmimum) / 3, maximum);
 	impl_->progressTimeLine->start();
 }
 

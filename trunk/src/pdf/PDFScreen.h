@@ -63,6 +63,7 @@ private slots:
 	void onAskChangeSettings(bool showThumb, bool showStatus);
 	void onAskChangeStyle(const QString& styleFile);
 	void onAskRotate90();
+	void onAskRotate180();
 
 	void scrollDown();
 	void scrollUp();
