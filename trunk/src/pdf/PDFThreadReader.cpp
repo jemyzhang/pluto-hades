@@ -520,6 +520,8 @@ PDFThreadReader::stopAndClean()
 	impl_->clearRequest();
 
 	impl_->resetRenderingPageNo();
+
+	CompressedImage::compressLevel = 1;
 }
 
 
