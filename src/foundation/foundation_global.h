@@ -19,6 +19,8 @@
 
 #include <exception>
 
+#include "../../../include/arch.h"
+
 #ifdef FOUNDATION_LIB
 # define FOUNDATION_EXPORT Q_DECL_EXPORT
 #else

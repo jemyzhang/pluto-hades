@@ -172,7 +172,79 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Archive.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Assertion.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\CacheableObject.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Compress.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Configuration.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -272,6 +344,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\3rd\minilzo.c"
+				>
+			</File>
+			<File
 				RelativePath=".\Properties.cpp"
 				>
 				<FileConfiguration
@@ -312,6 +388,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ThumbableObject.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Timer.cpp"
 				>
 				<FileConfiguration
@@ -338,7 +434,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Archive.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Assertion.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CacheableObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Compress.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Configuration.h"
 				>
 			</File>
 			<File
@@ -362,11 +474,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\3rd\lzoconf.h"
+				>
+			</File>
+			<File
+				RelativePath=".\3rd\lzodefs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\3rd\minilzo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Properties.h"
 				>
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ThumbableObject.h"
 				>
 			</File>
 			<File

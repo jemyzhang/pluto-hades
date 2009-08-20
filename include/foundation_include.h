@@ -27,6 +27,8 @@
 #include "../src/foundation/Timer.h"
 #include "../src/foundation/ImageProcessor.h"
 
+#include "../src/foundation/Compress.h"
+
 
 typedef foundation::Logger								pltLogger;
 typedef foundation::Enum								pltEnum;
@@ -46,6 +48,8 @@ typedef foundation::InvariantException					pltInvariantException;
 typedef foundation::ImpossibleException					pltImpossibleException;
 
 typedef foundation::ImageProcessor						pltImageProcessor;
+
+typedef foundation::CompressedImage						pltCompressedImage;
 
 
 #endif // foundation_include_h__
