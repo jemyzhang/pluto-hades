@@ -19,150 +19,17 @@
 #include "stdafx.h"
 #include "PDFThreadReader.h"
 
-#include "../src/3rdparty/zlib/zlib.h"
-
-//rewrite qt version for save memory purpose
-bool qUncompress_(const uchar* data, int nbytes, uchar* target, ulong trgsz)
-{
-	if (!data) {
-		qWarning("qUncompress: Data is null");
-		return false;
-	}
-	if (nbytes <= 4) {
-		if (nbytes < 4 || (data[0]!=0 || data[1]!=0 || data[2]!=0 || data[3]!=0))
-			qWarning("qUncompress: Input data is corrupted");
-		return false;
-	}
-
-	ulong expectedSize = (data[0] << 24) | (data[1] << 16) |
-		(data[2] <<  8) | (data[3]      );
-	ulong len = qMax(expectedSize, 1ul);
-
-
-	int res;
-	do {
-		if (len > trgsz)
-			return false;
-
-		res = ::uncompress(target, &len, (uchar*)data+4, nbytes-4);
-
-		switch (res) {
-		case Z_OK:
-			break;
-		case Z_MEM_ERROR:
-			qWarning("qUncompress: Z_MEM_ERROR: Not enough memory");
-			break;
-		case Z_BUF_ERROR:
-			len *= 2;
-			break;
-		case Z_DATA_ERROR:
-			qWarning("qUncompress: Z_DATA_ERROR: Input data is corrupted");
-			break;
-		}
-	} while (res == Z_BUF_ERROR);
-
-	return res == Z_OK;
-}
-
 
 namespace pdf
 {
 
 static const quint32 MAX_ACCEPT_MEM_USE = 80;
 
-struct CompressedImage
-{
-	static int compressLevel;
-
-	QByteArray data;
-	
-	QSize imgsize;
-	QImage::Format format;
-
-	bool useDefaultLevel;
-
-	CompressedImage(bool useDefaultLevel_ = false)
-		: useDefaultLevel (useDefaultLevel_)
-	{
-	}
-
-
-	void compress(const QImage& image)
-	{
-		pltGuardTimer guard(__FUNCTION__);
-
-		int level = useDefaultLevel ?  -1 : compressLevel;
-
-		data = qCompress(image.bits(), image.numBytes(), level);
-
-		imgsize = image.size();
-		format = image.format();
-
-		if (!useDefaultLevel)
-		{
-
-		}
-
-		adjustCompressLevel(guard.elapsed());
-
-		__LOG(QString("Compress level %1, ratio %2/%3 - %4")
-			.arg(compressLevel)
-			.arg(data.size())
-			.arg(image.numBytes())
-			.arg(data.size() * 1.0 / image.numBytes()));
-	}
-
-	void adjustCompressLevel(double used)
-	{
-		if (used > 1)
-		{
-			--compressLevel;
-		}
-		else if (used < 0.5)
-		{
-			++compressLevel;
-		}
-
-		compressLevel = qBound(1, compressLevel, 4);
-	}
-
-	QImage uncompress()
-	{
-		pltGuardTimer guard(__FUNCTION__);
-
-		QImage image(imgsize, format);
-
-		if (!image.isNull())
-		{
-			bool success = qUncompress_(reinterpret_cast<const uchar*>(data.constData()), 
-				data.size(),
-				image.bits(),
-				image.numBytes());
-
-			if (!success)
-				image = QImage();//failed, release
-		}
-
-		return image;
-	}
-
-	int size()
-	{
-		return data.size();
-	}
-};
-
-int CompressedImage::compressLevel = 1;
-
-struct Request
-{
-	int pageNo;
-};
 
 struct PDFThreadReader::PDFThreadReaderImpl
 {
-	QCache<int, CompressedImage> pages;
-	QCache<int, CompressedImage> thumbs;
+	QCache<int, pltCompressedImage> pages;
+	QCache<int, pltCompressedImage> thumbs;
 
 	QQueue<int>	requests;
 
@@ -198,9 +65,9 @@ struct PDFThreadReader::PDFThreadReaderImpl
 	{
 	}
 
-	CompressedImage* addIntoCache(int pageNo, const QImage& image)
+	pltCompressedImage* addIntoCache(int pageNo, const QImage& image)
 	{
-		CompressedImage* page = new CompressedImage();
+		pltCompressedImage* page = new pltCompressedImage();
 		page->compress(image);
 
 		if (page->size() != 0 && page->size() < pages.maxCost())
@@ -230,7 +97,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 			Qt::KeepAspectRatio,
 			Qt::SmoothTransformation));
 
-		CompressedImage* thumb = new CompressedImage(true);
+		pltCompressedImage* thumb = new pltCompressedImage(true);
 		thumb->compress(thumbImg);
 
 		if (thumb->size() != 0 && thumb->size() < thumbs.maxCost())
@@ -318,7 +185,7 @@ QImage
 PDFThreadReader::pageImage(int pageNo) const
 {
 	QImage image;
-	CompressedImage* page = impl_->pages.object(pageNo);
+	pltCompressedImage* page = impl_->pages.object(pageNo);
 
 	if (page)
 	{
@@ -521,7 +388,7 @@ PDFThreadReader::stopAndClean()
 
 	impl_->resetRenderingPageNo();
 
-	CompressedImage::compressLevel = 1;
+	pltCompressedImage::resetCompressLevel();
 }
 
 
@@ -617,7 +484,7 @@ PDFThreadReader::emitRendered(int pageNo,
 void 
 PDFThreadReader::cache(int pageNo, const QImage& image)
 {
-	CompressedImage* page = impl_->addIntoCache(pageNo, image);
+	pltCompressedImage* page = impl_->addIntoCache(pageNo, image);
 
 	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m / %5m) - [%6]")
 		.arg(pageNo + 1)
@@ -625,7 +492,7 @@ PDFThreadReader::cache(int pageNo, const QImage& image)
 		.arg(page->size() / 1024)
 		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 1)
 		.arg(impl_->thumbs.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 1)
-		.arg(CompressedImage::compressLevel);
+		.arg(pltCompressedImage::compressLevel());
 
 	emit cached(cachedMsg); __LOG(cachedMsg);
 
@@ -663,7 +530,7 @@ QImage
 PDFThreadReader::pageThumb(int pageNo) const
 {
 	QImage thumbImg;
-	CompressedImage* thumb = impl_->thumbs.object(pageNo);
+	pltCompressedImage* thumb = impl_->thumbs.object(pageNo);
 
 	if (thumb)
 	{

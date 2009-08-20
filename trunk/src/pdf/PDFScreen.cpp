@@ -1008,7 +1008,11 @@ PDFScreen::winEvent(MSG *message, long *result)
 PDF_EXPORT int 
 start_pdf_app(int argc, char* argv[])
 {
+#ifdef PLATFORM_M8
 	pltM8Platform m8App(argc, argv);
+#else
+	pltPlatform m8App(argc, argv);
+#endif
 
 	//open screen
 	pdf::PDFScreen screen; 

@@ -174,7 +174,7 @@ void
 PDFTest::testCompress()
 {
 	QImage image("test/input/oo-pdf-p1.bmp");
-	QImage image2("test/input/heavy-test-pdf-p1.jpg");
+	QImage image2("test/input/heavy-test-pdf-p2.jpg");
 	QImage image3("test/input/test2-pdf-p145.jpg");
 
 	QBENCHMARK
@@ -206,26 +206,53 @@ PDFTest::testCompress()
 void 
 PDFTest::testCompress2()
 {
-	QImage image("test/input/oo-pdf-p1.bmp");
-	QImage image2("test/input/heavy-test-pdf-p1.jpg");
-	QImage image3("test/input/test2-pdf-p145.jpg");
+	//QImage image("test/input/oo-pdf-p1.bmp");
+	QImage image2("test/input/heavy-test-pdf-p2.bmp");
+	//QImage image3("test/input/test2-pdf-p145.jpg");
 
 	QBENCHMARK
 	{
-		QByteArray ba = qCompress(image.bits(), image.numBytes());
+		//QByteArray ba = qCompress(image.bits(), image.numBytes());
 
-		__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
-			.arg(image.numBytes()).arg(ba.size()).arg(ba.size() * 1.0 / image.numBytes()));
+		//__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
+		//	.arg(image.numBytes()).arg(ba.size()).arg(ba.size() * 1.0 / image.numBytes()));
 
-		QByteArray ba2 = qCompress(image2.bits(), image2.numBytes());
+		QByteArray ba2 = qCompress(image2.bits(), image2.numBytes(), 1);
 
 		__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
 			.arg(image2.numBytes()).arg(ba2.size()).arg(ba2.size() * 1.0 / image2.numBytes()));
 
-		QByteArray ba3 = qCompress(image3.bits(), image3.numBytes());
+		//QByteArray ba3 = qCompress(image3.bits(), image3.numBytes());
+
+		//__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
+		//	.arg(image3.numBytes()).arg(ba3.size()).arg(ba3.size() * 1.0 / image3.numBytes()));
+	}
+}
+
+
+void 
+PDFTest::testCompress3()
+{
+	//QImage image("test/input/oo-pdf-p1.bmp");
+	QImage image2("test/input/heavy-test-pdf-p2.bmp");
+	//QImage image3("test/input/test2-pdf-p145.jpg");
+
+	QBENCHMARK
+	{
+		//QByteArray ba = foundation::compress(image.bits(), image.numBytes());
+
+		//__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
+		//	.arg(image.numBytes()).arg(ba.size()).arg(ba.size() * 1.0 / image.numBytes()));
+
+		QByteArray ba2 = foundation::compress(image2.bits(), image2.numBytes());
 
 		__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
-			.arg(image3.numBytes()).arg(ba3.size()).arg(ba3.size() * 1.0 / image3.numBytes()));
+			.arg(image2.numBytes()).arg(ba2.size()).arg(ba2.size() * 1.0 / image2.numBytes()));
+
+		//QByteArray ba3 = foundation::compress(image3.bits(), image3.numBytes());
+
+		//__LOG(QString("Original size %1, compressed size %2, compressed ratio %3")
+		//	.arg(image3.numBytes()).arg(ba3.size()).arg(ba3.size() * 1.0 / image3.numBytes()));
 	}
 }
 
