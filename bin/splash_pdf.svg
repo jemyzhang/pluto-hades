@@ -15,9 +15,9 @@
    width="316"
    height="430"
    version="1.0"
-   sodipodi:docname="splash.svg"
+   sodipodi:docname="splash_pdf.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="E:\Project\PlutoWare2\bin\splash.png"
+   inkscape:export-filename="E:\Project\PlutoWare2\bin\splash_pdf.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <metadata
@@ -65,7 +65,7 @@
      inkscape:object-nodes="true"
      inkscape:zoom="2.155814"
      inkscape:cx="158"
-     inkscape:cy="202.88142"
+     inkscape:cy="180.15907"
      inkscape:window-x="1920"
      inkscape:window-y="52"
      inkscape:current-layer="svg2440">
@@ -97,29 +97,33 @@
        y="350.88745" /></text>
   <text
      xml:space="preserve"
-     style="font-size:20px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ecd854;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black Heavy"
+     style="font-size:26px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:69.99999881%;writing-mode:lr-tb;text-anchor:start;fill:#ecd854;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Constantia;-inkscape-font-specification:Constantia Bold"
      x="20"
-     y="370"
+     y="354.89752"
      id="text2457"
-     sodipodi:linespacing="100%"><tspan
+     sodipodi:linespacing="69.999999%"><tspan
        sodipodi:role="line"
        x="20"
-       y="370"
-       id="tspan2463">PlutoPDF v0.1.5.1</tspan></text>
+       y="354.89752"
+       id="tspan2463">PlutoPDF for M8 </tspan><tspan
+       sodipodi:role="line"
+       x="20"
+       y="373.09753"
+       id="tspan2388">v0.2.0.0</tspan></text>
   <text
      inkscape:transform-center-y="-8.1345322"
      xml:space="preserve"
-     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Microsoft YaHei;-inkscape-font-specification:Microsoft YaHei Bold"
+     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Microsoft YaHei;-inkscape-font-specification:Microsoft YaHei Bold"
      x="20"
-     y="385.36139"
+     y="390"
      id="text2469"
      sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan2471"
        x="20"
-       y="385.36139">PlutoWare All Rights Reserved.</tspan><tspan
+       y="390">PlutoWare All Rights Reserved.</tspan><tspan
        sodipodi:role="line"
        x="20"
-       y="397.36139"
+       y="400"
        id="tspan2473">Roger (roger2yi@gmail.com)</tspan></text>
 </svg>

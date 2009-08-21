@@ -60,7 +60,10 @@ private slots:
 	void onAskJump(int pageNo);
 	void onAskRecent(const QString& recentFile);
 	void onAskZoom(int zoomLevel);
-	void onAskChangeSettings(bool showThumb, bool showStatus);
+	void onAskChangeSettings(bool showThumb, 
+		bool showStatus, 		
+		bool useHomeKey,
+		bool useCahce);
 	void onAskChangeStyle(const QString& styleFile);
 	void onAskRotate90();
 	void onAskRotate180();
