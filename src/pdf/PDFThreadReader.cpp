@@ -325,7 +325,8 @@ PDFThreadReader::askRender(int pageNo, bool wait)
 		}
 	}
 
-	this->prefetch(pageNo, impl_->prefetchNum);
+	if (impl_->enableCaching)
+		this->prefetch(pageNo, impl_->prefetchNum);
 }
 
 

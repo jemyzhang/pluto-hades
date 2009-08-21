@@ -3,6 +3,8 @@
 
 #include <Qt/qglobal.h>
 
+#include "../../../include/foundation_include.h"
+
 #ifdef COMIC_LIB
 # define COMIC_EXPORT Q_DECL_EXPORT
 #else

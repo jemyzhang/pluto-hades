@@ -5,6 +5,7 @@
 #include <QDataStream>
 
 #include <QDialog>
+#include <QPushButton>
 #include <QHBoxLayout>
 
 #include "pdftest.h"
@@ -142,6 +143,15 @@ PDFTest::testBackground()
 void 
 PDFTest::testScreen()
 {
+	//QFile file("D:\\Noname1.txt");
+	//file.open(QFile::ReadOnly);
+
+	//QTextStream ts(&file);
+	//ts.setCodec("UTF-16");
+	//QString line = ts.readLine();
+
+	//qDebug()<<line;
+
 	QDialog dialog;
 
 	QHBoxLayout* layout = new QHBoxLayout(&dialog);
@@ -151,6 +161,8 @@ PDFTest::testScreen()
 	layout->addWidget(screen);
 	layout->setSpacing(0);
 	layout->setMargin(0);
+
+	//screen->setMessage(line);
 
 	dialog.resize(720, 480);
 	dialog.exec();
