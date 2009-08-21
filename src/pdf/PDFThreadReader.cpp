@@ -49,6 +49,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 	volatile bool stopFlag;
 
 	bool convert16bits;
+	bool useFastAlgo;
 	QSize thumbSize;
 
 	int prefetchNum;
@@ -62,12 +63,13 @@ struct PDFThreadReader::PDFThreadReaderImpl
 		, thumbSize (128, 128)
 		, prefetchNum (2)
 		, enableCaching (true)
+		, useFastAlgo (false)
 	{
 	}
 
 	pltCompressedImage* addIntoCache(int pageNo, const QImage& image)
 	{
-		pltCompressedImage* page = new pltCompressedImage();
+		pltCompressedImage* page = new pltCompressedImage(false, useFastAlgo);
 		page->compress(image);
 
 		if (page->size() != 0 && page->size() < pages.maxCost())
@@ -273,6 +275,13 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 			impl_->prefetchNum = 2;
 		}
 	}
+}
+
+
+void 
+PDFThreadReader::setUseFastCompressAlgo(bool use)
+{
+	impl_->useFastAlgo = use;
 }
 
 

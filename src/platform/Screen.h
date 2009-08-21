@@ -129,6 +129,8 @@ private:
 
 class PLATFORM_EXPORT SipLineEdit : public QLineEdit
 {
+	Q_OBJECT
+
 public:
 	SipLineEdit(QWidget *parent = 0);
 	virtual ~SipLineEdit();
@@ -137,6 +139,12 @@ public:
 protected:
 	virtual void focusInEvent(QFocusEvent * event);
 	virtual void focusOutEvent(QFocusEvent * event);
+
+private slots:
+	void onFocusIn();
+
+signals:
+	void focusIn();
 
 };
 //namespace

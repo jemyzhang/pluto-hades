@@ -879,8 +879,11 @@
                 <height>45</height>
                </size>
               </property>
+              <property name="inputMask">
+               <string>9999; </string>
+              </property>
               <property name="maxLength">
-               <number>32767</number>
+               <number>4</number>
               </property>
               <property name="echoMode">
                <enum>QLineEdit::Normal</enum>

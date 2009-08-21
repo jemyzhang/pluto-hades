@@ -35,7 +35,7 @@ draw_splash()
 	CMzStringW pathStr(path);
 	int pos = pathStr.FindReverse(L'\\');
 	CMzStringW dir = pathStr.SubStr(0, pos + 1);
-	CMzStringW splashPath = dir + L"splash.png";
+	CMzStringW splashPath = dir + L"splash_pdf.png";
 
 	helper->LoadImage(splashPath, false, true, true);
 
@@ -48,12 +48,6 @@ draw_splash()
 	rect.bottom = rect.top + helper->GetImageHeight();
 
 	helper->Draw(desktopDC, &rect);
-
-	//::DrawText(desktopDC, 
-	//	L"PlutoPDF for M8 v0.1.5.0 \r\nRoger (roger2yi@gmail.com)", 
-	//	-1,
-	//	&rect,
-	//	DT_LEFT | DT_VCENTER);
 	
 	::ReleaseDC(NULL, desktopDC);
 
@@ -71,9 +65,9 @@ main(int argc, char* argv[])
 	HINSTANCE pdf_dll = NULL;
 	
 #ifdef _DEBUG
-	pdf_dll = ::LoadLibraryW(L"pdf_wince_debug.dll");
+	pdf_dll = ::LoadLibraryW(L"pdf_ui_wince_debug.dll");
 #else
-	pdf_dll = ::LoadLibraryW(L"pdf_wince.dll");
+	pdf_dll = ::LoadLibraryW(L"pdf_ui_wince.dll");
 #endif 
 
 	start_app_func start_func = (start_app_func)

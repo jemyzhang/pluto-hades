@@ -194,7 +194,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="%CSIDL_PROGRAM_FILES%\plutopdf.m8"
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\common"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -392,7 +392,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Rcc&apos;ing platform.qrc..."
-					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp"
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;platform&quot; &quot;.\platform.qrc&quot; -o .\GeneratedFiles\qrc_platform.cpp&#x0D;&#x0A;"
 					AdditionalDependencies=".\platform.qrc"
 					Outputs=".\GeneratedFiles\qrc_platform.cpp"
 				/>

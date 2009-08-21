@@ -479,6 +479,21 @@ M8Platform::~M8Platform()
 
 
 bool 
+M8Platform::winEventFilter(MSG *message, long *result)
+{
+	if (message->message == WM_QUIT)
+	{
+		*result = message->wParam;
+		return true;
+	}
+
+	return false;
+}
+
+
+
+
+bool 
 M8Platform::screenCanRotate_() const
 {
 	bool canRotate = false;
@@ -745,7 +760,9 @@ void
 M8Platform::holdShellKey_(QWidget * mainWin) const
 {
 	HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_HOME*/);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+
+	//RegisterShellMessage(mainWin->winId(), WM_MZSH_CLICK_M_KEY);
 }
 
 
@@ -753,7 +770,9 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_HOME*/);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+
+	//UnRegisterShellMessage(mainWin->winId(), WM_MZSH_CLICK_M_KEY);
 }
 
 
@@ -793,8 +812,6 @@ M8Platform::memoryStatus_() const
 
 	return ms;
 }
-
-
 
 
 #endif // PLATFORM_M8

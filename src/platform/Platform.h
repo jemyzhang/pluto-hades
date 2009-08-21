@@ -191,6 +191,8 @@ public:
 	M8Platform(int& argc, char ** argv);
 	virtual ~M8Platform();
 
+	virtual bool winEventFilter(MSG *message, long *result);
+
 private:
 	virtual bool screenCanRotate_() const;
 	virtual ScreenRotateAngle realScreenRotateAngle_() const;
