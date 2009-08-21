@@ -71,6 +71,8 @@ public://command
 
 	void setConvertTo16Bits(bool convert);
 
+	void setUseFastCompressAlgo(bool use);
+
 	void enableCaching(bool enable);
 
 	void askRender(int pageNo, bool wait = false);

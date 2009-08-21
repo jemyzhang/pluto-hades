@@ -273,6 +273,7 @@ PDFScreen::PDFScreen(QWidget *parent)
 	this->connect(&impl_->pdfReader, SIGNAL(cached(QString)), SLOT(onCached(QString)));
 
 	impl_->pdfReader.setConvertTo16Bits(true);
+	impl_->pdfReader.setUseFastCompressAlgo(true);
 	impl_->pdfReader.setThumbSize(this->neededThumbSize());
 
 	//settings
@@ -684,6 +685,16 @@ PDFScreen::showEvent(QShowEvent *event)
 
 
 void 
+PDFScreen::closeEvent(QCloseEvent *event)
+{
+	//this->setMessage("Close window");
+	//event->ignore();
+
+	pltScreen::closeEvent(event);
+}
+
+
+void 
 PDFScreen::onFirstShown()
 {
 	//rotate
@@ -955,7 +966,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 
 				impl_->setupHotspots(this);
 				
-				result = 0;
+				*result = 0;
 				return true;
 			}
 
@@ -966,7 +977,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 			plutoApp->releaseShellKey(this);
 			plutoApp->leaveFullScreen(this);
 
-			result = 0;
+			*result = 0;
 			return true;
 		}
 	}
@@ -982,18 +993,23 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			this->scrollDown();
 		}
-		//else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
-		//{
-		//	plutoApp->releaseShellKey(this);
-		//	plutoApp->leaveFullScreen(this);
-		//	plutoApp->rotateScreenToOriginal();
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
+		{
+			plutoApp->releaseShellKey(this);
+			plutoApp->leaveFullScreen(this);
+			plutoApp->rotateScreenToOriginal();
 
-		//	this->showMinimized();
-		//}
+			//this->showMinimized();
 
-		result = 0;
+			::BringWindowToTop(GetDesktopWindow());
+			::SetForegroundWindow(GetDesktopWindow());
+			::SetActiveWindow(GetDesktopWindow());
+		}
+
+		*result = 0;
 		return true;
 	}
+
 
 	return false;
 }

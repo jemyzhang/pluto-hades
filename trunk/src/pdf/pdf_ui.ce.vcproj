@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="foundation.ce"
-	ProjectGUID="{3226A1B8-AD94-4B61-B2D5-8E8A468E350A}"
-	RootNamespace="foundation.ce"
+	Name="pdf_ui.ce"
+	ProjectGUID="{13A52CFD-5095-42F3-A5ED-A9A69EBAF15A}"
+	RootNamespace="pdf_ui.m8"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|M8SDK (ARMV4I)"
 			OutputDirectory="$(SolutionDir)\bin"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)_ui"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -43,7 +43,7 @@
 				ExecutionBucket="7"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QT_CE_DIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QT_CE_DIR)\include\QtCore&quot;;&quot;$(QT_CE_DIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;_WINDOWS;_USRDLL;FOUNDATIONCE_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;FOUNDATION_LIB"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;_WINDOWS;_USRDLL;PDFM8_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;PDF_LIB"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="false"
@@ -68,12 +68,12 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib"
-				OutputFile="$(OutDir)/foundation_wince_debug.dll"
+				OutputFile="$(OutDir)/pdf_ui_wince_debug.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\lib&quot;;&quot;$(QT_CE_DIR)\lib&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/foundation.ce.pdb"
+				ProgramDatabaseFile="$(OutDir)/pdf.m8.pdb"
 				SubSystem="0"
 				StackReserveSize="0"
 				StackCommitSize="0"
@@ -111,7 +111,7 @@
 		<Configuration
 			Name="Release|M8SDK (ARMV4I)"
 			OutputDirectory="$(SolutionDir)\bin"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)_ui"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -137,7 +137,7 @@
 				Optimization="2"
 				FavorSizeOrSpeed="2"
 				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QT_CE_DIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QT_CE_DIR)\include\QtCore&quot;;&quot;$(QT_CE_DIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_WINDOWS;_USRDLL;FOUNDATIONCE_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;FOUNDATION_LIB"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_WINDOWS;_USRDLL;PDFM8_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;PDF_LIB"
 				RuntimeLibrary="0"
 				TreatWChar_tAsBuiltInType="false"
 				RuntimeTypeInfo="true"
@@ -161,12 +161,12 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
 				AdditionalDependencies="QtCore4.lib QtGui4.lib"
-				OutputFile="$(OutDir)/foundation_wince.dll"
+				OutputFile="$(OutDir)/pdf_ui_wince.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\lib&quot;;&quot;$(QT_CE_DIR)\lib&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile="$(OutDir)/foundation.ce.pdb"
+				ProgramDatabaseFile="$(OutDir)/pdf.m8.pdb"
 				SubSystem="0"
 				StackReserveSize="0"
 				StackCommitSize="0"
@@ -213,208 +213,28 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Archive.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Assertion.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\CacheableObject.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Compress.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Configuration.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Enum.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Exception.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\ImageProcessor.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Logger.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\3rd\minilzo.c"
+				RelativePath=".\GeneratedFiles\moc_PDFMenu.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Properties.cpp"
+				RelativePath=".\GeneratedFiles\moc_PDFScreen.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\moc_PDFThreadReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PDFMenu.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PDFScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\qrc_pdf.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\stdafx.cpp"
@@ -436,46 +256,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\ThumbableObject.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Timer.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|M8SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="2"
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -483,59 +263,67 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Archive.h"
+				RelativePath=".\pdf_global.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Assertion.h"
+				RelativePath=".\PDFMenu.h"
 				>
+				<FileConfiguration
+					Name="Debug|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFMenu.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFMenu.h&quot; -o &quot;.\GeneratedFiles\moc_PDFMenu.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFMenu.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFMenu.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFMenu.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFMenu.h&quot; -o &quot;.\GeneratedFiles\moc_PDFMenu.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFMenu.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFMenu.cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\CacheableObject.h"
+				RelativePath=".\PDFScreen.h"
 				>
-			</File>
-			<File
-				RelativePath=".\Compress.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Configuration.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Enum.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Exception.h"
-				>
-			</File>
-			<File
-				RelativePath=".\foundation_global.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ImageProcessor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Logger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Properties.h"
-				>
+				<FileConfiguration
+					Name="Debug|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFScreen.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFScreen.h&quot; -o &quot;.\GeneratedFiles\moc_PDFScreen.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFScreen.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFScreen.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|M8SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PDFScreen.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DPDF_LIB -D_WINDLL -D_UNICODE -DUNICODE -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\PDFScreen.h&quot; -o &quot;.\GeneratedFiles\moc_PDFScreen.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\PDFScreen.h"
+						Outputs="&quot;.\GeneratedFiles\moc_PDFScreen.cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ThumbableObject.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Timer.h"
+				RelativePath=".\GeneratedFiles\ui_PDFMenu.h"
 				>
 			</File>
 		</Filter>
@@ -545,6 +333,58 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\pdf.qrc"
+			>
+			<FileConfiguration
+				Name="Debug|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Rcc&apos;ing pdf.qrc..."
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
+					AdditionalDependencies=".\pdf.qrc"
+					Outputs=".\GeneratedFiles\qrc_pdf.cpp"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Rcc&apos;ing pdf.qrc..."
+					CommandLine="$(QTDIR)\bin\rcc.exe -name &quot;pdf&quot; -no-compress &quot;.\pdf.qrc&quot; -o .\GeneratedFiles\qrc_pdf.cpp&#x0D;&#x0A;"
+					AdditionalDependencies=".\pdf.qrc"
+					Outputs=".\GeneratedFiles\qrc_pdf.cpp"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\PDFMenu.ui"
+			>
+			<FileConfiguration
+				Name="Debug|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Uic&apos;ing $(InputPath)..."
+					CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_PDFMenu.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+					AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+					Outputs="&quot;.\GeneratedFiles\ui_PDFMenu.h&quot;"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|M8SDK (ARMV4I)"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Uic&apos;ing $(InputPath)..."
+					CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_PDFMenu.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+					AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+					Outputs="&quot;.\GeneratedFiles\ui_PDFMenu.h&quot;"
+				/>
+			</FileConfiguration>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

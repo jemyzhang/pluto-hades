@@ -75,6 +75,8 @@ signals:
 
 protected:
 	virtual void showEvent(QShowEvent *event);
+	virtual void closeEvent(QCloseEvent *event);
+
 	virtual void mousePressEvent(QMouseEvent *event);
 	virtual void mouseReleaseEvent(QMouseEvent *event);
 

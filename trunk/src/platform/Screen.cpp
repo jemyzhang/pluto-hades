@@ -648,7 +648,7 @@ Screen::updateMemoryInfo()
 SipLineEdit::SipLineEdit(QWidget *parent /*= 0*/)
 : QLineEdit(parent)
 {
-
+	this->connect(this, SIGNAL(focusIn()), SLOT(onFocusIn()), Qt::QueuedConnection);
 }
 
 
@@ -665,7 +665,9 @@ SipLineEdit::focusInEvent(QFocusEvent * event)
 	QLineEdit::focusInEvent(event);
 	plutoApp->openSip();
 
-	this->home(true);
+
+	emit focusIn();
+	//this->home(true);
 }
 
 
@@ -675,6 +677,13 @@ SipLineEdit::focusOutEvent(QFocusEvent * event)
 	QLineEdit::focusOutEvent(event);
 
 	plutoApp->closeSip();
+}
+
+
+void 
+SipLineEdit::onFocusIn()
+{
+	this->selectAll();
 }
 
 }
