@@ -67,6 +67,8 @@ struct PDFScreen::PDFScreenImpl
 
 	bool showThumb;
 	bool showStatus;
+	bool useHomeKey;
+	bool useCache;
 
 	QString styleFile;
 
@@ -166,6 +168,8 @@ struct PDFScreen::PDFScreenImpl
 
 		showThumb = settings->value("showThumb", true).toBool();
 		showStatus = settings->value("showStatus", true).toBool();
+		useHomeKey = settings->value("useHomeKey", true).toBool();
+		useCache = settings->value("useCache", true).toBool();
 
 		styleFile = settings->value("style", DEFAULT_STYLE).toString();
 
@@ -206,6 +210,8 @@ struct PDFScreen::PDFScreenImpl
 
 		settings->setValue("showThumb", showThumb);
 		settings->setValue("showStatus", showStatus);
+		settings->setValue("useHomeKey", useHomeKey);
+		settings->setValue("useCache", useCache);
 
 		settings->setValue("style", styleFile);
 
@@ -260,7 +266,9 @@ PDFScreen::PDFScreen(QWidget *parent)
 	this->connect(impl_->menu, SIGNAL(askJump(int)), SLOT(onAskJump(int)));
 	this->connect(impl_->menu, SIGNAL(askZoom(int)), SLOT(onAskZoom(int)));
 	this->connect(impl_->menu, SIGNAL(askRecent(const QString&)), SLOT(onAskRecent(const QString&)));
-	this->connect(impl_->menu, SIGNAL(askChangeSettings(bool, bool)), SLOT(onAskChangeSettings(bool, bool)));
+	this->connect(impl_->menu, 
+		SIGNAL(askChangeSettings(bool, bool, bool, bool)), 
+		SLOT(onAskChangeSettings(bool, bool, bool, bool)));
 	this->connect(impl_->menu, SIGNAL(askChangeStyle(const QString&)), SLOT(onAskChangeStyle(const QString&)));
 	this->connect(impl_->menu, SIGNAL(askRotate90()), SLOT(onAskRotate90()));
 	this->connect(impl_->menu, SIGNAL(askRotate180()), SLOT(onAskRotate180()));
@@ -283,9 +291,14 @@ PDFScreen::PDFScreen(QWidget *parent)
 
 	//system configuration
 	impl_->readSettings();
-	impl_->menu->setCurrentSettings(impl_->showThumb, impl_->showStatus);
+	impl_->menu->setCurrentSettings(impl_->showThumb, 
+		impl_->showStatus, 
+		impl_->useHomeKey, 
+		impl_->useCache);
 	this->setThumbVisible(impl_->showThumb);
 	this->setStatusBarVisible(impl_->showStatus);
+
+	impl_->pdfReader.setUseCache(impl_->useCache);
 
 	//load style
 	plutoApp->loadStyle(impl_->styleFile);
@@ -893,13 +906,20 @@ PDFScreen::onAskRecent(const QString& recentFile)
 
 void 
 PDFScreen::onAskChangeSettings(bool showThumb, 
-							   bool showStatus)
+							   bool showStatus,
+							   bool useHomeKey,
+							   bool useCahce)
 {
 	impl_->showThumb = showThumb;
 	impl_->showStatus = showStatus;
+	impl_->useHomeKey = useHomeKey;
+	impl_->useCache = useCahce;
 
 	this->setThumbVisible(showThumb);
 	this->setStatusBarVisible(showStatus);
+			
+	impl_->pdfReader.setUseCache(impl_->useCache);
+	plutoApp->holdShellKey(this, impl_->useHomeKey);
 
 	impl_->writeSettings();
 }
@@ -948,7 +968,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			static bool first = true;
 
-			plutoApp->holdShellKey(this);
+			plutoApp->holdShellKey(this, impl_->useHomeKey);
 
 			pltPlatform::ScreenRotateAngle realAngle = 
 				plutoApp->realScreenRotateAngle();
@@ -996,14 +1016,20 @@ PDFScreen::winEvent(MSG *message, long *result)
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
 		{
 			plutoApp->releaseShellKey(this);
-			plutoApp->leaveFullScreen(this);
 			plutoApp->rotateScreenToOriginal();
-
-			//this->showMinimized();
+			plutoApp->leaveFullScreen(this);
 
 			::BringWindowToTop(GetDesktopWindow());
 			::SetForegroundWindow(GetDesktopWindow());
 			::SetActiveWindow(GetDesktopWindow());
+		}
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_DBLCLICK_HOME)
+		{
+			this->scrollDown();
+		}
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_LONGCLICK_HOME)
+		{
+			this->showMenu();
 		}
 
 		*result = 0;

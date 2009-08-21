@@ -218,10 +218,15 @@ PDFMenu::setApplicationName(const QString& appName)
 
 
 void 
-PDFMenu::setCurrentSettings(bool showThumb, bool showStatus)
+PDFMenu::setCurrentSettings(bool showThumb, 
+							bool showStatus,
+							bool useHomeKey,
+							bool useCahce)
 {
 	impl_->ui.m2ShowThumb->setChecked(showThumb);
 	impl_->ui.m2ShowStatus->setChecked(showStatus);
+	impl_->ui.m2UseHomeKey->setChecked(useHomeKey);
+	impl_->ui.m2UseCache->setChecked(useCahce);
 }
 
 
@@ -364,7 +369,9 @@ void
 PDFMenu::on_m2ShowThumb_clicked()
 {
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
-		impl_->ui.m2ShowStatus->isChecked());
+		impl_->ui.m2ShowStatus->isChecked(),
+		impl_->ui.m2UseHomeKey->isChecked(),
+		impl_->ui.m2UseCache->isChecked());
 }
 
 
@@ -372,7 +379,29 @@ void
 PDFMenu::on_m2ShowStatus_clicked()
 {
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
-		impl_->ui.m2ShowStatus->isChecked());
+		impl_->ui.m2ShowStatus->isChecked(),
+		impl_->ui.m2UseHomeKey->isChecked(),
+		impl_->ui.m2UseCache->isChecked());
+}
+
+
+void 
+PDFMenu::on_m2UseHomeKey_clicked()
+{
+	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
+		impl_->ui.m2ShowStatus->isChecked(),
+		impl_->ui.m2UseHomeKey->isChecked(),
+		impl_->ui.m2UseCache->isChecked());
+}
+
+
+void 
+PDFMenu::on_m2UseCache_clicked()
+{
+	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
+		impl_->ui.m2ShowStatus->isChecked(),
+		impl_->ui.m2UseHomeKey->isChecked(),
+		impl_->ui.m2UseCache->isChecked());
 }
 
 

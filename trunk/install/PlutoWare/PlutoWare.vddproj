@@ -20,12 +20,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1D0BB111404E4F1CA6EA32CDFC4539BC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1D230A074CD34D89BA5ADCD8A4A5DF18"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -39,6 +33,12 @@
         "Entry"
         {
         "MsmKey" = "8:_3B2E22D9A48B45E78CDC6B80818448A4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_57A88DD5E983439C8D8450386919114D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -104,6 +104,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E3C809BBEDBB409480FE06D32204AB66"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E6D9E8285FF746169107690BB6D08CE5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -134,7 +140,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:..\\PlutoPDF_M8_v0.1.5.1.cab"
+        "OutputFilename" = "8:..\\PlutoPDF_M8_v0.2.0.0.cab"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
         "SignOutput" = "11:FALSE"
@@ -152,24 +158,6 @@
             "TargetName" = "8:help_en.pdf"
             "Tag" = "8:"
             "Folder" = "8:_B34A31D136BA4AFF8964276988A37682"
-            "Condition" = "8:"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "Register" = "3:0"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_1D0BB111404E4F1CA6EA32CDFC4539BC"
-            {
-            "SourcePath" = "8:..\\..\\bin\\splash.png"
-            "TargetName" = "8:splash.png"
-            "Tag" = "8:"
-            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
@@ -362,6 +350,24 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_E3C809BBEDBB409480FE06D32204AB66"
+            {
+            "SourcePath" = "8:..\\..\\bin\\splash_pdf.png"
+            "TargetName" = "8:splash_pdf.png"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{BA458234-9B71-4F46-8107-E91156377184}:_FF0DA68C3A8C469495444D9B68C49979"
             {
             "SourcePath" = "8:..\\..\\bin\\locale\\plutopdf_en.qm"
@@ -470,6 +476,32 @@
         }
         "ProjectOutput"
         {
+            "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_57A88DD5E983439C8D8450386919114D"
+            {
+            "SourcePath" = "8:..\\..\\bin\\pdf_ui_wince.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:0"
+            "OutputConfiguration" = "8:Release|M8SDK (ARMV4I)"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{13A52CFD-5095-42F3-A5ED-A9A69EBAF15A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_90D3CF6A987440418F766AAA7455303D"
             {
             "SourcePath" = "8:..\\..\\bin\\platform_m8.dll"

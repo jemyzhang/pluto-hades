@@ -53,6 +53,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 	QSize thumbSize;
 
 	int prefetchNum;
+	bool useCache;
 	bool enableCaching;
 
 	PDFThreadReaderImpl()
@@ -62,6 +63,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 		, convert16bits(false)
 		, thumbSize (128, 128)
 		, prefetchNum (2)
+		, useCache (true)
 		, enableCaching (true)
 		, useFastAlgo (false)
 	{
@@ -259,20 +261,23 @@ PDFThreadReader::setRenderParams(ZoomLevel level,
 		impl_->screenHeight = screenH;
 		impl_->rotation = rotation;
 
-		if (level <= FitWidth250)
+		if (impl_->useCache)
 		{
-			impl_->enableCaching = false;
-			impl_->prefetchNum = 0;
-		}
-		else if (level < FitWidth150)
-		{
-			impl_->enableCaching = true;
-			impl_->prefetchNum = 1;
-		}
-		else
-		{
-			impl_->enableCaching = true;
-			impl_->prefetchNum = 2;
+			if (level <= FitWidth250)
+			{
+				impl_->enableCaching = false;
+				impl_->prefetchNum = 0;
+			}
+			else if (level < FitWidth150)
+			{
+				impl_->enableCaching = true;
+				impl_->prefetchNum = 1;
+			}
+			else
+			{
+				impl_->enableCaching = true;
+				impl_->prefetchNum = 2;
+			}
 		}
 	}
 }
@@ -286,9 +291,19 @@ PDFThreadReader::setUseFastCompressAlgo(bool use)
 
 
 void 
-PDFThreadReader::enableCaching(bool enable)
+PDFThreadReader::setUseCache(bool use)
 {
-	impl_->enableCaching = enable;
+	impl_->useCache = use;
+
+	if (use)
+	{
+		impl_->enableCaching = true;
+	}
+	else
+	{
+		impl_->enableCaching = false;
+		impl_->clearCache();
+	}
 }
 
 

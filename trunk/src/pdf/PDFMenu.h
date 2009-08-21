@@ -70,7 +70,10 @@ public:
 	void setApplicationName(const QString& appName);
 	void setCurrentPageNo(int pageNo);
 	void setRecentOpenFiles(const QStringList& files);
-	void setCurrentSettings(bool showThumb, bool showStatus);
+	void setCurrentSettings(bool showThumb, 
+		bool showStatus,
+		bool useHomeKey,
+		bool useCahce);
 
 public slots:
 	void on_m1Exit_clicked();
@@ -114,6 +117,8 @@ public slots:
 
 	void on_m2ShowThumb_clicked();
 	void on_m2ShowStatus_clicked();
+	void on_m2UseHomeKey_clicked();
+	void on_m2UseCache_clicked();
 	void on_m2Style_clicked();
 	void on_m2Rotate90_clicked();
 	void on_m2Rotate180_clicked();
@@ -131,7 +136,10 @@ signals:
 	void askHelp();
 	void askZoom(int zoomLevel);
 	void askRecent(const QString& recentFile);
-	void askChangeSettings(bool showThumb, bool showStatus);
+	void askChangeSettings(bool showThumb,
+		bool showStatus,
+		bool useHomeKey,
+		bool useCahce);
 	void askChangeStyle(const QString& styleFile);
 	void askRotate90();
 	void askRotate180();

@@ -52,6 +52,22 @@ public:
 		WPARAM_KEY_EVENT_CLICK_HOME,
 		WPARAM_KEY_EVENT_CLICK_POWER,
 		WPARAM_KEY_EVENT_CLICK_VOLMUTE,
+
+		WPARAM_KEY_EVENT_DBLCLICK_VOLUP = 0xB101,
+		WPARAM_KEY_EVENT_DBLCLICK_VOLDOWN,
+		WPARAM_KEY_EVENT_DBLCLICK_LINE,
+		WPARAM_KEY_EVENT_DBLCLICK_PLAY,
+		WPARAM_KEY_EVENT_DBLCLICK_HOME,
+		WPARAM_KEY_EVENT_DBLCLICK_POWER,
+		WPARAM_KEY_EVENT_DBLCLICK_VOLMUTE,
+
+		WPARAM_KEY_EVENT_LONGCLICK_VOLUP = 0xB201,
+		WPARAM_KEY_EVENT_LONGCLICK_VOLDOWN,
+		WPARAM_KEY_EVENT_LONGCLICK_LINE,
+		WPARAM_KEY_EVENT_LONGCLICK_PLAY,
+		WPARAM_KEY_EVENT_LONGCLICK_HOME,
+		WPARAM_KEY_EVENT_LONGCLICK_POWER,
+		WPARAM_KEY_EVENT_LONGCLICK_VOLMUTE, 
 	};
 
 	struct MemoryStatus
@@ -119,7 +135,7 @@ public://shell helper functions
 		QString *selectedFilter = 0,
 		QFileDialog::Options options = 0);
 
-	void holdShellKey(QWidget * mainWin) const;
+	void holdShellKey(QWidget * mainWin, bool holdHomeKey = false) const;
 	void releaseShellKey(QWidget * mainWin) const;
 
 	quint32 getShellEventId() const;
@@ -156,7 +172,7 @@ private:
 
 	virtual quint32 getShellEventId_() const {return 0;};
 
-	virtual void holdShellKey_(QWidget * /*mainWin*/) const {};
+	virtual void holdShellKey_(QWidget * /*mainWin*/, bool /*holdHomeKey*/) const {};
 	virtual void releaseShellKey_(QWidget * /*mainWin*/) const {};
 
 	virtual QMessageBox::StandardButton msgboxQuestion_(QWidget* parent,
@@ -215,7 +231,7 @@ private:
 
 	virtual quint32 getShellEventId_() const;
 
-	virtual void holdShellKey_(QWidget * mainWin) const;
+	virtual void holdShellKey_(QWidget * mainWin, bool holdHomeKey) const;
 	virtual void releaseShellKey_(QWidget * mainWin) const;
 
 	virtual QMessageBox::StandardButton msgboxQuestion_(QWidget* parent,

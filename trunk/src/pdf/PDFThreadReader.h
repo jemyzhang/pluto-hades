@@ -73,7 +73,7 @@ public://command
 
 	void setUseFastCompressAlgo(bool use);
 
-	void enableCaching(bool enable);
+	void setUseCache(bool use);
 
 	void askRender(int pageNo, bool wait = false);
 

@@ -319,9 +319,9 @@ Platform::closeSip()
 
 
 void 
-Platform::holdShellKey(QWidget * mainWin) const
+Platform::holdShellKey(QWidget * mainWin, bool holdHomeKey) const
 {
-	this->holdShellKey_(mainWin);
+	this->holdShellKey_(mainWin, holdHomeKey);
 }
 
 
@@ -757,12 +757,20 @@ M8Platform::getShellEventId_() const
 }
 
 void 
-M8Platform::holdShellKey_(QWidget * mainWin) const
+M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 {
-	HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+	this->releaseShellKey(mainWin);//release first
 
-	//RegisterShellMessage(mainWin->winId(), WM_MZSH_CLICK_M_KEY);
+	if (holdHomeKey)
+	{
+		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+	}
+	else
+	{
+		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP);
+	}
 }
 
 
@@ -771,8 +779,6 @@ M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
 		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
-
-	//UnRegisterShellMessage(mainWin->winId(), WM_MZSH_CLICK_M_KEY);
 }
 
 
