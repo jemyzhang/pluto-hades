@@ -85,6 +85,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdf_ui", "src\pdf\pdf_ui.vc
 		{DC1796AC-0559-4D84-B0FB-96890F98615C} = {DC1796AC-0559-4D84-B0FB-96890F98615C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "comic", "src\comic\comic.vcproj", "{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}"
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|M8SDK (ARMV4I) = Debug|M8SDK (ARMV4I)
@@ -255,6 +260,20 @@ Global
 		{DC1796AC-0559-4D84-B0FB-96890F98615D}.Release|Win32.ActiveCfg = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615D}.Release|Win32.Build.0 = Release|Win32
 		{DC1796AC-0559-4D84-B0FB-96890F98615D}.Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).ActiveCfg = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|M8SDK (ARMV4I).ActiveCfg = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Pocket PC 2003 (ARMV4).ActiveCfg = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Win32.ActiveCfg = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Win32.Build.0 = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).ActiveCfg = Debug|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|M8SDK (ARMV4I).ActiveCfg = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Win32.ActiveCfg = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Win32.Build.0 = Release|Win32
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75}.Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -269,6 +288,7 @@ Global
 		{DC1796AC-0559-4D84-B0FB-96890F98615C} = {2379B67F-B665-4873-A8B3-451719C6D980}
 		{D868475A-F512-4C42-A3FB-B2DAADEFAEB8} = {2379B67F-B665-4873-A8B3-451719C6D980}
 		{DC1796AC-0559-4D84-B0FB-96890F98615D} = {2379B67F-B665-4873-A8B3-451719C6D980}
+		{97352B92-E3D5-41C6-A9EA-E4E493FD0D75} = {2379B67F-B665-4873-A8B3-451719C6D980}
 		{CA2B66E1-31B9-4925-ACA9-FB6A4F81C95E} = {2AE3429F-1ED8-4056-927D-6D4E7615917F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
