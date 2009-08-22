@@ -1015,6 +1015,14 @@ PDFScreen::winEvent(MSG *message, long *result)
 		}
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
 		{
+			this->scrollDown();
+		}
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_DBLCLICK_HOME)
+		{
+			this->showMenu();
+		}
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_LONGCLICK_HOME)
+		{
 			plutoApp->releaseShellKey(this);
 			plutoApp->rotateScreenToOriginal();
 			plutoApp->leaveFullScreen(this);
@@ -1022,14 +1030,6 @@ PDFScreen::winEvent(MSG *message, long *result)
 			::BringWindowToTop(GetDesktopWindow());
 			::SetForegroundWindow(GetDesktopWindow());
 			::SetActiveWindow(GetDesktopWindow());
-		}
-		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_DBLCLICK_HOME)
-		{
-			this->scrollDown();
-		}
-		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_LONGCLICK_HOME)
-		{
-			this->showMenu();
 		}
 
 		*result = 0;
