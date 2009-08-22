@@ -101,7 +101,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 			Qt::KeepAspectRatio,
 			Qt::SmoothTransformation));
 
-		pltCompressedImage* thumb = new pltCompressedImage(true);
+		pltCompressedImage* thumb = new pltCompressedImage(true, useFastAlgo);
 		thumb->compress(thumbImg);
 
 		if (thumb->size() != 0 && thumb->size() < thumbs.maxCost())
