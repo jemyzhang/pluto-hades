@@ -108,7 +108,7 @@ Screen::Screen(QWidget *parent)
 	impl_->hScrollBar = this->horizontalScrollBar();
 
 	//info
-	impl_->freshInfoTimerId = this->startTimer(1000 * 30);
+	impl_->freshInfoTimerId = this->startTimer(1000 * 10);
 	this->updateTimeInfo();
 	this->setBatteryInfo(plutoApp->batteryPercentage());
 	this->updateMemoryInfo();

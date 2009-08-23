@@ -831,15 +831,20 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	if (holdHomeKey)
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER */| MZ_HARDKEY_HOME);
 	}
 	else
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/);
 	}
 
 	SetScreenAlwaysOn(mainWin->winId());
+
+	//RegisterShellMessage(mainWin->winId(), 
+	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
+	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
+
 }
 
 
@@ -847,9 +852,13 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
 
 	SetScreenAutoOff();
+
+	//UnRegisterShellMessage(mainWin->winId(), 
+	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
+	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
 }
 
 

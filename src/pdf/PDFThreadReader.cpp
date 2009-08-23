@@ -456,6 +456,12 @@ PDFThreadReader::renderPage(int pageNo)
 			__THROW_L(PDFException, "Out of memory");
 		}
 
+		//convert to 16bits
+		if (impl_->convert16bits)
+		{
+			image = image.convertToFormat(QImage::Format_RGB16);
+		}
+
 		//add thumb
 		QImage thumb;
 		
@@ -465,12 +471,6 @@ PDFThreadReader::renderPage(int pageNo)
 		}
 		{
 			thumb = impl_->addThumb(pageNo, image);
-		}
-
-		//convert to 16bits
-		if (impl_->convert16bits)
-		{
-			image = image.convertToFormat(QImage::Format_RGB16);
 		}
 
 		if (!impl_->stopFlag)
