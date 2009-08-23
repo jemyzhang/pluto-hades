@@ -997,7 +997,6 @@ PDFScreen::winEvent(MSG *message, long *result)
 			|| message->message == PLUTO_PDF_M8_EXISTS_MESSAGE)
 		{
 			static bool first = true;
-			first = false;
 
 			plutoApp->holdShellKey(this, impl_->useHomeKey);
 
@@ -1021,6 +1020,8 @@ PDFScreen::winEvent(MSG *message, long *result)
 			::BringWindowToTop(this->winId());
 			::SetForegroundWindow(this->winId());
 			::SetActiveWindow(this->winId());
+
+			first = false;
 
 			*result = 0;
 			return true;
@@ -1048,11 +1049,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		}
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_POWER)
 		{
-			::PostMessage(GetDesktopWindow(), 
-				message->message,
-				message->wParam, 
-				message->lParam);
-			//plutoApp->lockSystem();
+			plutoApp->lockSystem();
 		}
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
 		{
