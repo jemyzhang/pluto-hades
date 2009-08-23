@@ -1347,6 +1347,22 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="m2UseAcc">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Use Acc</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCommandLinkButton" name="m2Style">
               <property name="minimumSize">
                <size>
@@ -1386,7 +1402,7 @@
                </size>
               </property>
               <property name="description">
-               <string>Rotate screen 90 degree clockwise</string>
+               <string>Rotate screen 90 degree</string>
               </property>
              </widget>
             </item>
@@ -1408,7 +1424,7 @@
                </size>
               </property>
               <property name="description">
-               <string>Rotate screen 180 degree clockwise</string>
+               <string>Rotate screen 180 degree</string>
               </property>
              </widget>
             </item>

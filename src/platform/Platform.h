@@ -41,6 +41,19 @@ public:
 		Angle90 = 1,
 		Angle180 = 2,
 		Angle270 = 4,
+
+		//Angle0 = 3,
+		//Angle90 = 0,
+		//Angle180 = 2,
+		//Angle270 = 1,
+	};
+
+	enum M8ScreenRotateAngle
+	{
+		SCREEN_LANDSCAPE_N_   = 2, 
+		SCREEN_LANDSCAPE_P_   = 3,
+		SCREEN_PORTRAIT_N_   = 1,
+		SCREEN_PORTRAIT_P_   = 0, 
 	};
 
 	enum M8Key
@@ -96,6 +109,8 @@ public://style relative
 public://screen relative helper functions
 	bool screenCanRotate() const;
 
+	ScreenRotateAngle convertM8Angle(M8ScreenRotateAngle m8angle) const;
+
 	ScreenRotateAngle realScreenRotateAngle() const;
 
 	ScreenRotateAngle originalRotateAngle() const;
@@ -119,6 +134,10 @@ public://screen relative helper functions
 	void enterFullScreen(QWidget* mainWin);
 	void leaveFullScreen(QWidget* mainWin);
 	void reEnterFullScreen(QWidget* mainWin);
+
+	void keepScreenLight(QWidget* mainWin);
+
+	void lockSystem();
 
 
 public://system info helper functions
@@ -144,6 +163,10 @@ public://shell helper functions
 		const QString& title,
 		const QString& content) const;
 
+public://acc relative
+	quint32 getAccMessageId() const;
+	void setAccOpen(bool open);
+
 public://SIP helper
 	void openSip();
 	void closeSip();
@@ -159,6 +182,10 @@ private:
 	virtual void enterFullScreen_(QWidget* /*mainWin*/) {};
 	virtual void leaveFullScreen_(QWidget* /*mainWin*/) {};
 
+	virtual void keepScreenLight_(QWidget* /*mainWin*/) {};
+
+	virtual void lockSystem_() {};
+
 	virtual int batteryPercentage_() const {return 100;};
 
 	virtual	MemoryStatus memoryStatus_() const {return MemoryStatus();};
@@ -171,6 +198,9 @@ private:
 		QFileDialog::Options options);
 
 	virtual quint32 getShellEventId_() const {return 0;};
+
+	virtual quint32 getAccMessageId_() const {return 0;};
+	virtual void setAccOpen_(bool /*open*/) {};
 
 	virtual void holdShellKey_(QWidget * /*mainWin*/, bool /*holdHomeKey*/) const {};
 	virtual void releaseShellKey_(QWidget * /*mainWin*/) const {};
@@ -210,6 +240,7 @@ public:
 	virtual bool winEventFilter(MSG *message, long *result);
 
 private:
+
 	virtual bool screenCanRotate_() const;
 	virtual ScreenRotateAngle realScreenRotateAngle_() const;
 	virtual Qt::Orientation screenOrientation_() const;
@@ -218,6 +249,10 @@ private:
 
 	virtual void enterFullScreen_(QWidget* mainWin);
 	virtual void leaveFullScreen_(QWidget* mainWin);
+
+	virtual void keepScreenLight_(QWidget* mainWin);
+
+	virtual void lockSystem_();
 
 	virtual int batteryPercentage_() const;
 	virtual	MemoryStatus memoryStatus_() const;
@@ -230,6 +265,9 @@ private:
 		QFileDialog::Options options);
 
 	virtual quint32 getShellEventId_() const;
+
+	virtual quint32 getAccMessageId_() const;
+	virtual void setAccOpen_(bool open);
 
 	virtual void holdShellKey_(QWidget * mainWin, bool holdHomeKey) const;
 	virtual void releaseShellKey_(QWidget * mainWin) const;

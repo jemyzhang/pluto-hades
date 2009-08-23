@@ -63,11 +63,11 @@
      showgrid="true"
      inkscape:object-paths="true"
      inkscape:object-nodes="true"
-     inkscape:zoom="2.155814"
+     inkscape:zoom="2.1162791"
      inkscape:cx="158"
-     inkscape:cy="180.15907"
-     inkscape:window-x="1920"
-     inkscape:window-y="52"
+     inkscape:cy="215"
+     inkscape:window-x="1916"
+     inkscape:window-y="-4"
      inkscape:current-layer="svg2440">
     <inkscape:grid
        type="xygrid"
@@ -84,7 +84,8 @@
      height="430"
      width="316"
      sodipodi:absref="E:\Project\PlutoWare2\bin\splash_org.png"
-     xlink:href="splash_org.png" />
+     xlink:href="splash_org.png"
+     style="fill:#ecd854" />
   <text
      xml:space="preserve"
      style="font-size:22;font-style:normal;font-weight:bold;fill:#fdca01;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -97,33 +98,37 @@
        y="350.88745" /></text>
   <text
      xml:space="preserve"
-     style="font-size:26px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:69.99999881%;writing-mode:lr-tb;text-anchor:start;fill:#ecd854;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Constantia;-inkscape-font-specification:Constantia Bold"
+     style="font-size:26px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:80.00000119%;writing-mode:lr-tb;text-anchor:start;fill:#ecd454;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black Heavy"
      x="20"
-     y="354.89752"
+     y="340"
      id="text2457"
-     sodipodi:linespacing="69.999999%"><tspan
+     sodipodi:linespacing="80.000001%"><tspan
        sodipodi:role="line"
        x="20"
-       y="354.89752"
+       y="340"
        id="tspan2463">PlutoPDF for M8 </tspan><tspan
        sodipodi:role="line"
        x="20"
-       y="373.09753"
-       id="tspan2388">v0.2.0.0</tspan></text>
+       y="360.79999"
+       id="tspan2388">v0.2.0.1</tspan></text>
   <text
      inkscape:transform-center-y="-8.1345322"
      xml:space="preserve"
-     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Microsoft YaHei;-inkscape-font-specification:Microsoft YaHei Bold"
+     style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#fffff0;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Microsoft YaHei;-inkscape-font-specification:Microsoft YaHei Bold"
      x="20"
-     y="390"
+     y="380"
      id="text2469"
      sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan2471"
        x="20"
-       y="390">PlutoWare All Rights Reserved.</tspan><tspan
+       y="380">PlutoWare, 2009 All Rights Reserved.</tspan><tspan
        sodipodi:role="line"
        x="20"
-       y="400"
-       id="tspan2473">Roger (roger2yi@gmail.com)</tspan></text>
+       y="391"
+       id="tspan2473">Roger (roger2yi@gmail.com)</tspan><tspan
+       sodipodi:role="line"
+       x="20"
+       y="402"
+       id="tspan2389">Artistic support : 46218142, YuChenghui</tspan></text>
 </svg>

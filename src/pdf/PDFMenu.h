@@ -73,7 +73,8 @@ public:
 	void setCurrentSettings(bool showThumb, 
 		bool showStatus,
 		bool useHomeKey,
-		bool useCahce);
+		bool useCahce,
+		bool openAcc);
 
 public slots:
 	void on_m1Exit_clicked();
@@ -119,6 +120,7 @@ public slots:
 	void on_m2ShowStatus_clicked();
 	void on_m2UseHomeKey_clicked();
 	void on_m2UseCache_clicked();
+	void on_m2UseAcc_clicked();
 	void on_m2Style_clicked();
 	void on_m2Rotate90_clicked();
 	void on_m2Rotate180_clicked();
@@ -139,7 +141,9 @@ signals:
 	void askChangeSettings(bool showThumb,
 		bool showStatus,
 		bool useHomeKey,
-		bool useCahce);
+		bool useCahce,
+		bool useAcc);
+
 	void askChangeStyle(const QString& styleFile);
 	void askRotate90();
 	void askRotate180();

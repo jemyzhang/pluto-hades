@@ -213,7 +213,7 @@ Screen::timerEvent(QTimerEvent *event)
 
 		this->setBatteryInfo(plutoApp->batteryPercentage());
 
-		this->updateMemoryInfo();
+		//plutoApp->keepScreenLight(this);
 	}
 	else if (event->timerId() == impl_->pressTimerId)
 	{
@@ -683,7 +683,7 @@ SipLineEdit::focusOutEvent(QFocusEvent * event)
 void 
 SipLineEdit::onFocusIn()
 {
-	this->selectAll();
+	this->home(true);
 }
 
 }
