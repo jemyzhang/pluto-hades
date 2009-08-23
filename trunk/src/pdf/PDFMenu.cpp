@@ -221,12 +221,17 @@ void
 PDFMenu::setCurrentSettings(bool showThumb, 
 							bool showStatus,
 							bool useHomeKey,
-							bool useCahce)
+							bool useCahce,
+							bool useAcc)
 {
 	impl_->ui.m2ShowThumb->setChecked(showThumb);
 	impl_->ui.m2ShowStatus->setChecked(showStatus);
 	impl_->ui.m2UseHomeKey->setChecked(useHomeKey);
 	impl_->ui.m2UseCache->setChecked(useCahce);
+	impl_->ui.m2UseAcc->setChecked(useAcc);
+
+	impl_->ui.m2Rotate90->setDisabled(useAcc);
+	impl_->ui.m2Rotate180->setDisabled(useAcc);
 }
 
 
@@ -371,7 +376,8 @@ PDFMenu::on_m2ShowThumb_clicked()
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
 		impl_->ui.m2ShowStatus->isChecked(),
 		impl_->ui.m2UseHomeKey->isChecked(),
-		impl_->ui.m2UseCache->isChecked());
+		impl_->ui.m2UseCache->isChecked(),
+		impl_->ui.m2UseAcc->isChecked());
 }
 
 
@@ -381,7 +387,8 @@ PDFMenu::on_m2ShowStatus_clicked()
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
 		impl_->ui.m2ShowStatus->isChecked(),
 		impl_->ui.m2UseHomeKey->isChecked(),
-		impl_->ui.m2UseCache->isChecked());
+		impl_->ui.m2UseCache->isChecked(),
+		impl_->ui.m2UseAcc->isChecked());
 }
 
 
@@ -391,7 +398,8 @@ PDFMenu::on_m2UseHomeKey_clicked()
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
 		impl_->ui.m2ShowStatus->isChecked(),
 		impl_->ui.m2UseHomeKey->isChecked(),
-		impl_->ui.m2UseCache->isChecked());
+		impl_->ui.m2UseCache->isChecked(),
+		impl_->ui.m2UseAcc->isChecked());
 }
 
 
@@ -401,7 +409,22 @@ PDFMenu::on_m2UseCache_clicked()
 	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
 		impl_->ui.m2ShowStatus->isChecked(),
 		impl_->ui.m2UseHomeKey->isChecked(),
-		impl_->ui.m2UseCache->isChecked());
+		impl_->ui.m2UseCache->isChecked(),
+		impl_->ui.m2UseAcc->isChecked());
+}
+
+
+void 
+PDFMenu::on_m2UseAcc_clicked()
+{
+	emit askChangeSettings(impl_->ui.m2ShowThumb->isChecked(),
+		impl_->ui.m2ShowStatus->isChecked(),
+		impl_->ui.m2UseHomeKey->isChecked(),
+		impl_->ui.m2UseCache->isChecked(),
+		impl_->ui.m2UseAcc->isChecked());
+
+	impl_->ui.m2Rotate90->setDisabled(impl_->ui.m2UseAcc->isChecked());
+	impl_->ui.m2Rotate180->setDisabled(impl_->ui.m2UseAcc->isChecked());
 }
 
 

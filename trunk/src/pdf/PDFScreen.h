@@ -63,7 +63,8 @@ private slots:
 	void onAskChangeSettings(bool showThumb, 
 		bool showStatus, 		
 		bool useHomeKey,
-		bool useCahce);
+		bool useCahce,
+		bool useAcc);
 	void onAskChangeStyle(const QString& styleFile);
 	void onAskRotate90();
 	void onAskRotate180();

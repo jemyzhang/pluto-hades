@@ -13,6 +13,11 @@ color : white;
 font:   12pt;
 }
 
+QAbstractButton:disabled, QLabel:disabled, QLineEdit:disabled
+{
+color : darkgray;
+}
+
 QAbstractButton[highlight="true"]
 {
 color: rgb(0, 170, 255);
@@ -51,12 +56,12 @@ height: 32px;
 margin-left: 10px;
 }
 
-QCheckBox::indicator:unchecked 
+QCheckBox::indicator:unchecked, QCheckBox::indicator:checked:pressed 
 {
 image: url(:/Resources/uncheck.png);
 }
 
-QCheckBox::indicator:checked 
+QCheckBox::indicator:checked, QCheckBox::indicator:unchecked:pressed  
 {
 image: url(:/Resources/preferences.png);
 }

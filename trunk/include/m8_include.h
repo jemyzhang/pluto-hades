@@ -24,6 +24,8 @@
 #include <ShellNotifyMsg.h>
 #include <MotorVibrate.h>
 #include <TouchNotifyApi.h>
+#include <Acc_api.h>
+#include <BackLightApi.h>
 
 #include <InitGuid.h>
 #include <IMzUnknown.h>

@@ -55,9 +55,34 @@ draw_splash()
 };
 
 
+#define PLUTO_PDF_M8_EXISTS_MESSAGE (WM_USER + 0x10000)
+
+
+static bool 
+check_instance_exists()
+{
+	::CreateMutex(NULL, TRUE, L"pluto_pdf_m8_roger_yi");
+
+	if (::GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		//Already exists
+		::PostMessage(HWND_BROADCAST, PLUTO_PDF_M8_EXISTS_MESSAGE, NULL, NULL);
+
+		return true;
+	}
+
+	return false;
+}
+
+
 int 
 main(int argc, char* argv[])
 {
+	int result = 0;
+
+	if (check_instance_exists())
+		return result;
+
 	::CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 	ImagingHelper* helper = draw_splash();
@@ -73,7 +98,7 @@ main(int argc, char* argv[])
 	start_app_func start_func = (start_app_func)
 		::GetProcAddressA(pdf_dll, "start_pdf_app");
 
-	int result = 0;
+
 
 	if (start_func)
 		result = start_func(argc, argv);

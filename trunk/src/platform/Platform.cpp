@@ -213,6 +213,13 @@ Platform::reEnterFullScreen(QWidget* mainWin)
 }
 
 
+void 
+Platform::lockSystem()
+{
+	this->lockSystem_();
+}
+
+
 int 
 Platform::batteryPercentage() const
 {
@@ -440,6 +447,51 @@ Platform::deltaAngle(ScreenRotateAngle angle1,
 }
 
 
+quint32 
+Platform::getAccMessageId() const
+{
+	return this->getAccMessageId_();
+}
+
+
+void 
+Platform::setAccOpen(bool open)
+{
+	this->setAccOpen_(open);
+}
+
+
+Platform::ScreenRotateAngle 
+Platform::convertM8Angle(M8ScreenRotateAngle m8angle) const
+{
+	Platform::ScreenRotateAngle angle = Angle90;
+	switch(m8angle)
+	{
+	case SCREEN_PORTRAIT_P_:
+		angle = Angle90;
+		break;
+	case SCREEN_PORTRAIT_N_:  
+		angle = Angle270;
+		break;
+	case SCREEN_LANDSCAPE_P_:
+		angle = Angle0;
+		break;
+	case SCREEN_LANDSCAPE_N_:
+		angle = Angle180;
+		break;
+	}
+
+	return angle;
+}
+
+
+void 
+Platform::keepScreenLight(QWidget* mainWin)
+{
+	this->keepScreenLight_(mainWin);
+}
+
+
 /************************************************************************/
 /*                                                                      
 /*	M8Platform
@@ -642,6 +694,14 @@ M8Platform::leaveFullScreen_(QWidget* mainWin)
 }
 
 
+void 
+M8Platform::keepScreenLight_(QWidget* mainWin)
+{
+	SetScreenAlwaysOn(mainWin->winId());
+	SetScreenAutoOff();
+}
+
+
 int 
 M8Platform::batteryPercentage_() const
 {
@@ -756,6 +816,13 @@ M8Platform::getShellEventId_() const
 	return eventId;
 }
 
+quint32 
+M8Platform::getAccMessageId_() const
+{
+	return MzAccGetMessage();
+}
+
+
 void 
 M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 {
@@ -764,13 +831,15 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	if (holdHomeKey)
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
 	}
 	else
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER);
 	}
+
+	SetScreenAlwaysOn(mainWin->winId());
 }
 
 
@@ -778,7 +847,9 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
+
+	SetScreenAutoOff();
 }
 
 
@@ -817,6 +888,25 @@ M8Platform::memoryStatus_() const
 	ms.usedPhys = ms.totalPhys - ms.availPhys;
 
 	return ms;
+}
+
+
+void 
+M8Platform::lockSystem_()
+{
+	SetScreenAutoOff();
+	MzEntryLockPhone();
+	SetBackLightState(FALSE);
+}
+
+
+void 
+M8Platform::setAccOpen_(bool open)
+{
+	if (open)
+		MzAccOpen();
+	else
+		MzAccClose();
 }
 
 

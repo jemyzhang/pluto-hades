@@ -69,6 +69,7 @@ struct PDFScreen::PDFScreenImpl
 	bool showStatus;
 	bool useHomeKey;
 	bool useCache;
+	bool useAcc;
 
 	QString styleFile;
 
@@ -170,6 +171,7 @@ struct PDFScreen::PDFScreenImpl
 		showStatus = settings->value("showStatus", true).toBool();
 		useHomeKey = settings->value("useHomeKey", true).toBool();
 		useCache = settings->value("useCache", true).toBool();
+		useAcc = settings->value("openAcc", true).toBool();
 
 		styleFile = settings->value("style", DEFAULT_STYLE).toString();
 
@@ -212,6 +214,7 @@ struct PDFScreen::PDFScreenImpl
 		settings->setValue("showStatus", showStatus);
 		settings->setValue("useHomeKey", useHomeKey);
 		settings->setValue("useCache", useCache);
+		settings->setValue("openAcc", useAcc);
 
 		settings->setValue("style", styleFile);
 
@@ -248,6 +251,8 @@ PDFScreen::PDFScreen(QWidget *parent)
 	plutoApp->setApplicationName("PlutoPDF");
 	plutoApp->setOrganizationName("PlutoWare - Roger.Yi (roger2yi@gmail.com)");
 
+	this->setWindowTitle("Roger's PlutoPDF");
+
 
 	//scene
 	impl_->scene = this->scene();
@@ -267,8 +272,8 @@ PDFScreen::PDFScreen(QWidget *parent)
 	this->connect(impl_->menu, SIGNAL(askZoom(int)), SLOT(onAskZoom(int)));
 	this->connect(impl_->menu, SIGNAL(askRecent(const QString&)), SLOT(onAskRecent(const QString&)));
 	this->connect(impl_->menu, 
-		SIGNAL(askChangeSettings(bool, bool, bool, bool)), 
-		SLOT(onAskChangeSettings(bool, bool, bool, bool)));
+		SIGNAL(askChangeSettings(bool, bool, bool, bool, bool)), 
+		SLOT(onAskChangeSettings(bool, bool, bool, bool, bool)));
 	this->connect(impl_->menu, SIGNAL(askChangeStyle(const QString&)), SLOT(onAskChangeStyle(const QString&)));
 	this->connect(impl_->menu, SIGNAL(askRotate90()), SLOT(onAskRotate90()));
 	this->connect(impl_->menu, SIGNAL(askRotate180()), SLOT(onAskRotate180()));
@@ -291,10 +296,13 @@ PDFScreen::PDFScreen(QWidget *parent)
 
 	//system configuration
 	impl_->readSettings();
+
 	impl_->menu->setCurrentSettings(impl_->showThumb, 
 		impl_->showStatus, 
 		impl_->useHomeKey, 
-		impl_->useCache);
+		impl_->useCache,
+		impl_->useAcc);
+
 	this->setThumbVisible(impl_->showThumb);
 	this->setStatusBarVisible(impl_->showStatus);
 
@@ -538,6 +546,8 @@ PDFScreen::handleDoubleTouched(QPoint pos, int elapsed)
 	{
 		plutoApp->rotateScreen(impl_->screenAngle);
 		plutoApp->enterFullScreen(this);
+
+		impl_->setupHotspots(this);
 	}
 	else
 	{
@@ -711,10 +721,18 @@ void
 PDFScreen::onFirstShown()
 {
 	//rotate
-	plutoApp->rotateScreen(impl_->screenAngle);
-	plutoApp->enterFullScreen(this);
+	plutoApp->setAccOpen(impl_->useAcc);
 
-	//layout
+	if (impl_->useAcc)
+	{
+		plutoApp->rotateScreen(plutoApp->realScreenRotateAngle());
+	}
+	else
+	{
+		plutoApp->rotateScreen(impl_->screenAngle);
+	}
+	
+	plutoApp->enterFullScreen(this);
 	impl_->setupHotspots(this);
 }
 
@@ -741,7 +759,6 @@ PDFScreen::openFirstPdfBook()
 		impl_->firstPdfBook = plutoApp->helpFile();
 	}
 
-	//no render first, only open book
 	if (this->openPdfBook(impl_->firstPdfBook))
 	{
 		//render page, the needed width will depend on newAngle and current Angle
@@ -752,7 +769,11 @@ PDFScreen::openFirstPdfBook()
 
 		QDesktopWidget dw;
 
-		if ((deltaAngle == 90 || deltaAngle == 270))
+		if (impl_->useAcc)
+		{
+			this->renderPage(dw.screenGeometry().width());
+		}
+		else if ((deltaAngle == 90 || deltaAngle == 270))
 		{
 			this->renderPage(dw.screenGeometry().height());
 		}
@@ -908,18 +929,22 @@ void
 PDFScreen::onAskChangeSettings(bool showThumb, 
 							   bool showStatus,
 							   bool useHomeKey,
-							   bool useCahce)
+							   bool useCahce,
+							   bool useAcc)
 {
 	impl_->showThumb = showThumb;
 	impl_->showStatus = showStatus;
 	impl_->useHomeKey = useHomeKey;
 	impl_->useCache = useCahce;
+	impl_->useAcc = useAcc;
 
 	this->setThumbVisible(showThumb);
 	this->setStatusBarVisible(showStatus);
 			
 	impl_->pdfReader.setUseCache(impl_->useCache);
+
 	plutoApp->holdShellKey(this, impl_->useHomeKey);
+	plutoApp->setAccOpen(useAcc);
 
 	impl_->writeSettings();
 }
@@ -959,14 +984,20 @@ PDFScreen::onAskRotate180()
 
 
 #ifdef _WIN32_WCE
+#define PLUTO_PDF_M8_EXISTS_MESSAGE (WM_USER + 0x10000)
+
 bool 
 PDFScreen::winEvent(MSG *message, long *result)
 {
-	if (message->message == WM_ACTIVATE)
+	if (message->message == WM_ACTIVATE 
+		|| message->message == PLUTO_PDF_M8_EXISTS_MESSAGE)
 	{
-		if (message->wParam == WA_ACTIVE || message->wParam == WA_CLICKACTIVE)
+		if (message->wParam == WA_ACTIVE 
+			|| message->wParam == WA_CLICKACTIVE
+			|| message->message == PLUTO_PDF_M8_EXISTS_MESSAGE)
 		{
 			static bool first = true;
+			first = false;
 
 			plutoApp->holdShellKey(this, impl_->useHomeKey);
 
@@ -980,17 +1011,19 @@ PDFScreen::winEvent(MSG *message, long *result)
 			{
 				//the screen rotate outside, need rotate back
 				this->setMessage(QString("!!!Rotate outside, need rotate back by AP."));
-
 				plutoApp->rotateScreen(impl_->screenAngle);
-				plutoApp->enterFullScreen(this);
-
-				impl_->setupHotspots(this);
-				
-				*result = 0;
-				return true;
 			}
 
-			first = false;
+			plutoApp->enterFullScreen(this);
+
+			impl_->setupHotspots(this);
+
+			::BringWindowToTop(this->winId());
+			::SetForegroundWindow(this->winId());
+			::SetActiveWindow(this->winId());
+
+			*result = 0;
+			return true;
 		}
 		else if (message->wParam == WA_INACTIVE)
 		{
@@ -1013,6 +1046,14 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			this->scrollDown();
 		}
+		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_POWER)
+		{
+			::PostMessage(GetDesktopWindow(), 
+				message->message,
+				message->wParam, 
+				message->lParam);
+			//plutoApp->lockSystem();
+		}
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
 		{
 			this->scrollDown();
@@ -1034,6 +1075,19 @@ PDFScreen::winEvent(MSG *message, long *result)
 
 		*result = 0;
 		return true;
+	}
+	else if (message->message == plutoApp->getAccMessageId())
+	{
+		pltPlatform::ScreenRotateAngle angle = 
+			plutoApp->convertM8Angle((pltPlatform::M8ScreenRotateAngle)message->wParam);
+
+		plutoApp->rotateScreen(angle);
+		plutoApp->enterFullScreen(this);
+
+		impl_->setupHotspots(this);
+
+		this->setMessage(QString("Auto rotate : wParam : %1 -> angle : %2")
+			.arg(message->wParam).arg((int)angle));
 	}
 
 
