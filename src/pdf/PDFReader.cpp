@@ -655,9 +655,21 @@ PDFReader::open(const QString& pdfFile, const QString& password)
 	if (fi.exists() &&
 		QString::compare(fi.suffix(), QString("pdf"), Qt::CaseInsensitive) == 0)
 	{
-		impl_->createRenderer();
+		QString orgFile = impl_->info.filePath;
+		QString orgPassword = impl_->info.password;
 
-		impl_->load(pdfFile, password);
+		try
+		{
+			impl_->createRenderer();
+			impl_->load(pdfFile, password);
+		}
+		catch (PDFException&)
+		{
+			impl_->clean();
+
+			PDFReader::open(orgFile, orgPassword);//reopen last
+			throw;
+		}
 	}
 	else
 	{

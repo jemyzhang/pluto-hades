@@ -366,7 +366,7 @@ PDFScreen::openPdfBook(const QString& pdfFile)
 	catch (pltException& e)
 	{
 		this->setMessage(QString("Can not open %1 - %2")
-			.arg(pdfFile, e.toString()));
+			.arg(QFileInfo(pdfFile).fileName(), e.toString()));
 
 		return false;
 	}

@@ -831,12 +831,12 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	if (holdHomeKey)
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER */| MZ_HARDKEY_HOME);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
 	}
 	else
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER);
 	}
 
 	SetScreenAlwaysOn(mainWin->winId());
@@ -852,7 +852,7 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
 
 	SetScreenAutoOff();
 
@@ -904,8 +904,8 @@ void
 M8Platform::lockSystem_()
 {
 	SetScreenAutoOff();
-	MzEntryLockPhone();
 	SetBackLightState(FALSE);
+	MzEntryLockPhone();
 }
 
 
