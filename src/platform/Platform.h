@@ -158,13 +158,15 @@ public://shell helper functions
 	void releaseShellKey(QWidget * mainWin) const;
 
 	quint32 getShellEventId() const;
+	quint32 getEntryLockPhoneEventId() const {return this->getEntryLockPhoneEventId_();};
+	quint32 getLeaveLockPhoneEventId() const {return this->getLeaveLockPhoneEventId_();};
 
 	QMessageBox::StandardButton msgboxQuestion(QWidget* parent,
 		const QString& title,
 		const QString& content) const;
 
 public://acc relative
-	quint32 getAccMessageId() const;
+	quint32 getAccEventId() const;
 	void setAccOpen(bool open);
 
 public://SIP helper
@@ -198,8 +200,10 @@ private:
 		QFileDialog::Options options);
 
 	virtual quint32 getShellEventId_() const {return 0;};
+	virtual quint32 getEntryLockPhoneEventId_() const {return 0;};
+	virtual quint32 getLeaveLockPhoneEventId_() const {return 0;};
 
-	virtual quint32 getAccMessageId_() const {return 0;};
+	virtual quint32 getAccEventId_() const {return 0;};
 	virtual void setAccOpen_(bool /*open*/) {};
 
 	virtual void holdShellKey_(QWidget * /*mainWin*/, bool /*holdHomeKey*/) const {};
@@ -265,8 +269,10 @@ private:
 		QFileDialog::Options options);
 
 	virtual quint32 getShellEventId_() const;
+	virtual quint32 getEntryLockPhoneEventId_() const;
+	virtual quint32 getLeaveLockPhoneEventId_() const;
 
-	virtual quint32 getAccMessageId_() const;
+	virtual quint32 getAccEventId_() const;
 	virtual void setAccOpen_(bool open);
 
 	virtual void holdShellKey_(QWidget * mainWin, bool holdHomeKey) const;

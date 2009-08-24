@@ -196,7 +196,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="%CSIDL_PROGRAM_FILES%\common"
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\plutopdf.m8"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>

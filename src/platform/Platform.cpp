@@ -448,9 +448,9 @@ Platform::deltaAngle(ScreenRotateAngle angle1,
 
 
 quint32 
-Platform::getAccMessageId() const
+Platform::getAccEventId() const
 {
-	return this->getAccMessageId_();
+	return this->getAccEventId_();
 }
 
 
@@ -817,9 +817,44 @@ M8Platform::getShellEventId_() const
 }
 
 quint32 
-M8Platform::getAccMessageId_() const
+M8Platform::getEntryLockPhoneEventId_() const
 {
-	return MzAccGetMessage();
+	static quint32 eventId = 0;
+
+	if (!eventId)
+	{
+		eventId = GetShellNotifyMsg_EntryLockPhone();
+	}
+
+	return eventId;
+}
+
+
+quint32 
+M8Platform::getLeaveLockPhoneEventId_() const
+{
+	static quint32 eventId = 0;
+
+	if (!eventId)
+	{
+		eventId = GetShellNotifyMsg_LeaveLockPhone();
+	}
+
+	return eventId;
+}
+
+
+quint32 
+M8Platform::getAccEventId_() const
+{
+	static quint32 eventId = 0;
+
+	if (!eventId)
+	{
+		eventId = MzAccGetMessage();
+	}
+
+	return eventId;
 }
 
 
@@ -831,20 +866,21 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	if (holdHomeKey)
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
 	}
 	else
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/);
 	}
-
-	SetScreenAlwaysOn(mainWin->winId());
 
 	//RegisterShellMessage(mainWin->winId(), 
 	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
 	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
 
+	//SetScreenAlwaysOn(mainWin->winId());
+
+	//SetScreenAutoOff();
 }
 
 
@@ -852,9 +888,9 @@ void
 M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
-		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_POWER | MZ_HARDKEY_HOME);
+		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
 
-	SetScreenAutoOff();
+	//SetScreenAutoOff();
 
 	//UnRegisterShellMessage(mainWin->winId(), 
 	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
