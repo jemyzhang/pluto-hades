@@ -1006,7 +1006,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 			this->setMessage(QString("AP re-active, real ANG %1, screen %2")
 				.arg(realAngle).arg(impl_->screenAngle));
 
-			if (impl_->screenAngle != realAngle && !first)
+			if (impl_->screenAngle != realAngle && !first && !impl_->useAcc)
 			{
 				//the screen rotate outside, need rotate back
 				this->setMessage(QString("!!!Rotate outside, need rotate back by AP."));
@@ -1047,10 +1047,6 @@ PDFScreen::winEvent(MSG *message, long *result)
 		{
 			this->scrollDown();
 		}
-		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_POWER)
-		{
-			plutoApp->lockSystem();
-		}
 		else if (keyid == pltPlatform::WPARAM_KEY_EVENT_CLICK_HOME)
 		{
 			this->scrollDown();
@@ -1073,7 +1069,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		*result = 0;
 		return true;
 	}
-	else if (message->message == plutoApp->getAccMessageId())
+	else if (message->message == plutoApp->getAccEventId())
 	{
 		pltPlatform::ScreenRotateAngle angle = 
 			plutoApp->convertM8Angle((pltPlatform::M8ScreenRotateAngle)message->wParam);
@@ -1086,7 +1082,10 @@ PDFScreen::winEvent(MSG *message, long *result)
 		this->setMessage(QString("Auto rotate : wParam : %1 -> angle : %2")
 			.arg(message->wParam).arg((int)angle));
 	}
-
+	//else if (message->message == plutoApp->getEntryLockPhoneEventId())
+	//{
+	//	plutoApp->lockSystem();
+	//}
 
 	return false;
 }
