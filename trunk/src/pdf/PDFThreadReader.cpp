@@ -489,6 +489,9 @@ PDFThreadReader::renderPage(int pageNo)
 	}
 	catch (PDFException& e)
 	{
+		//release memory
+		this->clearEngineBuffer();
+
 		emit renderError(QString("Render p%1 error - %2")
 			.arg(pageNo + 1).arg(e.what()));
 	}
