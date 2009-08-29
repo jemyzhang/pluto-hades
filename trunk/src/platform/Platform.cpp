@@ -879,8 +879,6 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
 
 	//SetScreenAlwaysOn(mainWin->winId());
-
-	//SetScreenAutoOff();
 }
 
 
