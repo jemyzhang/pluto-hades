@@ -32,12 +32,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3B2E22D9A48B45E78CDC6B80818448A4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_57A88DD5E983439C8D8450386919114D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,12 +39,6 @@
         "Entry"
         {
         "MsmKey" = "8:_5A9AC349EDA14FDCBE883379931DC574"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_73C04B74D4044B12B77F8B97FD7DFA76"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -86,6 +74,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B0C8BE8258354BF09660BE3C002CDC0A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B75429C3F13D478CA88904F90CC84166"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -99,6 +93,12 @@
         "Entry"
         {
         "MsmKey" = "8:_C36F77CE56DE4F3B90373F67A6166FA1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CBD0756090FD4AAAB4742FE89182314B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -206,48 +206,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_3B2E22D9A48B45E78CDC6B80818448A4"
-            {
-            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtGui4.dll"
-            "TargetName" = "8:QtGui4.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
-            "Condition" = "8:"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "Register" = "3:0"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{BA458234-9B71-4F46-8107-E91156377184}:_5A9AC349EDA14FDCBE883379931DC574"
             {
             "SourcePath" = "8:..\\..\\bin\\style\\shinynoir.qss"
             "TargetName" = "8:shinynoir.qss"
             "Tag" = "8:"
             "Folder" = "8:_43BA177FE5284974BD7B87872BF57D78"
-            "Condition" = "8:"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "Register" = "3:0"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_73C04B74D4044B12B77F8B97FD7DFA76"
-            {
-            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtCore4.dll"
-            "TargetName" = "8:QtCore4.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
@@ -314,6 +278,24 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_B0C8BE8258354BF09660BE3C002CDC0A"
+            {
+            "SourcePath" = "8:..\\QtGui4.dll"
+            "TargetName" = "8:QtGui4.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{BA458234-9B71-4F46-8107-E91156377184}:_B75429C3F13D478CA88904F90CC84166"
             {
             "SourcePath" = "8:..\\..\\src\\plutopdf32.png"
@@ -336,6 +318,24 @@
             {
             "SourcePath" = "8:..\\..\\license\\GPL.license"
             "TargetName" = "8:GPL.license"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_CBD0756090FD4AAAB4742FE89182314B"
+            {
+            "SourcePath" = "8:..\\QtCore4.dll"
+            "TargetName" = "8:QtCore4.dll"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
@@ -582,7 +582,7 @@
             }
             "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_E6D9E8285FF746169107690BB6D08CE5"
             {
-            "SourcePath" = "8:..\\..\\bin\\pdf_wince.dll"
+            "SourcePath" = "8:..\\..\\bin\\PDF_WINCE.DLL"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"

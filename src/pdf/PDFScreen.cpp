@@ -192,8 +192,8 @@ struct PDFScreen::PDFScreenImpl
 		topMargin = qMin(qMax(settings->value("topMargin").toDouble(), 0.0), MAX_CUT_MARGIN); 
 		bottomMargin = qMin(qMax(settings->value("bottomMargin").toDouble(), 0.0), MAX_CUT_MARGIN); 
 
-		ignoreCutPages = settings->value("ignoreCutPages").toInt();
-		pageNumber = qMin(settings->value("lastReadingPage").toInt(), 1);
+		ignoreCutPages = settings->value("ignoreCutPages", 0).toInt();
+		pageNumber = qMax(settings->value("lastReadingPage", 1).toInt(), 1);
 
 		zoomLevel = (PDFReader::ZoomLevel)
 			settings->value("zoomLevel", PDFReader::FitWidth).toInt();
