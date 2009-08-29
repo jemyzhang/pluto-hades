@@ -22,6 +22,8 @@
 
 #ifdef _WIN32_WCE
 //windows.ce
+#pragma comment(lib, "libcmt.lib")
+#pragma comment(lib, "corelibc.lib")
 
 #pragma comment(linker, "/nodefaultlib:libc.lib")
 #pragma comment(linker, "/nodefaultlib:libcd.lib")

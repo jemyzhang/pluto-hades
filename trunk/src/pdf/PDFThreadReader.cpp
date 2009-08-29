@@ -310,6 +310,8 @@ PDFThreadReader::setUseCache(bool use)
 void 
 PDFThreadReader::askRender(int pageNo, bool wait)
 {
+	pageNo = qBound(1, pageNo, this->pageCount());
+
 	impl_->requestPageNo = pageNo;
 	impl_->clearRequest();
 
@@ -325,7 +327,7 @@ PDFThreadReader::askRender(int pageNo, bool wait)
 		else
 		{
 			emit renderError(QString("Render p%1 error - %2")
-				.arg(pageNo + 1).arg("Out of memory"));
+				.arg(pageNo).arg("Out of memory"));
 		}
 	}
 	else
@@ -333,7 +335,7 @@ PDFThreadReader::askRender(int pageNo, bool wait)
 		if (impl_->renderingPageNo != pageNo)
 			impl_->enqueueRequest(pageNo);
 
-		emit rendering(QString("Rendering p%1, please wait").arg(pageNo + 1));
+		emit rendering(QString("Rendering p%1, please wait").arg(pageNo));
 
 		if (!this->isRunning())
 		{
@@ -515,7 +517,7 @@ PDFThreadReader::cache(int pageNo, const QImage& image)
 	pltCompressedImage* page = impl_->addIntoCache(pageNo, image);
 
 	QString cachedMsg = QString("Cached p%1 (%2), cost %3k (%4m / %5m) - [%6]")
-		.arg(pageNo + 1)
+		.arg(pageNo)
 		.arg(impl_->pages.size())
 		.arg(page->size() / 1024)
 		.arg(impl_->pages.totalCost() * 1.0 / (1024 * 1024), 0, 'f', 1)
