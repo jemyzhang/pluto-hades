@@ -1082,10 +1082,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		this->setMessage(QString("Auto rotate : wParam : %1 -> angle : %2")
 			.arg(message->wParam).arg((int)angle));
 	}
-	//else if (message->message == plutoApp->getEntryLockPhoneEventId())
-	//{
-	//	plutoApp->lockSystem();
-	//}
+
 
 	return false;
 }
