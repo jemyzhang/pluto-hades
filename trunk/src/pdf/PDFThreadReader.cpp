@@ -426,7 +426,7 @@ PDFThreadReader::prefetch(int pageNo, int count)
 
 	for (int i = 0; i < count; ++i)
 	{
-		if (!this->hasPage(nextPage) && nextPage < this->pageCount())
+		if (!this->hasPage(nextPage) && nextPage <= this->pageCount())
 		{
 			impl_->enqueueRequest(nextPage);
 		}
