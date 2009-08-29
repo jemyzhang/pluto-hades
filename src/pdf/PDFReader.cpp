@@ -205,6 +205,9 @@ struct PDFReader::PDFReaderImpl
 	{
 		pdf_page* page = getPdfPage(pageNo);
 
+		if (!page)
+			return QImage();
+
 		//handle rotation
 		if (page->rotate == 90 || page->rotate == 270)
 		{
@@ -470,11 +473,12 @@ struct PDFReader::PDFReaderImpl
 		if (xref) 
 		{
 			if (xref->store)
+			{
 				pdf_dropstore(xref->store);
+				xref->store = NULL;
+			}
 
-			xref->store = 0;
 			pdf_closexref(xref);
-
 			xref = NULL;
 		}
 	}
@@ -503,9 +507,9 @@ struct PDFReader::PDFReaderImpl
 		check();
 
 		//set password
-		if (xref->crypt)
+		if (pdf_needspassword(xref))
 		{
-			okay = pdf_setpassword(xref->crypt, (char *)qPrintable(info.password));
+			okay = pdf_authenticatepassword(xref, (char *)qPrintable(info.password));
 			check();
 		}
 	}
@@ -545,12 +549,8 @@ struct PDFReader::PDFReaderImpl
 	}
 
 
-	void loadNameTreesAndOutline()
+	void loadOutline()
 	{
-		//load name trees
-		error = pdf_loadnametrees(xref);
-		check();
-
 		//load outline
 		error = pdf_loadoutline(&outline, xref);
 		check();
@@ -558,8 +558,10 @@ struct PDFReader::PDFReaderImpl
 
 	void reloadstore()
 	{
-		pdf_emptystore(xref->store);
-		//pdf_newstore(&xref->store);
+		if (xref->store)
+		{
+			pdf_emptystore(xref->store);
+		}
 
 		droppages();
 	}
@@ -628,10 +630,11 @@ PDFReader::render(int pageNo,
 				  int screenH,
 				  int rotation) const
 {
-	int realPageNo = qMin(qMax(pageNo, 0), this->pageCount() - 1);
-	bool cutMargin = pageNo >= impl_->info.margin.ignorePages;
+	pageNo = qBound(1, pageNo, this->pageCount());
 
-	return impl_->render(realPageNo, level, screenW, screenH, rotation, cutMargin);
+	bool cutMargin = pageNo > impl_->info.margin.ignorePages;
+
+	return impl_->render(pageNo, level, screenW, screenH, rotation, cutMargin);
 }
 
 
@@ -681,6 +684,8 @@ PDFReader::open(const QString& pdfFile, const QString& password)
 QSizeF 
 PDFReader::pageSize(int pageNo) const
 {
+	pageNo = qBound(1, pageNo, this->pageCount());
+
 	return impl_->pageSize(pageNo);
 }
 
@@ -688,6 +693,8 @@ PDFReader::pageSize(int pageNo) const
 QSizeF 
 PDFReader::pageSizeWithoutMargin(int pageNo) const
 {
+	pageNo = qBound(1, pageNo, this->pageCount());
+
 	return impl_->pageSizeWithoutMargin(pageNo);
 }
 
@@ -695,6 +702,8 @@ PDFReader::pageSizeWithoutMargin(int pageNo) const
 int 
 PDFReader::pageRotation(int pageNo) const
 {
+	pageNo = qBound(1, pageNo, this->pageCount());
+
 	return impl_->pageRotation(pageNo);
 }
 

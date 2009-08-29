@@ -192,8 +192,8 @@ struct PDFScreen::PDFScreenImpl
 		topMargin = qMin(qMax(settings->value("topMargin").toDouble(), 0.0), MAX_CUT_MARGIN); 
 		bottomMargin = qMin(qMax(settings->value("bottomMargin").toDouble(), 0.0), MAX_CUT_MARGIN); 
 
-		ignoreCutPages = settings->value("ignoreCutPages").toUInt();
-		pageNumber = settings->value("lastReadingPage").toUInt(); 
+		ignoreCutPages = settings->value("ignoreCutPages").toInt();
+		pageNumber = qMin(settings->value("lastReadingPage").toInt(), 1);
 
 		zoomLevel = (PDFReader::ZoomLevel)
 			settings->value("zoomLevel", PDFReader::FitWidth).toInt();
@@ -406,8 +406,6 @@ PDFScreen::onRendered(int pageNo, QImage image, QImage thumb)
 	//if necessary, clear store buffer to save memory
 	this->updateMemoryInfo();
 
-	int realPageNo = pageNo + 1;
-
 	//painting
 	this->setPageImage(image, 
 		QPixmap::fromImage(thumb), 
@@ -417,13 +415,13 @@ PDFScreen::onRendered(int pageNo, QImage image, QImage thumb)
 
 
 	//update ui info
-	this->setPageIndicator(realPageNo, impl_->pdfReader.pageCount());
+	this->setPageIndicator(pageNo, impl_->pdfReader.pageCount());
 	this->setZoomInfo(qAbs((int)impl_->zoomLevel));
 
-	impl_->menu->setCurrentPageNo(realPageNo);
+	impl_->menu->setCurrentPageNo(pageNo);
 
 	this->setMessage(QString("Render p%1 OK, %2ms, mg %3, %4, zm %5")
-		.arg(realPageNo)
+		.arg(pageNo)
 		.arg(this->progressTime())
 		.arg(impl_->leftMargin)
 		.arg(impl_->rightMargin)
@@ -582,7 +580,7 @@ PDFScreen::scrollToPage(int pageNo)
 {
 	if (!impl_->pdfReader.isNull())
 	{
-		pageNo = qMin(qMax(pageNo, 0), impl_->pdfReader.pageCount() - 1);
+		pageNo = qBound(1, pageNo, impl_->pdfReader.pageCount());
 
 		if (pageNo != impl_->pageNumber)
 		{
@@ -910,7 +908,7 @@ PDFScreen::onAskZoom(int zoomLevel)
 void 
 PDFScreen::onAskJump(int pageNo)
 {
-	this->scrollToPage(pageNo - 1);
+	this->scrollToPage(pageNo);
 }
 
 
