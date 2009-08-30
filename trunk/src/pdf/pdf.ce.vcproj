@@ -73,7 +73,7 @@
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\lib&quot;;&quot;$(QT_CE_DIR)\lib&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/pdf.m8.pdb"
+				ProgramDatabaseFile="$(OutDir)/pdf.ce.pdb"
 				SubSystem="0"
 				StackReserveSize="0"
 				StackCommitSize="0"

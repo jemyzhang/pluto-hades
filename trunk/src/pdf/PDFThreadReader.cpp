@@ -101,7 +101,7 @@ struct PDFThreadReader::PDFThreadReaderImpl
 			Qt::KeepAspectRatio,
 			Qt::SmoothTransformation));
 
-		pltCompressedImage* thumb = new pltCompressedImage(true, useFastAlgo);
+		pltCompressedImage* thumb = new pltCompressedImage(true, false);
 		thumb->compress(thumbImg);
 
 		if (thumb->size() != 0 && thumb->size() < thumbs.maxCost())
@@ -494,8 +494,7 @@ PDFThreadReader::renderPage(int pageNo)
 		//release memory
 		this->clearEngineBuffer();
 
-		emit renderError(QString("Render p%1 error - %2")
-			.arg(pageNo + 1).arg(e.what()));
+		emit renderError(QString("Render p%1 error - %2").arg(pageNo).arg(e.what()));
 	}
 }
 

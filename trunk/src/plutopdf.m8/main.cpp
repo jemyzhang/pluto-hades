@@ -88,8 +88,10 @@ main(int argc, char* argv[])
 	ImagingHelper* helper = draw_splash();
 
 	HINSTANCE pdf_dll = NULL;
+	//HINSTANCE pdf_engine_dll = NULL;
 	
 #ifdef _DEBUG
+	//pdf_engine_dll = ::LoadLibraryW(L"pdf_wince_debug.dll");
 	pdf_dll = ::LoadLibraryW(L"pdf_ui_wince_debug.dll");
 #else
 	pdf_dll = ::LoadLibraryW(L"pdf_ui_wince.dll");
@@ -98,14 +100,14 @@ main(int argc, char* argv[])
 	start_app_func start_func = (start_app_func)
 		::GetProcAddressA(pdf_dll, "start_pdf_app");
 
-
-
 	if (start_func)
 		result = start_func(argc, argv);
 	else
 		result = -1;
 
 	SAFE_DELETE(helper);
+
+	::exit(result);
 
 	return result;
 }
