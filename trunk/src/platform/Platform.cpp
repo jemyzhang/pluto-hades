@@ -213,13 +213,6 @@ Platform::reEnterFullScreen(QWidget* mainWin)
 }
 
 
-void 
-Platform::lockSystem()
-{
-	this->lockSystem_();
-}
-
-
 int 
 Platform::batteryPercentage() const
 {
@@ -485,12 +478,6 @@ Platform::convertM8Angle(M8ScreenRotateAngle m8angle) const
 }
 
 
-void 
-Platform::keepScreenLight(QWidget* mainWin)
-{
-	this->keepScreenLight_(mainWin);
-}
-
 
 /************************************************************************/
 /*                                                                      
@@ -694,14 +681,6 @@ M8Platform::leaveFullScreen_(QWidget* mainWin)
 }
 
 
-void 
-M8Platform::keepScreenLight_(QWidget* mainWin)
-{
-	SetScreenAlwaysOn(mainWin->winId());
-	SetScreenAutoOff();
-}
-
-
 int 
 M8Platform::batteryPercentage_() const
 {
@@ -866,19 +845,13 @@ M8Platform::holdShellKey_(QWidget * mainWin, bool holdHomeKey) const
 	if (holdHomeKey)
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP | MZ_HARDKEY_HOME);
 	}
 	else
 	{
 		HoldShellUsingSomeKeyFunction(mainWin->winId(), 
-			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/);
+			MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP);
 	}
-
-	//RegisterShellMessage(mainWin->winId(), 
-	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
-	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
-
-	//SetScreenAlwaysOn(mainWin->winId());
 }
 
 
@@ -887,12 +860,6 @@ M8Platform::releaseShellKey_(QWidget * mainWin) const
 {
 	UnHoldShellUsingSomeKeyFunction(mainWin->winId(), 
 		MZ_HARDKEY_VOLUME_DOWN  | MZ_HARDKEY_VOLUME_UP /*| MZ_HARDKEY_POWER*/ | MZ_HARDKEY_HOME);
-
-	//SetScreenAutoOff();
-
-	//UnRegisterShellMessage(mainWin->winId(), 
-	//	WM_MZSH_ENTRY_LOCKPHONE | WM_MZSH_LEAVE_LOCKPHONE |
-	//	WM_MZSH_ENTRY_SHUTDOWN| WM_MZSH_LEAVE_SHUTDOWN);
 }
 
 
@@ -931,15 +898,6 @@ M8Platform::memoryStatus_() const
 	ms.usedPhys = ms.totalPhys - ms.availPhys;
 
 	return ms;
-}
-
-
-void 
-M8Platform::lockSystem_()
-{
-	SetScreenAutoOff();
-	SetBackLightState(FALSE);
-	MzEntryLockPhone();
 }
 
 

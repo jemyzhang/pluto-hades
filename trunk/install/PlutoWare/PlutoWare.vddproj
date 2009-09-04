@@ -44,6 +44,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8E25E486CCBE44C1B547E4D01CEC6479"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_90D3CF6A987440418F766AAA7455303D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -74,13 +80,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B0C8BE8258354BF09660BE3C002CDC0A"
+        "MsmKey" = "8:_B75429C3F13D478CA88904F90CC84166"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B75429C3F13D478CA88904F90CC84166"
+        "MsmKey" = "8:_B7FBD9364F02491DAA41DE2DE0D25DFB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -93,12 +99,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C36F77CE56DE4F3B90373F67A6166FA1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CBD0756090FD4AAAB4742FE89182314B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -224,6 +224,24 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{BA458234-9B71-4F46-8107-E91156377184}:_8E25E486CCBE44C1B547E4D01CEC6479"
+            {
+            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtGui4.dll"
+            "TargetName" = "8:QtGui4.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{BA458234-9B71-4F46-8107-E91156377184}:_99E14001731D4A55B04CD61A1AA04DDA"
             {
             "SourcePath" = "8:..\\..\\bin\\style\\noir.qss"
@@ -278,24 +296,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_B0C8BE8258354BF09660BE3C002CDC0A"
-            {
-            "SourcePath" = "8:..\\QtGui4.dll"
-            "TargetName" = "8:QtGui4.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
-            "Condition" = "8:"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "Register" = "3:0"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{BA458234-9B71-4F46-8107-E91156377184}:_B75429C3F13D478CA88904F90CC84166"
             {
             "SourcePath" = "8:..\\..\\src\\plutopdf32.png"
@@ -314,10 +314,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_C36F77CE56DE4F3B90373F67A6166FA1"
+            "{BA458234-9B71-4F46-8107-E91156377184}:_B7FBD9364F02491DAA41DE2DE0D25DFB"
             {
-            "SourcePath" = "8:..\\..\\license\\GPL.license"
-            "TargetName" = "8:GPL.license"
+            "SourcePath" = "8:E:\\Qt\\qt-ce\\lib\\QtCore4.dll"
+            "TargetName" = "8:QtCore4.dll"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
@@ -332,10 +332,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{BA458234-9B71-4F46-8107-E91156377184}:_CBD0756090FD4AAAB4742FE89182314B"
+            "{BA458234-9B71-4F46-8107-E91156377184}:_C36F77CE56DE4F3B90373F67A6166FA1"
             {
-            "SourcePath" = "8:..\\QtCore4.dll"
-            "TargetName" = "8:QtCore4.dll"
+            "SourcePath" = "8:..\\..\\license\\GPL.license"
+            "TargetName" = "8:GPL.license"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
             "Condition" = "8:"
@@ -582,7 +582,7 @@
             }
             "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_E6D9E8285FF746169107690BB6D08CE5"
             {
-            "SourcePath" = "8:..\\..\\bin\\PDF_WINCE.DLL"
+            "SourcePath" = "8:..\\..\\bin\\pdf_wince.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_452D5AFDDE5042DE863AB3F07A668DBD"
