@@ -135,10 +135,6 @@ public://screen relative helper functions
 	void leaveFullScreen(QWidget* mainWin);
 	void reEnterFullScreen(QWidget* mainWin);
 
-	void keepScreenLight(QWidget* mainWin);
-
-	void lockSystem();
-
 
 public://system info helper functions
 	int batteryPercentage() const;
@@ -183,10 +179,6 @@ private:
 
 	virtual void enterFullScreen_(QWidget* /*mainWin*/) {};
 	virtual void leaveFullScreen_(QWidget* /*mainWin*/) {};
-
-	virtual void keepScreenLight_(QWidget* /*mainWin*/) {};
-
-	virtual void lockSystem_() {};
 
 	virtual int batteryPercentage_() const {return 100;};
 
@@ -254,9 +246,6 @@ private:
 	virtual void enterFullScreen_(QWidget* mainWin);
 	virtual void leaveFullScreen_(QWidget* mainWin);
 
-	virtual void keepScreenLight_(QWidget* mainWin);
-
-	virtual void lockSystem_();
 
 	virtual int batteryPercentage_() const;
 	virtual	MemoryStatus memoryStatus_() const;

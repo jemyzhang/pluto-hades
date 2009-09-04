@@ -20,6 +20,7 @@
 #include "../../include/m8_include.h"
 
 #include <Windows.h>
+#include <string>
 
 typedef int (*start_app_func) (int, char**);
 
@@ -32,12 +33,12 @@ draw_splash()
 	WCHAR path[MAX_PATH];
 	int i = GetModuleFileNameW(hmodule, path, MAX_PATH);
 
-	CMzStringW pathStr(path);
-	int pos = pathStr.FindReverse(L'\\');
-	CMzStringW dir = pathStr.SubStr(0, pos + 1);
-	CMzStringW splashPath = dir + L"splash_pdf.png";
+	std::wstring pathStr(path);
+	size_t pos = pathStr.find_last_of(L'\\');
+	std::wstring dir = pathStr.substr(0, pos + 1);
+	std::wstring splashPath = dir + L"splash_pdf.png";
 
-	helper->LoadImage(splashPath, false, true, true);
+	helper->LoadImage(splashPath.c_str(), false, true, true);
 
 	HDC desktopDC = ::GetDC(NULL);
 	RECT rect = ::MzGetWorkArea();

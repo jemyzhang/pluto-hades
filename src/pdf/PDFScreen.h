@@ -91,6 +91,8 @@ protected:
 	virtual void handleDoubleTouched(QPoint pos, int elapsed);
 	virtual void handleLongTouched(QPoint pos, int elapsed);
 
+	virtual void openNextOrPrePdfFile(bool next);
+
 #ifdef _WIN32_WCE
 	virtual bool winEvent(MSG *message, long *result);
 #endif

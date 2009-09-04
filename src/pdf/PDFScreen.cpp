@@ -322,9 +322,11 @@ PDFScreen::~PDFScreen(void)
 void 
 PDFScreen::getPdfBook()
 {
+	QString dir = QFileInfo(impl_->pdfReader.filePath()).absolutePath();
+
 	QString pdfFile = plutoApp->getOpenFileName(this, 
 		plutoApp->applicationName(),
-		"\\Disk\\EBook", 
+		dir.replace("/", "\\"), 
 		"*.pdf;");
 
 	if (this->openPdfBook(pdfFile))
@@ -526,11 +528,17 @@ PDFScreen::handleDoubleTouched(QPoint pos, int elapsed)
 	}
 	else if (impl_->blCorner.contains(pos))
 	{
-		scrollPage(-10);
+		if (impl_->pageNumber == 1)
+			this->openNextOrPrePdfFile(false);
+		else
+			scrollPage(-10);
 	}
 	else if (impl_->brCorner.contains(pos))
-	{
-		scrollPage(10);
+	{		
+		if (impl_->pageNumber == impl_->pdfReader.pageCount())
+			this->openNextOrPrePdfFile(true);
+		else
+			scrollPage(10);
 	}
 	else if (impl_->mlCorner.contains(pos))
 	{
@@ -978,6 +986,29 @@ PDFScreen::onAskRotate180()
 	plutoApp->enterFullScreen(this);
 
 	impl_->writeSettings();
+}
+
+
+void 
+PDFScreen::openNextOrPrePdfFile(bool next)
+{
+	QString currPdfPath = impl_->pdfReader.filePath();
+	QFileInfo fi(currPdfPath);
+
+	QFileInfoList pdfFiles = fi.dir().entryInfoList(QStringList()<<"*.pdf",
+		QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks,
+		QDir::Name);
+
+	QString pdfFile = pdfFiles.value(pdfFiles.indexOf(fi)
+		+ (next ? 1 : -1)).absoluteFilePath();
+
+	if (!pdfFile.isEmpty())
+	{
+		if (this->openPdfBook(pdfFile))
+		{
+			this->renderPage();
+		}
+	}
 }
 
 
