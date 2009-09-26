@@ -69,8 +69,8 @@ private slots:
 	void onAskRotate90();
 	void onAskRotate180();
 
-	void scrollDown();
-	void scrollUp();
+	void scrollDown(ScrollScreenDirection direction = DirectionDown);
+	void scrollUp(ScrollScreenDirection direction = DirectionUp);
 
 	void showMenu();
 

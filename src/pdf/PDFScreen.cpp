@@ -477,12 +477,11 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 
 	if (impl_->tlCorner.contains(pos))
 	{
-		//top-left, show menu
-		this->scrollSceen(DirectionUpLeftCorner);
+		this->scrollUp(DirectionUpLeftCorner);
 	}
 	else if (impl_->trCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionUpRightCorner);
+		this->scrollUp(DirectionUpRightCorner);
 	}
 	else if (impl_->mlCorner.contains(pos))
 	{
@@ -494,19 +493,19 @@ PDFScreen::handleTouched(QPoint pos, int elapsed)
 	}
 	else if (impl_->blCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownLeftCorner);
+		this->scrollDown(DirectionDownLeftCorner);
 	}
 	else if (impl_->brCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownRightCorner);
+		this->scrollDown(DirectionDownRightCorner);
 	}
 	else if (pos.y() < this->rect().height() / 3)
 	{
-		this->scrollUp();
+		this->scrollUp(DirectionUp);
 	}
 	else if (pos.y() > this->rect().height() * 2 / 3)
 	{
-		scrollDown();
+		this->scrollDown(DirectionDown);
 	}
 }
 
@@ -542,11 +541,11 @@ PDFScreen::handleDoubleTouched(QPoint pos, int elapsed)
 	}
 	else if (impl_->mlCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownLeft);
+		this->scrollDown(DirectionDownLeft);
 	}
 	else if (impl_->mrCorner.contains(pos))
 	{
-		this->scrollSceen(DirectionDownRight);
+		this->scrollDown(DirectionDownRight);
 	}
 	else if (impl_->center.contains(pos))
 	{
@@ -630,7 +629,7 @@ PDFScreen::scrollNextPage()
 
 
 void 
-PDFScreen::scrollUp()
+PDFScreen::scrollUp(ScrollScreenDirection direction)
 {
 	//previous screen or previous page
 	if (this->verticalScrollBar()->value() <= 
@@ -640,13 +639,13 @@ PDFScreen::scrollUp()
 	}
 	else
 	{
-		this->scrollSceen(DirectionUp);
+		this->scrollSceen(direction);
 	}
 }
 
 
 void 
-PDFScreen::scrollDown()
+PDFScreen::scrollDown(ScrollScreenDirection direction)
 {
 	//next screen or next page
 	if (this->verticalScrollBar()->value() >=
@@ -656,7 +655,7 @@ PDFScreen::scrollDown()
 	}
 	else
 	{
-		this->scrollSceen(DirectionDown);
+		this->scrollSceen(direction);
 	}
 }
 
@@ -1098,7 +1097,7 @@ PDFScreen::winEvent(MSG *message, long *result)
 		*result = 0;
 		return true;
 	}
-	else if (message->message == plutoApp->getAccEventId())
+	else if (message->message == plutoApp->getAccEventId() && impl_->useAcc)
 	{
 		pltPlatform::ScreenRotateAngle angle = 
 			plutoApp->convertM8Angle((pltPlatform::M8ScreenRotateAngle)message->wParam);

@@ -171,7 +171,7 @@ struct PDFReader::PDFReaderImpl
 		if (!page) 
 		{
 			fz_obj * obj = NULL;
-			error = pdf_getpageobject(xref, pageNo, &obj);
+			error = pdf_getpageobject(xref, pageNo - 1, &obj);
 			check();
 
 			error = pdf_loadpage(&page, xref, obj);
@@ -329,7 +329,7 @@ struct PDFReader::PDFReaderImpl
 		QSizeF size;
 
 		fz_obj *dict = NULL;
-		error = pdf_getpageobject(xref, pageNo, &dict);
+		error = pdf_getpageobject(xref, pageNo - 1, &dict);
 		check();
 
 		fz_obj* obj = fz_dictgets(dict, "CropBox");
@@ -351,7 +351,7 @@ struct PDFReader::PDFReaderImpl
 		int rotation = -1;
 
 		fz_obj *dict = NULL;
-		error = pdf_getpageobject(xref, pageNo, &dict);
+		error = pdf_getpageobject(xref, pageNo - 1, &dict);
 		check();
 
 		fz_obj* obj = fz_dictgets(dict, "Rotate");
